@@ -6,6 +6,7 @@ Project for CS 320 -
 - Troy Rasband
 - Bradley Dowling
 - Joseph Wiedeman
+- Nicole Batchelor
 
 # Getting started
 - clone this repository

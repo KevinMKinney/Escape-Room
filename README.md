@@ -5,6 +5,7 @@ Project for CS 320 -
 - Kevin Kinney
 - Troy Rasband
 - Bradley Dowling
+- Joseph Wiedeman
 
 # Getting started
 - clone this repository

@@ -3,6 +3,7 @@ Project for CS 320 -
 
 # Members of the team
 - Kevin Kinney
+- Troy Rasband
 
 # Getting started
 - clone this repository

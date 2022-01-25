@@ -3,8 +3,10 @@ Project for CS 320 -
 
 # Members of the team
 - Kevin Kinney
+- Troy Rasband
 - Bradley Dowling
-- -Joseph Wiedeman
+- Joseph Wiedeman
+- Nicole Batchelor
 
 # Getting started
 - clone this repository

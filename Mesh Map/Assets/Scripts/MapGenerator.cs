@@ -17,16 +17,17 @@ public class MapGenerator : MonoBehaviour
     public int seed;
     public Vector2 offset;
 
-    public bool autoUpdate;
+    public float meshXScale;
+    public float meshYScale;
+    public float meshZScale;
 
-    public float meshWidthScale;
-    public float meshHeightScale;
+    public bool autoUpdate;
 
     public void GenerateMap()
     {
         float[,] noiseMap = Noise.GenerateNoiseMap(mapWidth, mapHeight, seed, noiseScale, octaves, persistance, lacunarity, offset);
 
-        Mesh meshMap = MeshMap.GenerateMeshMap(meshWidthScale, meshHeightScale, noiseMap);
+        Mesh meshMap = MeshMap.GenerateMeshMap(meshXScale, meshYScale, meshZScale, noiseMap);
 
         MapDisplay display = FindObjectOfType<MapDisplay>();
         display.DrawNoiseMap(noiseMap);
@@ -50,11 +51,14 @@ public class MapGenerator : MonoBehaviour
             octaves = 0;
         }
 
-        if (meshWidthScale < 0) {
-            meshWidthScale = .0001f;
+        if (meshXScale < 0) {
+            meshXScale = .0001f;
         }
-        if (meshHeightScale < 1) {
-            meshHeightScale = .0001f;
+        if (meshYScale < 1) {
+            meshYScale = .0001f;
+        }
+        if (meshZScale < 1) {
+            meshZScale = .0001f;
         }
     }
 }

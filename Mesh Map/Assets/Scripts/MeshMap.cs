@@ -5,15 +5,11 @@ using UnityEngine;
 [RequireComponent(typeof(MeshFilter))]
 public static class MeshMap
 {
-    public static Mesh GenerateMeshMap(float widthScale, float heightScale, float[,] noiseMap)
+    public static Mesh GenerateMeshMap(float xScale, float yScale, float zScale, float[,] noiseMap)
     {
         // could also add a normal array (for textures) or a UV array (also for textures but for different reasons)
 
         // initialize variables
-        Mesh mesh = new Mesh();
-        //GetComponent<MeshFilter>().mesh = mesh;
-        mesh.Clear();
-
         int mapWidth = noiseMap.GetLength(0);
         int mapHeight = noiseMap.GetLength(1);
         int trianlgeNum = 2 * (mapWidth - 1) * (mapHeight - 1);
@@ -22,13 +18,17 @@ public static class MeshMap
         int[] triangles = new int[3*trianlgeNum];
 
         // Base Case
-        if (widthScale <= 0)
+        if (xScale <= 0)
         {
-            widthScale = 0.0001f;
+            xScale = 0.0001f;
         }
-        if (heightScale <= 0)
+        if (yScale <= 0)
         {
-            heightScale = 0.0001f;
+            yScale = 0.0001f;
+        }
+        if (zScale <= 0)
+        {
+            zScale = 0.0001f;
         }
 
         // Turn noiseMap pixels into vertices (1 pixel = 1 vertex)
@@ -36,7 +36,7 @@ public static class MeshMap
         {
             for(int y = 0; y < mapHeight; y++)
             {
-                vertices.SetValue((x*widthScale, noiseMap[x, y], y*widthScale), (y*mapHeight+x));
+                vertices.SetValue((x*xScale, noiseMap[x, y]*yScale, y*zScale), (y*mapHeight+x));
             }
         }
 
@@ -51,9 +51,15 @@ public static class MeshMap
             triangles.SetValue(i+mapWidth+1, i+5);
         }
 
-        // Apply arrays into mesh
+        // writing data to mesh
+        Mesh mesh = new Mesh();
+        mesh.Clear();
+
+        // Apply arrays into mesh?
         mesh.vertices = vertices;
         mesh.triangles = triangles;
+
+        GetComponent<MeshFilter>().mesh = mesh;
 
         return mesh;
     }

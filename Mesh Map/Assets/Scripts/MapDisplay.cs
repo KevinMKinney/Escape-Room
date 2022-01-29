@@ -5,6 +5,8 @@ using UnityEngine;
 public class MapDisplay : MonoBehaviour
 {
     public Renderer textureRender;
+    public MeshFilter meshFilter;
+    public MeshRenderer meshRenderer;
 
     public void DrawNoiseMap(float[,] noiseMap)
     {
@@ -30,7 +32,6 @@ public class MapDisplay : MonoBehaviour
 
     public void DrawMeshMap(Mesh meshMap)
     {
-        int width = meshMap.GetLength(0);
-        int height = meshMap.GetLength(1);
+        meshFilter
     }
 }

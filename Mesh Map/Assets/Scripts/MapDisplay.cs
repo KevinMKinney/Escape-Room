@@ -32,6 +32,6 @@ public class MapDisplay : MonoBehaviour
 
     public void DrawMeshMap(Mesh meshMap)
     {
-        meshFilter
+        //meshFilter
     }
 }

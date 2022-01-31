@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(MeshFilter))]
+[RequireComponent(typeof(MeshFilter), (typeof(MeshRenderer)))]
 public static class MeshMap
 {
     public static Mesh GenerateMeshMap(float xScale, float yScale, float zScale, float[,] noiseMap)
     {
         // could also add a normal array (for textures) or a UV array (also for textures but for different reasons)
+
+        Mesh mesh = new Mesh();
 
         // initialize variables
         int mapWidth = noiseMap.GetLength(0);
@@ -52,14 +54,12 @@ public static class MeshMap
         }
 
         // writing data to mesh
-        Mesh mesh = new Mesh();
-        mesh.Clear();
 
-        // Apply arrays into mesh?
+        //mesh.Clear();
         mesh.vertices = vertices;
         mesh.triangles = triangles;
 
-        GetComponent<MeshFilter>().mesh = mesh;
+        //GetComponent<MeshFilter>().mesh = mesh;
 
         return mesh;
     }

@@ -27,11 +27,17 @@ public class MapGenerator : MonoBehaviour
     {
         float[,] noiseMap = Noise.GenerateNoiseMap(mapWidth, mapHeight, seed, noiseScale, octaves, persistance, lacunarity, offset);
 
-        //Mesh meshMap = MeshMap.GenerateMeshMap(meshXScale, meshYScale, meshZScale, noiseMap);
+        Mesh mesh = new Mesh();
+        GameObject Obj = GameObject.Find("MeshObj");
+        Obj.GetComponent<MeshFilter>().mesh = mesh;
+
+
+        mesh.vertices = MeshMap.GenerateVerticies(meshXScale, meshYScale, meshZScale, noiseMap);
+        mesh.triangles = MeshMap.GenerateTriangles(mapWidth, mapHeight);
 
         MapDisplay display = FindObjectOfType<MapDisplay>();
         display.DrawNoiseMap(noiseMap);
-        //display.DrawMeshMap(meshMap);
+        display.DrawMeshMap(mesh);
     }
 
     // purely for fixing base cases (invalid inputs)

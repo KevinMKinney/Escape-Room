@@ -28,12 +28,13 @@ public class MapGenerator : MonoBehaviour
         float[,] noiseMap = Noise.GenerateNoiseMap(mapWidth, mapHeight, seed, noiseScale, octaves, persistance, lacunarity, offset);
 
         Mesh mesh = new Mesh();
-        GameObject Obj = GameObject.Find("MeshObj");
-        Obj.GetComponent<MeshFilter>().mesh = mesh;
+        mesh.name = "PerlinMesh";
 
+        mesh.Clear();
 
         mesh.vertices = MeshMap.GenerateVerticies(meshXScale, meshYScale, meshZScale, noiseMap);
         mesh.triangles = MeshMap.GenerateTriangles(mapWidth, mapHeight);
+        mesh.RecalculateNormals();
 
         MapDisplay display = FindObjectOfType<MapDisplay>();
         display.DrawNoiseMap(noiseMap);

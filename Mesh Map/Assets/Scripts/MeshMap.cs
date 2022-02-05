@@ -8,10 +8,6 @@ public static class MeshMap
 {
     public static Vector3[] GenerateVerticies(float xScale, float yScale, float zScale, float[,] noiseMap)
     {
-        //Mesh mesh = new Mesh();
-        //Mesh mesh = GetComponent<MeshFilter>();
-        //GetComponent<MeshFilter>().mesh = mesh;
-
         // initialize variables
         int mapWidth = noiseMap.GetLength(0);
         int mapHeight = noiseMap.GetLength(1);
@@ -38,23 +34,10 @@ public static class MeshMap
             for(int x = 0; x < mapWidth; x++)
             {
                 Vector3 v = new Vector3((x*xScale), ((noiseMap[x, y])*yScale), (y*zScale));
-                //Debug.Log("adding V: "+v);
-                //Debug.Log("...at: "+(y*mapWidth+x));
-
                 vertices.SetValue(v, (y*mapWidth+x));
-                //vertices.SetValue(((x*xScale), ((noiseMap[x, y])*yScale), (y*zScale)), (y*mapHeight+x));
-                //Debug.Log("V: "+v);
             }
         }
 
-        // writing data to mesh
-        /*
-        for (int i = 0; i < vertices.Length; i++) {
-            Debug.Log("V: "+vertices[i]);
-        }*/
-        //mesh.Clear();
-        //mesh.vertices = vertices;
-        //mesh.triangles = triangles;
         return vertices;
     }
 
@@ -67,18 +50,16 @@ public static class MeshMap
         // Make triangles from vertices (makes 2 triangles at a time that are defined clockwise)
         for(int i = 0; i < (triangleNum/2); i++)
         {
-            index = 6*i;
-            triangles.SetValue(i, index);
-            triangles.SetValue(i+mapWidth, index+1);
-            triangles.SetValue(i+1, index+2);
-            triangles.SetValue(i+1, index+3);
-            triangles.SetValue(i+mapWidth, index+4);
-            triangles.SetValue(i+mapWidth+1, index+5);
+            if ((i % mapWidth) != (mapWidth-1)) {
+                index = 6*i;
+                triangles.SetValue(i, index);
+                triangles.SetValue(i+mapWidth, index+1);
+                triangles.SetValue(i+1, index+2);
+                triangles.SetValue(i+1, index+3);
+                triangles.SetValue(i+mapWidth, index+4);
+                triangles.SetValue(i+mapWidth+1, index+5);
+            }
         }
-        /*
-        for (int i = 0; i < triangles.Length; i++) {
-            Debug.Log("T: "+triangles[i]);
-        }*/
 
         return triangles;
     }

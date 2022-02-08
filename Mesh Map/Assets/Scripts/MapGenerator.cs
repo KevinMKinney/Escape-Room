@@ -34,6 +34,7 @@ public class MapGenerator : MonoBehaviour
 
         mesh.vertices = MeshMap.GenerateVerticies(meshXScale, meshYScale, meshZScale, noiseMap);
         mesh.triangles = MeshMap.GenerateTriangles(mapWidth, mapHeight);
+        //mesh.colors = MeshMap.GenerateColors(mesh);
         mesh.RecalculateNormals();
 
         MapDisplay display = FindObjectOfType<MapDisplay>();

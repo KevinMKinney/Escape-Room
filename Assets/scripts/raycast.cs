@@ -8,7 +8,9 @@ public class raycast : MonoBehaviour
     public bool canthrow = false;
     public GameObject Fog;
     bool FogBoll;
-    
+
+    UnityEngine.UI.Text text;
+
     /*private void OnTriggerEnter(Collider other)
     {
         if (other.GetComponent<goastPickup>() != null && other.GetComponent<goastPickup>().anger > 9.8f)
@@ -25,6 +27,10 @@ public class raycast : MonoBehaviour
             Fog.GetComponent<Animation>().Play("FogOut");
         }
     }*/
+    private void Start()
+    {
+        text = FindObjectOfType<UnityEngine.UI.Text>();
+    }
     void Update()
     {
         canthrow = true;
@@ -56,10 +62,10 @@ public class raycast : MonoBehaviour
                     }
                     else
                     {
-                        
-                        if ((raycastHit.collider.GetComponent<pick_up>() != null) && (raycastHit.distance < 5))
+
+                        if ((raycastHit.collider.GetComponent<pick_up>() != null) && (raycastHit.distance < 10))
                         {
-                            
+
                             if (raycastHit.collider.GetComponent<pick_up>().pickedup == 5)
                             {
                                 raycastHit.collider.GetComponent<pick_up>().pickedup = 0;
@@ -81,12 +87,45 @@ public class raycast : MonoBehaviour
                                 }
                                 else
                                 {
-                                    canthrow = false;
-                                    raycastHit.collider.SendMessage("Clicked", SendMessageOptions.DontRequireReceiver);
+                                    if ((raycastHit.collider.GetComponent<Starter>() != null))
+                                    {
+                                        raycastHit.collider.GetComponent<Starter>().Clicked();
+
+
+                                    }
+                                    else if ((raycastHit.collider.GetComponent<OpenGasCap>() != null))
+                                    {
+                                        raycastHit.collider.GetComponent<OpenGasCap>().Clicked();
+
+
+                                    }
+                                    else
+                                    {
+                                        text.text = "";
+                                        canthrow = false;
+                                        raycastHit.collider.SendMessage("Clicked", SendMessageOptions.DontRequireReceiver);
+                                    }
                                 }
                             }
                         }
                     }
+                }
+            }
+        }
+        else
+        {
+            if (Physics.Raycast(transform.position, transform.GetComponent<Camera>().transform.TransformDirection(Vector3.forward), out raycastHit))
+            {
+                if (raycastHit.transform.GetComponent<pick_up>() != null)
+                {
+                    Color color = text.color;
+                    color.a = 1;
+                    text.color = color;
+                    text.text = raycastHit.transform.GetComponent<pick_up>().name;
+                }
+                else
+                {
+                    text.text = "";
                 }
             }
         }

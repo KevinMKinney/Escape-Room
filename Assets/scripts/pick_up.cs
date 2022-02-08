@@ -15,7 +15,6 @@ public class pick_up : MonoBehaviour
 
     void Update()
     {
-        Debug.Log(pickedup);
         if (pickedup==2)
         {
             transform.position = playerCam.position;

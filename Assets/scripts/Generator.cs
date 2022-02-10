@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Generator : MonoBehaviour
 {
+   public GameObject door;
     [HideInInspector]
     public bool hasStarted = false;
     [HideInInspector]
@@ -43,6 +44,7 @@ public class Generator : MonoBehaviour
         {
             hasStarted = true;
             StartCoroutine("StartShaking");
+            door.transform.position += new Vector3(0,door.transform.lossyScale.y,0);
         }
     }
 }

@@ -15,6 +15,10 @@ public class pick_up : MonoBehaviour
 
     void Update()
     {
+        if(transform.position.y < -20)
+        {
+            transform.position = HelpfulInfo.SpawnPlaces.RandomElement().transform.position;
+        }
         if (pickedup==2)
         {
             transform.position = playerCam.position;

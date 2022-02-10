@@ -5,10 +5,10 @@ using UnityEngine;
 public static class Noise
 {
     /*
-     * Code based off of Sebastian Lague's tutorial: https://www.youtube.com/watch?v=wbpMiKiSKm8&list=PLFt_AvWsXl0eBW2EiBtl_sxmDtSgZBxB3
+     * Noise code based off of Sebastian Lague's tutorial: https://www.youtube.com/watch?v=wbpMiKiSKm8&list=PLFt_AvWsXl0eBW2EiBtl_sxmDtSgZBxB3
      * mapWidth & mapHeight are for the size of the noise map
-     * seed is (basically) the id for that specific noise map
-     * scale is for
+     * seed is (basically) the id for that specific Perlin noise
+     * scale is for changing the size of the Perlin noise
      * octaves is for the amount of noise maps
      * lacunarity controls the increase of frequency between octaves
      * persistance controls the decrease in amplitude of octaves

@@ -6,7 +6,7 @@ using UnityEngine.Rendering;
 [RequireComponent(typeof(MeshFilter), (typeof(MeshRenderer)))]
 public static class MeshMap
 {
-    public static Vector3[] GenerateVerticies(float xScale, float yScale, float zScale, float[,] noiseMap)
+    public static Vector3[] GenerateVerticies(float[,] noiseMap)
     {
         // initialize variables
         int mapWidth = noiseMap.GetLength(0);
@@ -14,26 +14,12 @@ public static class MeshMap
 
         Vector3[] vertices = new Vector3[mapWidth*mapHeight];
 
-        // Base Case
-        if (xScale <= 0)
-        {
-            xScale = 0.0001f;
-        }
-        if (yScale <= 0)
-        {
-            yScale = 0.0001f;
-        }
-        if (zScale <= 0)
-        {
-            zScale = 0.0001f;
-        }
-
         // Turn noiseMap pixels into vertices (1 pixel = 1 vertex)
         for(int y = 0; y < mapHeight; y++)
         {
             for(int x = 0; x < mapWidth; x++)
             {
-                Vector3 v = new Vector3((x*xScale), ((noiseMap[x, y])*yScale), (y*zScale));
+                Vector3 v = new Vector3(x, (noiseMap[x, y]), y);
                 vertices.SetValue(v, (y*mapWidth+x));
             }
         }
@@ -69,12 +55,13 @@ public static class MeshMap
 
     public static Color[] GenerateColors(Mesh mesh) {
 
-        Debug.Log("meshV size: "+mesh.vertices.Length+" | meshT size: "+mesh.triangles.Length);
-        Color[] colors = new Color[mesh.vertices.Length];
+        int size = mesh.vertices.Length;
+        //Debug.Log("meshV size: "+size+" | meshT size: "+mesh.triangles.Length);
+        Color[] colors = new Color[size];
 
-        for (int i = 0; i < mesh.vertices.Length; i++) {
-            //colors[i] = Color.Lerp(Color.red, Color.green, mesh.vertices[i].y);
-            colors[i] = Color.green;
+        for (int i = 0; i < size; i++) {
+            colors[i] = Color.Lerp(Color.lime, Color.green, mesh.vertices[i].y);
+            //colors[i] = Color.green;
         }
 
         return colors;

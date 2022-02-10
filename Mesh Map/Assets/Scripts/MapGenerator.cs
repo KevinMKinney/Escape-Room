@@ -17,24 +17,21 @@ public class MapGenerator : MonoBehaviour
     public int seed;
     public Vector2 offset;
 
-    public float meshXScale;
-    public float meshYScale;
-    public float meshZScale;
-
     public bool autoUpdate;
 
     public void GenerateMap()
     {
         float[,] noiseMap = Noise.GenerateNoiseMap(mapWidth, mapHeight, seed, noiseScale, octaves, persistance, lacunarity, offset);
 
+        // could just update the mesh instead of rebuilding it?
         Mesh mesh = new Mesh();
         mesh.name = "PerlinMesh";
 
         mesh.Clear();
 
-        mesh.vertices = MeshMap.GenerateVerticies(meshXScale, meshYScale, meshZScale, noiseMap);
+        mesh.vertices = MeshMap.GenerateVerticies(noiseMap);
         mesh.triangles = MeshMap.GenerateTriangles(mapWidth, mapHeight);
-        //mesh.colors = MeshMap.GenerateColors(mesh);
+        mesh.colors = MeshMap.GenerateColors(mesh);
         mesh.RecalculateNormals();
 
         MapDisplay display = FindObjectOfType<MapDisplay>();
@@ -57,16 +54,6 @@ public class MapGenerator : MonoBehaviour
         }
         if (octaves < 0) {
             octaves = 0;
-        }
-
-        if (meshXScale < 0) {
-            meshXScale = .0001f;
-        }
-        if (meshYScale < 1) {
-            meshYScale = .0001f;
-        }
-        if (meshZScale < 1) {
-            meshZScale = .0001f;
         }
     }
 }

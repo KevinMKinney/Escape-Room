@@ -9,6 +9,8 @@ public class Item : ScriptableObject
     // attributes:
     private string itemName;
     private string itemDescription;
+    private Sprite itemIcon;
+
     #endregion
 
     #region constructors
@@ -35,14 +37,20 @@ public class Item : ScriptableObject
     // methods:
     string ItemName
     {
-        get { return this.itemName};
-        set { this.itemName = value };
+        get { return this.itemName; }
+        set { this.itemName = value; }
     }
 
     string ItemDescription
     {
-        get { return this.itemDescription};
-        set { this.itemDescription = value};
+        get { return this.itemDescription; }
+        set { this.itemDescription = value; }
+    }
+
+    Sprite ItemSprite
+    {
+        get { return this.ItemSprite; }
+        set { this.ItemSprite = value; }
     }
     #endregion
 

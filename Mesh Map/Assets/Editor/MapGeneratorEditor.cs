@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 
+// middleman between Unity inspector and MapGenerator.cs 
 [CustomEditor(typeof(MapGenerator))]
 public class MapGeneratorEditor : Editor
 {

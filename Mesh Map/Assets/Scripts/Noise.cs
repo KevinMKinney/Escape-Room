@@ -25,7 +25,7 @@ public static class Noise
             octavesOffsets[i] = new Vector2(offsetX, offsetY);
         }
 
-        // if scale is <=0, it will crash
+        // if scale is <=0, unity will crash
         if (scale <= 0) {
             scale = 0.0001f;
         }

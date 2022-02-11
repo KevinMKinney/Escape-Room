@@ -17,30 +17,35 @@ public class MapGenerator : MonoBehaviour
     public int seed;
     public Vector2 offset;
 
+    /*
     public DisplayMode currentDisplay;
     public enum DisplayMode {
         baseMesh,
         coloredMesh
-    };
+    }; */
 
     public bool autoUpdate;
 
+    // the "main" function that handles the generation proccess
     public void GenerateMap() {
+        // noisemap gets shape of mesh (see Noise.cs for further information)
         float[,] noiseMap = Noise.GenerateNoiseMap(mapWidth, mapHeight, seed, noiseScale, octaves, persistance, lacunarity, offset);
 
-        //Debug.Log("DM: "+currentDisplay);
-        // could just update the mesh instead of rebuilding it?
+        // might be more efficent to just update mesh instead of making a new one
+
+        // mesh init
         Mesh mesh = new Mesh();
         mesh.name = "PerlinMesh";
-
         mesh.Clear();
 
+        // assign mesh aspects
         mesh.vertices = MeshMap.GenerateVerticies(noiseMap);
         mesh.triangles = MeshMap.GenerateTriangles(mapWidth, mapHeight);
         mesh.RecalculateNormals();
         float[] steepVal = MeshMap.calculateSteepness(mesh);
         mesh.colors = MeshMap.GenerateColors(mesh, steepVal);
 
+        // puts mesh and noise in game
         MapDisplay display = FindObjectOfType<MapDisplay>();
         display.DrawNoiseMap(noiseMap);
         display.DrawMeshMap(mesh);

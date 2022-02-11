@@ -7,6 +7,7 @@ using System.Linq;
 [RequireComponent(typeof(MeshFilter), (typeof(MeshRenderer)))]
 public static class MeshMap
 {
+    // creates vertices for mesh based on pre-made noise
     public static Vector3[] GenerateVerticies(float[,] noiseMap) {
         // initialize variables
         int mapWidth = noiseMap.GetLength(0);
@@ -25,15 +26,15 @@ public static class MeshMap
         return vertices;
     }
 
+    // creates triangles for mesh
     public static int[] GenerateTriangles(int mapWidth, int mapHeight) {
-
+        // initialize variables
         int index = 0;
         int j = 0;
-        // the actual amount of triangles is 2 * (mapWidth-1) * (mapHeight - 1)
         int triangleNum = 2 * (mapWidth-1) * (mapHeight - 1);
         int[] triangles = new int[3*triangleNum];
 
-        // Make triangles from vertices (makes 2 triangles at a time that are defined clockwise)
+        // Make triangles (makes 2 triangles at a time that are defined clockwise)
         for(int i = 0; i < ((mapWidth) * (mapHeight - 1)); i++) {
             if ((i % mapWidth) != (mapWidth-1)) {
                 index = 6*j;
@@ -44,53 +45,38 @@ public static class MeshMap
                 triangles.SetValue(i+mapWidth, index+4);
                 triangles.SetValue(i+mapWidth+1, index+5);
                 j++;
-                //index += 6;
             }
         }
         return triangles;
     }
 
-
+    // calculates the steepness of triangles based on their normal vectors (the functional way)
     public static float[] calculateSteepness(Mesh mesh) {
         Vector3[] norm = new Vector3[mesh.vertices.Length];
         norm = mesh.normals;
         return norm.Select(x => Vector3.Angle(x, Vector3.up)).ToArray();
     }
 
-    /*
-    public static float GetSteepness(Mesh mesh, int index) {
+    // returns the max value in float array (used for steepness)
+    public static float GetMaxSteepness(float[] steepVal) {
+        return steepVal.Aggregate((x, y) => Mathf.Max(x, y));
+    }
 
-        Vector3 normal = mesh.normals[index];
-        float angle = Vector3.Angle(normal, Vector3.up);
-        return angle;
-
-    }*/
-
+    // creates the colors of the mesh based on its steepness
     public static Color[] GenerateColors(Mesh mesh, float[] steepVal) {
-
+        // initialize variables
         int size = mesh.vertices.Length;
         Color[] colors = new Color[size];
-
+        // get some random colors
         Color cool1 = Random.ColorHSV(0f, 1f, 1f, 1f, 0.5f, 1f);
         Color cool2 = Random.ColorHSV(0f, 1f, 1f, 1f, 0.5f, 1f);
 
-        float maxSteep = 4f;
+        float maxSteep = GetMaxSteepness(steepVal);
 
-        /*
-        float maxSteep = 0f;
-        float temp;
+        // assign colors
         for (int i = 0; i < size; i++) {
-          temp = GetSteepness(mesh, i);
-            if (temp > maxSteep) {
-              maxSteep = temp;
-            }
-        } */
-
-        for (int i = 0; i < size; i++) {
-            //Debug.Log("steep is "+GetSteepness(mesh, i)+" at "+i);
             colors[i] = Color.Lerp(cool1, cool2, (steepVal[i])/maxSteep);
         }
-
         return colors;
     }
 }

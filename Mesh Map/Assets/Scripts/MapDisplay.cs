@@ -4,11 +4,14 @@ using UnityEngine;
 
 public class MapDisplay : MonoBehaviour
 {
+    // properties for unity objects
     public Renderer textureRender;
     public MeshFilter meshFilter;
     public MeshRenderer meshRenderer;
 
+    // creates a texture based on pre-made noise
     public void DrawNoiseMap(float[,] noiseMap) {
+        // initialize variables
         int width = noiseMap.GetLength(0);
         int height = noiseMap.GetLength(1);
 
@@ -30,10 +33,6 @@ public class MapDisplay : MonoBehaviour
     }
 
     public void DrawMeshMap(Mesh meshMap) {
-        //GameObject Obj = GameObject.Find("MeshObj");
-        //meshFilter.mesh = meshMap.CreateMesh();
-        //meshRenderer.material.SetTexture = material.GetTexture("Mesh Map");
-        //Obj.GetComponent<MeshFilter>().mesh = meshMap;
         meshFilter.mesh = meshMap;
 
     }

@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Inventory : MonoBehaviour
 {
+    #region singleton_init
     // initialization of single inventory instance:
     public static Inventory inventoryInstance;
 
@@ -11,17 +12,41 @@ public class Inventory : MonoBehaviour
     {
         inventoryInstance = this;
     }
+    #endregion
 
+    #region attributes
     // attributes:
-    private List<Item> items = new List<Item>();
+    public List<Item> items = new List<Item>();
+    public List<Item> equippedItems = new List<Item>();
+    #endregion
 
-    public void Add(Item item)
+    #region methods
+    public void AddItem(Item item)
     {
         items.Add(item);
+        item.inInventory = true;
     }
 
-    public void Drop(Item item)
+    public void DropItem(Item item)
     {
         items.Remove(item);
+        item.inInventory = false;
     }
+
+    public void EquipItem(Item item)
+    {
+        if (!equippedItems.Contains(item))
+        {
+            equippedItems.Add(item);
+        }
+    }
+
+    public void PackUpItem(Item item)
+    {
+        if (equippedItems.Contains(item))
+        {
+            equippedItems.Remove(item);
+        }
+    }
+    #endregion
 }

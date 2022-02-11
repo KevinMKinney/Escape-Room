@@ -10,7 +10,7 @@ public class Item : ScriptableObject
     private string itemName;
     private string itemDescription;
     private Sprite itemIcon;
-
+    public bool inInventory = false;
     #endregion
 
     #region constructors

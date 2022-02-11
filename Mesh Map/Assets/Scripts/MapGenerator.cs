@@ -17,12 +17,18 @@ public class MapGenerator : MonoBehaviour
     public int seed;
     public Vector2 offset;
 
+    public DisplayMode currentDisplay;
+    public enum DisplayMode {
+        baseMesh,
+        coloredMesh
+    };
+
     public bool autoUpdate;
 
-    public void GenerateMap()
-    {
+    public void GenerateMap() {
         float[,] noiseMap = Noise.GenerateNoiseMap(mapWidth, mapHeight, seed, noiseScale, octaves, persistance, lacunarity, offset);
 
+        //Debug.Log("DM: "+currentDisplay);
         // could just update the mesh instead of rebuilding it?
         Mesh mesh = new Mesh();
         mesh.name = "PerlinMesh";
@@ -31,8 +37,9 @@ public class MapGenerator : MonoBehaviour
 
         mesh.vertices = MeshMap.GenerateVerticies(noiseMap);
         mesh.triangles = MeshMap.GenerateTriangles(mapWidth, mapHeight);
-        mesh.colors = MeshMap.GenerateColors(mesh);
         mesh.RecalculateNormals();
+        float[] steepVal = MeshMap.calculateSteepness(mesh);
+        mesh.colors = MeshMap.GenerateColors(mesh, steepVal);
 
         MapDisplay display = FindObjectOfType<MapDisplay>();
         display.DrawNoiseMap(noiseMap);
@@ -40,8 +47,7 @@ public class MapGenerator : MonoBehaviour
     }
 
     // purely for fixing base cases (invalid inputs)
-    void OnValidate()
-    {
+    void OnValidate() {
         if (mapWidth < 1) {
             mapWidth = 1;
         }

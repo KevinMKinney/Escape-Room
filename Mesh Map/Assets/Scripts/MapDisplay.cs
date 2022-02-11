@@ -8,8 +8,7 @@ public class MapDisplay : MonoBehaviour
     public MeshFilter meshFilter;
     public MeshRenderer meshRenderer;
 
-    public void DrawNoiseMap(float[,] noiseMap)
-    {
+    public void DrawNoiseMap(float[,] noiseMap) {
         int width = noiseMap.GetLength(0);
         int height = noiseMap.GetLength(1);
 
@@ -30,8 +29,7 @@ public class MapDisplay : MonoBehaviour
         textureRender.transform.localScale = new Vector3(width, 1, height);
     }
 
-    public void DrawMeshMap(Mesh meshMap)
-    {
+    public void DrawMeshMap(Mesh meshMap) {
         //GameObject Obj = GameObject.Find("MeshObj");
         //meshFilter.mesh = meshMap.CreateMesh();
         //meshRenderer.material.SetTexture = material.GetTexture("Mesh Map");

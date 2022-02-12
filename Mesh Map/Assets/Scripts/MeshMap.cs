@@ -63,7 +63,7 @@ public static class MeshMap
     }
 
     // creates the colors of the mesh based on its steepness
-    public static Color[] GenerateColors(Mesh mesh, float[] steepVal) {
+    public static Color[] GenerateColors(Mesh mesh, float[] steepVal, float snowThresh) {
         // initialize variables
         int size = mesh.vertices.Length;
         Color[] colors = new Color[size];
@@ -75,7 +75,11 @@ public static class MeshMap
 
         // assign colors
         for (int i = 0; i < size; i++) {
-            colors[i] = Color.Lerp(cool1, cool2, (steepVal[i])/maxSteep);
+            if (mesh.vertices[i].y >= snowThresh) {
+                colors[i] = Color.Lerp(Color.white, cool2, (steepVal[i])/maxSteep);
+            } else {
+                colors[i] = Color.Lerp(cool1, cool2, (steepVal[i])/maxSteep);
+            }
         }
         return colors;
     }

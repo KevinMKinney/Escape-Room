@@ -15,9 +15,9 @@ public class Inventory : MonoBehaviour
     #endregion
 
     #region attributes
-    // attributes:
     public List<Item> items = new List<Item>();
     public List<Item> equippedItems = new List<Item>();
+    public InventoryUI ui;
     #endregion
 
     #region methods

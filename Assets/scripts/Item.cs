@@ -9,7 +9,8 @@ public class Item : ScriptableObject
     // attributes:
     private string itemName;
     private string itemDescription;
-    private Sprite itemIcon;
+    public Sprite itemIcon;
+    public GameObject inGameObject;
     public bool inInventory = false;
     #endregion
 

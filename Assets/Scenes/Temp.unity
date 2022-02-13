@@ -431,9 +431,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mesh: {fileID: 0}
-  radius: 1
-  smoothness: 1
-  length: 20
+  radius: 2
+  smoothness: 50
+  length: 50
 --- !u!23 &1507776195
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -454,7 +454,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 8c2e6a3878747184fb214d91b5dad85a, type: 2}
+  - {fileID: 2100000, guid: 3aa000e82523fc041abf806e211821aa, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

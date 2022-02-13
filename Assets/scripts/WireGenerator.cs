@@ -24,16 +24,16 @@ public class WireGenerator : MonoBehaviour
 
         for (float i = -radius; i <= radius; i+= radius/smoothness)
         {
-            for (int j = 0; j <= length; j++)
+            for (int j = 0; j < length; j++)
             {
-                verts.Add(new Vector3(i + 10, GetHeight(i), j));
+                verts.Add(new Vector3(i, GetHeight(i), j));
                 uvs.Add(new Vector2(i,j));
             }
         }
 
-        for(int i = 0; i < verts.Count - length; i++)
+        for(int i = 0; i < verts.Count - length - 1; i++)
         {
-            if(i % length != 0)
+            if((i+1) % length != 0)
             {
                 tris.Add(i);
                 tris.Add(i+1);

@@ -8,6 +8,8 @@ public class MapDisplay : MonoBehaviour
     public Renderer textureRender;
     public MeshFilter meshFilter;
     public MeshRenderer meshRenderer;
+    public MeshFilter meshFilterWater;
+    public MeshRenderer meshRendererWater;
 
     // creates a texture based on pre-made noise
     public void DrawNoiseMap(float[,] noiseMap) {
@@ -32,8 +34,10 @@ public class MapDisplay : MonoBehaviour
         textureRender.transform.localScale = new Vector3(width, 1, height);
     }
 
-    public void DrawMeshMap(Mesh meshMap) {
+    public void DrawMeshMap(Mesh meshMap, Mesh waterMesh) {
         meshFilter.mesh = meshMap;
+        //GameObject.Find("WaterObj").Material.Size = waterMesh.vertices.Length;
+        meshFilterWater.mesh = waterMesh;
 
     }
 }

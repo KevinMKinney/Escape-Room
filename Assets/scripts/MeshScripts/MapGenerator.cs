@@ -5,6 +5,7 @@ using UnityEngine;
 public class MapGenerator : MonoBehaviour
 {
     // variables dev can manipulate for noise & mesh map
+    [Header("Mesh Settings")]
     public int mapWidth;
     public int mapHeight;
     public float noiseScale;
@@ -22,26 +23,34 @@ public class MapGenerator : MonoBehaviour
     [Range(0,1)]
     public float waterThresh;
 
-    /*
-    public DisplayMode currentDisplay;
-    public enum DisplayMode {
-        baseMesh,
-        coloredMesh
-    }; */
+    [Header("Water Settings")]
+    public float noiseScaleWater;
 
+    public int octavesWater;
+    [Range(0,1)]
+    public float persistanceWater;
+    public float lacunarityWater;
+
+    public int seedWater;
+
+    [Space(10)]
     public bool autoUpdate;
 
     // the "main" function that handles the generation proccess
     public void GenerateMap() {
         // noisemap gets shape of mesh (see Noise.cs for further information)
         float[,] noiseMap = Noise.GenerateNoiseMap(mapWidth, mapHeight, seed, noiseScale, octaves, persistance, lacunarity, offset);
-
-        // might be more efficent to just update mesh instead of making a new one
+        float[,] noiseMapWater = Noise.GenerateNoiseMap(mapWidth, mapHeight, seedWater, noiseScaleWater, octavesWater, persistanceWater, lacunarityWater, offset);
+        //float[,] noiseMapWater = Noise.GenerateNoiseMap(mapWidth, mapHeight, seed, noiseScale, 3, .35f, 2.4f, offset);
 
         // mesh init
         Mesh mesh = new Mesh();
         mesh.name = "PerlinMesh";
         mesh.Clear();
+
+        Mesh meshWater = new Mesh();
+        meshWater.name = "WaterMesh";
+        meshWater.Clear();
 
         // assign mesh aspects
         mesh.vertices = MeshMap.GenerateVerticies(noiseMap);
@@ -50,10 +59,14 @@ public class MapGenerator : MonoBehaviour
         float[] steepVal = MeshMap.calculateSteepness(mesh);
         mesh.colors = MeshMap.GenerateColors(mesh, steepVal, snowThresh, waterThresh);
 
+        meshWater.vertices = MeshMap.GenerateVerticies(noiseMapWater);
+        meshWater.triangles = MeshMap.GenerateTriangles(mapWidth, mapHeight);
+        meshWater.RecalculateNormals();
+
         // puts mesh and noise in game
         MapDisplay display = FindObjectOfType<MapDisplay>();
         display.DrawNoiseMap(noiseMap);
-        display.DrawMeshMap(mesh);
+        display.DrawMeshMap(mesh, meshWater);
     }
 
     // purely for fixing base cases (invalid inputs)

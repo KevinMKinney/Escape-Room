@@ -19,6 +19,8 @@ public class MapGenerator : MonoBehaviour
 
     [Range(0,1)]
     public float snowThresh;
+    [Range(0,1)]
+    public float waterThresh;
 
     /*
     public DisplayMode currentDisplay;
@@ -46,7 +48,7 @@ public class MapGenerator : MonoBehaviour
         mesh.triangles = MeshMap.GenerateTriangles(mapWidth, mapHeight);
         mesh.RecalculateNormals();
         float[] steepVal = MeshMap.calculateSteepness(mesh);
-        mesh.colors = MeshMap.GenerateColors(mesh, steepVal, snowThresh);
+        mesh.colors = MeshMap.GenerateColors(mesh, steepVal, snowThresh, waterThresh);
 
         // puts mesh and noise in game
         MapDisplay display = FindObjectOfType<MapDisplay>();

@@ -1,4 +1,9 @@
 ﻿using UnityEngine;
+
+
+/* 
+ * Lines 23 - 28 written this semester.
+ */
 public class pick_up : MonoBehaviour
 {
     public int pickedup = 5; 
@@ -15,8 +20,10 @@ public class pick_up : MonoBehaviour
 
     void Update()
     {
+        //If the object is in the void than teleport it to a possable spawn location.
         if(transform.position.y < -20)
         {
+            // Get a random spawn location and and set the locatio of the current object to it's location.
             transform.position = HelpfulInfo.SpawnPlaces.RandomElement().transform.position;
         }
         if (pickedup==2)

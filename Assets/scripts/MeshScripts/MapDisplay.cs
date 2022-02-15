@@ -34,9 +34,16 @@ public class MapDisplay : MonoBehaviour
         textureRender.transform.localScale = new Vector3(width, 1, height);
     }
 
-    public void DrawMeshMap(Mesh meshMap, Mesh waterMesh) {
+    public void DrawMeshMap(Mesh meshMap, Mesh waterMesh, float waterThresh) {
+        GameObject meshObj = GameObject.Find("MeshObj");
+        GameObject waterObj = GameObject.Find("WaterObj");
+        meshObj.transform.position = transform.position;
+        waterObj.transform.position = transform.position;
+        float waterPos = ((MeshMap.GetMaxVertex(meshMap.vertices) - MeshMap.GetMinVertex(meshMap.vertices)) * waterThresh * meshObj.transform.localScale.y) + transform.position.y;
+        //Debug.Log("WP: "+waterPos);
+        waterObj.transform.position = new Vector3(waterObj.transform.position.x, waterPos, waterObj.transform.position.z);
+
         meshFilter.mesh = meshMap;
-        //GameObject.Find("WaterObj").Material.Size = waterMesh.vertices.Length;
         meshFilterWater.mesh = waterMesh;
 
     }

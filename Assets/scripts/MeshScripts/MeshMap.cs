@@ -57,9 +57,16 @@ public static class MeshMap
         return norm.Select(x => Vector3.Angle(x, Vector3.up)).ToArray();
     }
 
-    // returns the max value in float array (used for steepness)
-    public static float GetMaxSteepness(float[] steepVal) {
-        return steepVal.Aggregate((x, y) => Mathf.Max(x, y));
+    // returns the max value in float array
+    public static float GetMaxVertex(Vector3[] vertices) {
+        float[] array = vertices.Select(x => x.y).ToArray();
+        return array.Aggregate((x, y) => Mathf.Max(x, y));
+    }
+
+    // returns the min value in float array
+    public static float GetMinVertex(Vector3[] vertices) {
+        float[] array = vertices.Select(x => x.y).ToArray();
+        return array.Aggregate((x, y) => Mathf.Min(x, y));
     }
 
     // creates the colors of the mesh based on its steepness
@@ -73,7 +80,8 @@ public static class MeshMap
         Color col1 = Color.green;
         Color col2 = new Color32(160, 82, 45, 1);
 
-        float maxSteep = GetMaxSteepness(steepVal);
+        //float maxSteep = steepVal.Aggregate((x, y) => Mathf.Max(x, y));
+        float maxSteep = Mathf.Max(steepVal);
 
         // assign colors
         for (int i = 0; i < size; i++) {

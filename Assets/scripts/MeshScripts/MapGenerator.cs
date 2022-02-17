@@ -67,7 +67,7 @@ public class MapGenerator : MonoBehaviour
         MapDisplay display = FindObjectOfType<MapDisplay>();
 
         display.DrawNoiseMap(noiseMap);
-        display.DrawMeshMap(mesh, meshWater, waterThresh);
+        display.DrawMeshMap(mesh, noiseMap, meshWater, waterThresh);
     }
 
     // purely for fixing base cases (invalid inputs)

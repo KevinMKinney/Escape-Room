@@ -10,6 +10,7 @@ public class MapDisplay : MonoBehaviour
     public MeshRenderer meshRenderer;
     public MeshFilter meshFilterWater;
     public MeshRenderer meshRendererWater;
+    public Terrain noiseTerrain;
 
     // creates a texture based on pre-made noise
     public void DrawNoiseMap(float[,] noiseMap) {
@@ -20,10 +21,8 @@ public class MapDisplay : MonoBehaviour
         Texture2D texture = new Texture2D(width, height);
 
         Color[] colorMap = new Color[width * height];
-        for(int y = 0; y < height; y++)
-        {
-            for (int x = 0; x < width; x++)
-            {
+        for(int y = 0; y < height; y++) {
+            for (int x = 0; x < width; x++) {
                 colorMap[y * width + x] = Color.Lerp(Color.black, Color.white, noiseMap[x, y]);
             }
         }
@@ -34,7 +33,7 @@ public class MapDisplay : MonoBehaviour
         textureRender.transform.localScale = new Vector3(width, 1, height);
     }
 
-    public void DrawMeshMap(Mesh meshMap, Mesh waterMesh, float waterThresh) {
+    public void DrawMeshMap(Mesh meshMap, float[,] noiseMap, Mesh waterMesh, float waterThresh) {
         GameObject meshObj = GameObject.Find("MeshObj");
         GameObject waterObj = GameObject.Find("WaterObj");
         meshObj.transform.position = transform.position;
@@ -43,7 +42,14 @@ public class MapDisplay : MonoBehaviour
         //Debug.Log("WP: "+waterPos);
         waterObj.transform.position = new Vector3(waterObj.transform.position.x, waterPos, waterObj.transform.position.z);
 
+        //var terrainData = new TerrainData();
+        //terrainData.SetHeights(0, 0, noiseMap);
+
+        //MeshTerr.terrainData.SetHeights(0, 0, noiseMap);
+        noiseTerrain.terrainData.SetHeights(0, 0, noiseMap);
+
         meshFilter.mesh = meshMap;
+        //meshObj.Renderer.material.setTexture(heightMap);
         meshFilterWater.mesh = waterMesh;
 
     }

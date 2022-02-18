@@ -5,7 +5,7 @@ using UnityEngine.UI;
 /* 
  * Written this semester.
  * This script is placed on the gas cap GameObject on the generator. 
- * It plays an opening annimation when clicked on while the player is holding the gas can. It will also tell the generator script hat it has gas.
+ * It plays an opening annimation when clicked on while the player is holding the gas can. It will also tell the generator script that it has gas.
  * However it displays a message if clicked on while the player is not holding the gas can.
  */
 public class OpenGasCap : MonoBehaviour
@@ -13,14 +13,15 @@ public class OpenGasCap : MonoBehaviour
     //How fast the message will fade out.
     float fadeOutSpeed = 1;
     bool hasTextOnScreen;
+
     //The UI Text element that will be used to display the message.
     Text genText;
 
     //Open animation speeds
     public float openSpeed = 0.1f;
     public float openAngle = 90;
-
-    //Is the gas cap open?
+    public bool isOpen = false;
+    //This will answer this question: is the gas cap open?
     bool gasCanOpen;
 
     //When the game starts, set the text element to the only on in the scene.
@@ -64,7 +65,8 @@ public class OpenGasCap : MonoBehaviour
             //If the player is holding an object and it is the Gas Can and it is not already open or opening, than start the openng annimation and tell the generator that it is full of gas.
             StartCoroutine("FillGenWithGas");
             gasCanOpen = true;
-            transform.parent.parent.parent.GetComponent<Generator>().hasGas = true;
+            
+            //transform.parent.parent.parent.GetComponent<Generator>().hasGas = true;
         }
 
 
@@ -85,7 +87,7 @@ public class OpenGasCap : MonoBehaviour
             //Wait for the next frame before continuing.
             yield return new WaitForEndOfFrame();
         }
-        //It no longer has text on the screen, so update this aiable.
+        //It no longer has text on the screen, so update this variable.
         hasTextOnScreen = false;
     }
 
@@ -103,6 +105,7 @@ public class OpenGasCap : MonoBehaviour
             //Wait for the next frame before continuing.
             yield return new WaitForEndOfFrame();
         }
+        isOpen = true; 
     }
 
 }

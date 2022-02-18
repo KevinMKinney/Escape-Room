@@ -5,7 +5,7 @@ using UnityEngine;
 /* 
  * Written this semester.
  * This script allows a GameObject to explode when shot by the gun. 
- * When it 'Explodes' the object is placed in the void, where another script place it randomly in house on the next frame.
+ * When it 'Explodes' the object is placed in the void, where the pick_up script places it randomly in the house on the next frame.
  */
 public class TheBigExplode : MonoBehaviour
 {

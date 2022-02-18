@@ -14,7 +14,7 @@ public class Generator : MonoBehaviour
     public GameObject door;
 
     [HideInInspector]
-    //Is the geneator running? Has it already started?
+    //Answers these questions: Is the geneator running? Has it already started?
     public bool hasStarted = false;
 
     [HideInInspector]
@@ -24,7 +24,7 @@ public class Generator : MonoBehaviour
     //The maximum range the generator can shake. This value is actually doubled since the generator shakes from -shakeRange to shakeRange.
     public Vector3 shakeRange = new Vector3(0.1f, 0.1f, 0.1f);
     //How many frames will pass before it chooses an new location to move, when shaking.
-    //This way we can control how fast it shakes. The higher thae value the slower it gets.
+    //This way we can control how fast it shakes. The higher the value the slower it gets.
     public int speed = 2;
 
     //Called when a script wants the generator to start.
@@ -52,10 +52,10 @@ public class Generator : MonoBehaviour
         Vector3 newPosition = Vector3.zero;
         //Acts as a counter
         int i = speed;
-        //When started this annimation will continure forever until the application shuts down, or you know, crashes.
+        //When started, this annimation will continue forever until the application shuts down, or you know, crashes.
         while (true)
         {
-            //Wait for the next frame every time the loop 
+            //Wait for the next frame every time its loops
             yield return new WaitForEndOfFrame();
             //The counter will increase by one every frame.
             i++;

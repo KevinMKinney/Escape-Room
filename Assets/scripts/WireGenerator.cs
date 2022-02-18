@@ -4,7 +4,7 @@ using System.Linq;
 using UnityEngine;
 
 /* 
- * Written this semester.
+ * Written this semester, starting on line 13.
  * Generates a wire mesh using UnityEngine’s Mesh API.
  * It then makes the current GameObject render the procedurally generated mesh.
  */
@@ -14,7 +14,7 @@ public class WireGenerator : MonoBehaviour
     public Mesh mesh;
     //How big the wire will be
     public float radius = 1;
-    //How smooth the curve will be, smaller values make the curve look pointy.
+    //How smooth the curve will be, smaller values makes the curve look pointy.
     public float smoothness = 7;
     //How long the wire will be
     public int length = 20;
@@ -40,7 +40,7 @@ public class WireGenerator : MonoBehaviour
         {
             for (int j = 0; j < length; j++)
             {
-                //Add a new position to the vertices array. i and j are the coordinets in the grid. It will set pass i to the GetHeight making a curve shape.
+                //Add a new position to the vertices array. i and j are the coordinets in the grid. It will pass i to the GetHeight making a curve shape.
                 verts.Add(new Vector3(i, GetHeight(i), j));
                 //Set proper Texture Coordinates
                 uvs.Add(new Vector2(i,j));
@@ -50,13 +50,13 @@ public class WireGenerator : MonoBehaviour
 
         /*
          * Right now we have a list of vertices, or positions, that form a long cylindrical shape (like a wire). 
-         * But becuase the mesh does not have any triangles so nothing will be rendered.
+         * But because the mesh does not have any triangles nothing will be rendered.
          * 
          * Loop over the some of the vertices and create faces so the wire will look solid.
          */
         for (int i = 0; i < verts.Count - length - 1; i++)
         {
-            //Skip the end point or the extra triangles will be added, and no one likes that!
+            //Skip the end points or extra triangles will be added, and no one likes that!
             if ((i+1) % length != 0)
             {
                 //Now create a face beteewn the points of i, i+1, i+length, i + length+1
@@ -73,7 +73,7 @@ public class WireGenerator : MonoBehaviour
             }
         }
         
-        //Set our mesh's properties to the property we generated.
+        //Set our mesh's properties to the properties we generated.
         mesh.vertices = verts.ToArray();
         mesh.triangles = tris.ToArray();
         mesh.uv = uvs.ToArray();

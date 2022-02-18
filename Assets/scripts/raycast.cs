@@ -96,7 +96,28 @@ public class raycast : MonoBehaviour
                                     }//If a GameObject with the OpenGasCap script is under the crosshair than call it's clicked function 
                                     else if ((raycastHit.collider.GetComponent<OpenGasCap>() != null))
                                     {
-                                        raycastHit.collider.GetComponent<OpenGasCap>().Clicked();
+                                        if (!raycastHit.collider.GetComponent<OpenGasCap>().isOpen)
+                                        {
+                                            raycastHit.collider.GetComponent<OpenGasCap>().Clicked();
+                                        }
+                                        else
+                                        {
+                                            pick_up gasCan = null;
+                                            //Loop though all items that are picked up and find the one being held.
+                                            foreach (pick_up islock in FindObjectsOfType<pick_up>())
+                                            {
+                                                //The item is held
+                                                if (islock.pickedup == 2)
+                                                {
+                                                    //Save the item
+                                                    gasCan = islock;
+                                                }
+                                            }
+                                            if(gasCan.gameObject.name == "Gas Can")
+                                            {
+                                                gasCan.gameObject.GetComponent<GasCan>().ContinuePouringGas();
+                                            }
+                                        }
                                     }
                                     else
                                     {
@@ -125,7 +146,7 @@ public class raycast : MonoBehaviour
                     Color color = text.color;
                     color.a = 1;
                     text.color = color;
-                    // Set the text property tothe name of the looked at object.
+                    // Set the text property to the name of the looked at object.
                     text.text = raycastHit.transform.GetComponent<pick_up>().name;
                 }
                 else

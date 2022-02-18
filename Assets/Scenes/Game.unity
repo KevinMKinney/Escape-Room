@@ -13094,6 +13094,7 @@ MonoBehaviour:
   trans: {x: 1, y: -1, z: 2}
   raycast: {fileID: 0}
   firstPickUp: 0
+  constrainHeldItem: 1
 --- !u!65 &203716336
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -19451,6 +19452,7 @@ MonoBehaviour:
   trans: {x: 1, y: -1, z: 2}
   raycast: {fileID: 0}
   firstPickUp: 0
+  constrainHeldItem: 1
 --- !u!65 &444296072
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -21970,7 +21972,7 @@ PrefabInstance:
     - target: {fileID: 8413469052493451173, guid: 245238b30c7c30e4dbd4bcca508fb2d9,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 111.78
+      value: -49.5
       objectReference: {fileID: 0}
     - target: {fileID: 8413469052493451173, guid: 245238b30c7c30e4dbd4bcca508fb2d9,
         type: 3}
@@ -22083,6 +22085,7 @@ MonoBehaviour:
   trans: {x: 1, y: -1, z: 2}
   raycast: {fileID: 0}
   firstPickUp: 0
+  constrainHeldItem: 1
 --- !u!4 &791860297 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8413469052493451173, guid: 245238b30c7c30e4dbd4bcca508fb2d9,
@@ -22103,6 +22106,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   explosionPrefab: {fileID: 1000011797152326, guid: 6df15fd38b4c3a5459a896b95bec22eb,
     type: 3}
+--- !u!114 &791860303
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 791860291}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8cdc3aebb9fa6b94b871f1e1e2590592, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gasCanShakeOffSet: {x: 0, y: 0.5, z: 0}
+  shakeHeight: 0.25
+  pickUp: {fileID: 0}
+  state: 3
 --- !u!1 &796662801
 GameObject:
   m_ObjectHideFlags: 0
@@ -34666,6 +34685,7 @@ MonoBehaviour:
   trans: {x: 1, y: -0.5, z: 1}
   raycast: {fileID: 0}
   firstPickUp: 0
+  constrainHeldItem: 1
 --- !u!1001 &959573199
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -52273,6 +52293,7 @@ MonoBehaviour:
   trans: {x: 1, y: -1, z: 2}
   raycast: {fileID: 0}
   firstPickUp: 0
+  constrainHeldItem: 1
 --- !u!1 &1786264810
 GameObject:
   m_ObjectHideFlags: 0
@@ -53208,6 +53229,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   openSpeed: 0.1
   openAngle: 90
+  isOpen: 0
 --- !u!1 &1944955781
 GameObject:
   m_ObjectHideFlags: 0

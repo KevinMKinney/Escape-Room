@@ -1,17 +1,19 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
+/* 
+ * Lines 92 - 109 and 118 - 136 written this semester.
+ * Finds objects under the crosshair
+ */
 public class raycast : MonoBehaviour
 {
     public bool canthrow = false;
     public GameObject Fog;
-    bool FogBoll;
 
     UnityEngine.UI.Text text;
 
-    /*private void OnTriggerEnter(Collider other)
+    /*
+    bool FogBoll;
+    private void OnTriggerEnter(Collider other)
     {
         if (other.GetComponent<goastPickup>() != null && other.GetComponent<goastPickup>().anger > 9.8f)
         {
@@ -34,7 +36,7 @@ public class raycast : MonoBehaviour
     void Update()
     {
         canthrow = true;
-        
+
         RaycastHit raycastHit;
         if (Input.GetMouseButton(0))
         {
@@ -87,22 +89,42 @@ public class raycast : MonoBehaviour
                                 }
                                 else
                                 {
+                                    //If a GameObject with the Starter script is under the crosshair than call it's clicked function 
                                     if ((raycastHit.collider.GetComponent<Starter>() != null))
                                     {
                                         raycastHit.collider.GetComponent<Starter>().Clicked();
-
-
-                                    }
+                                    }//If a GameObject with the OpenGasCap script is under the crosshair than call it's clicked function 
                                     else if ((raycastHit.collider.GetComponent<OpenGasCap>() != null))
                                     {
-                                        raycastHit.collider.GetComponent<OpenGasCap>().Clicked();
-
-
+                                        if (!raycastHit.collider.GetComponent<OpenGasCap>().isOpen)
+                                        {
+                                            raycastHit.collider.GetComponent<OpenGasCap>().Clicked();
+                                        }
+                                        else
+                                        {
+                                            pick_up gasCan = null;
+                                            //Loop though all items that are picked up and find the one being held.
+                                            foreach (pick_up islock in FindObjectsOfType<pick_up>())
+                                            {
+                                                //The item is held
+                                                if (islock.pickedup == 2)
+                                                {
+                                                    //Save the item
+                                                    gasCan = islock;
+                                                }
+                                            }
+                                            if(gasCan.gameObject.name == "Gas Can")
+                                            {
+                                                gasCan.gameObject.GetComponent<GasCan>().ContinuePouringGas();
+                                            }
+                                        }
                                     }
                                     else
                                     {
+                                        //If there is no clickable object under the crosshair than clear the text element.
                                         text.text = "";
                                         canthrow = false;
+                                        //One last chance to have the Clicked function called! Calls Clicked on the GameObject if it has that function on it.
                                         raycastHit.collider.SendMessage("Clicked", SendMessageOptions.DontRequireReceiver);
                                     }
                                 }
@@ -114,17 +136,22 @@ public class raycast : MonoBehaviour
         }
         else
         {
+            //If the player is not holding down the left mouse button than fire out a raycast anyway.
             if (Physics.Raycast(transform.position, transform.GetComponent<Camera>().transform.TransformDirection(Vector3.forward), out raycastHit))
             {
+                // If the item can be picked up than display it's name on the screen.
                 if (raycastHit.transform.GetComponent<pick_up>() != null)
                 {
+                    // Make sure the text is not transparent.
                     Color color = text.color;
                     color.a = 1;
                     text.color = color;
+                    // Set the text property to the name of the looked at object.
                     text.text = raycastHit.transform.GetComponent<pick_up>().name;
                 }
                 else
                 {
+                    // If there is no object under the crosshair than remove any text on screen.
                     text.text = "";
                 }
             }

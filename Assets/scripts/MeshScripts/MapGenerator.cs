@@ -37,7 +37,7 @@ public class MapGenerator : MonoBehaviour
     public bool autoUpdate;
 
     // the "main" function that handles the generation proccess
-    public void GenerateMap() {
+    public void GenerateMapOld() {
         // noisemap gets shape of mesh (see Noise.cs for further information)
         float[,] noiseMap = Noise.GenerateNoiseMap(mapWidth, mapHeight, seed, noiseScale, octaves, persistance, lacunarity, offset);
         float[,] noiseMapWater = Noise.GenerateNoiseMap(mapWidth, mapHeight, seedWater, noiseScaleWater, octavesWater, persistanceWater, lacunarityWater, offset);
@@ -67,7 +67,20 @@ public class MapGenerator : MonoBehaviour
         MapDisplay display = FindObjectOfType<MapDisplay>();
 
         display.DrawNoiseMap(noiseMap);
-        display.DrawMeshMap(mesh, noiseMap, meshWater, waterThresh);
+        display.DrawMeshMapOld(mesh, noiseMap, meshWater, waterThresh);
+    }
+
+    public void GenerateMap() {
+        float[,] noiseMap = Noise.GenerateNoiseMap(mapWidth, mapHeight, seed, noiseScale, octaves, persistance, lacunarity, offset);
+
+        Mesh mesh = new Mesh();
+        mesh.name = "PerlinMesh";
+        mesh.Clear();
+
+        mesh.vertices = MeshMap.GenerateVerticies(noiseMap);
+
+        MapDisplay display = FindObjectOfType<MapDisplay>();
+        display.DrawMeshMap(mesh, noiseMap);
     }
 
     // purely for fixing base cases (invalid inputs)

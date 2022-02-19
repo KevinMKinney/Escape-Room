@@ -10,7 +10,7 @@ public class MapDisplay : MonoBehaviour
     public MeshRenderer meshRenderer;
     public MeshFilter meshFilterWater;
     public MeshRenderer meshRendererWater;
-    public Terrain noiseTerrain;
+    public ComputeShader meshComp;
 
     // creates a texture based on pre-made noise
     public void DrawNoiseMap(float[,] noiseMap) {
@@ -33,7 +33,11 @@ public class MapDisplay : MonoBehaviour
         textureRender.transform.localScale = new Vector3(width, 1, height);
     }
 
-    public void DrawMeshMap(Mesh meshMap, float[,] noiseMap, Mesh waterMesh, float waterThresh) {
+    public void DrawMeshMapOld(Mesh meshMap, float[,] noiseMap, Mesh waterMesh, float waterThresh) {
+
+        int width = noiseMap.GetLength(0);
+        int height = noiseMap.GetLength(1);
+
         GameObject meshObj = GameObject.Find("MeshObj");
         GameObject waterObj = GameObject.Find("WaterObj");
         meshObj.transform.position = transform.position;
@@ -42,15 +46,44 @@ public class MapDisplay : MonoBehaviour
         //Debug.Log("WP: "+waterPos);
         waterObj.transform.position = new Vector3(waterObj.transform.position.x, waterPos, waterObj.transform.position.z);
 
-        //var terrainData = new TerrainData();
-        //terrainData.SetHeights(0, 0, noiseMap);
-
-        //MeshTerr.terrainData.SetHeights(0, 0, noiseMap);
-        noiseTerrain.terrainData.SetHeights(0, 0, noiseMap);
-
         meshFilter.mesh = meshMap;
         //meshObj.Renderer.material.setTexture(heightMap);
         meshFilterWater.mesh = waterMesh;
+
+    }
+
+    public void DrawMeshMap(Mesh meshMap, float[,] noiseMap) {
+
+        int width = noiseMap.GetLength(0);
+        int height = noiseMap.GetLength(1);
+
+        GameObject meshObj = GameObject.Find("MeshObj");
+        GameObject waterObj = GameObject.Find("WaterObj");
+        meshObj.transform.position = transform.position;
+        //waterObj.transform.position = transform.position;
+        //float waterPos = ((MeshMap.GetMaxVertex(meshMap.vertices) - MeshMap.GetMinVertex(meshMap.vertices)) * waterThresh * meshObj.transform.localScale.y) + transform.position.y;
+        //Debug.Log("WP: "+waterPos);
+        //waterObj.transform.position = new Vector3(waterObj.transform.position.x, waterPos, waterObj.transform.position.z);
+
+
+        int vectorSize = sizeof(float)*3;
+        int colorSize = sizeof(float)*4;
+        int totalSize = vectorSize*colorSize;
+
+        ComputeBuffer meshBuffer = new ComputeBuffer(width*height, totalSize);
+        meshBuffer.SetData(meshMap.vertices);
+
+        meshComp.SetBuffer(0, "verticies", meshBuffer);
+        meshComp.SetFloat("Resolution", width*height);
+        meshComp.Dispatch(0, width/8, height/8, 1);
+
+        meshBuffer.GetData(meshMap.vertices);
+
+        meshBuffer.Dispose();
+
+        meshFilter.mesh = meshMap;
+        //meshObj.Renderer.material.setTexture(heightMap);
+        //meshFilterWater.mesh = waterMesh;
 
     }
 }

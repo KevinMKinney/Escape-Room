@@ -8,4 +8,11 @@ public class InventorySlot : MonoBehaviour
     public Item item;
     public GameObject slot;
     #endregion
+
+    #region constructor
+    public InventorySlot(Item item)
+    {
+        this.item = item;
+    }
+    #endregion
 }

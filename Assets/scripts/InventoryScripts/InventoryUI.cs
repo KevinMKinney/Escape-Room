@@ -5,40 +5,41 @@ using UnityEngine;
 public class InventoryUI : MonoBehaviour
 {
     #region attributes
-    private Inventory inventoryInstance;
-    public GameObject inventoryPanelParent;
-    public GameObject inventoryPanel;
-    private List<InventorySlot> inventorySlots;
+    public GameObject inventoryGameObj;
+    public List<Item> inventoryInstance;
+    public GameObject itemPanel;
+    public GameObject displayPanel;
     #endregion
 
-    #region constructors
-    public void Awake()
+    private void Awake()
     {
-        inventoryPanelParent = GameObject.Find("Inventory");
-        inventoryPanel = inventoryPanelParent.transform.GetChild(0).gameObject;
-        inventoryPanel.SetActive(false);
+        // get inventory game object and update the inventory
+        inventoryGameObj = transform.parent.gameObject;
+        GetUpdatedInventory();
+
+        // get ui components
+        itemPanel = transform.GetChild(0).gameObject;
+        displayPanel = transform.GetChild(1).gameObject;
     }
 
-    public void Update()
+    private void OnEnable()
     {
-        if (Input.GetButtonDown("Inventory"))
+        GetUpdatedInventory();
+        UpdateItemPanel();
+    }
+
+    private void GetUpdatedInventory()
+    {
+        inventoryInstance = inventoryGameObj.GetComponent<Inventory>().GetItems();
+    }
+
+    private void UpdateItemPanel()
+    {
+        inventoryInstance.ForEach(x => 
         {
-            if (inventoryPanel.activeSelf)
-            {
-                inventoryPanel.SetActive(false);
-            } else
-            {
-                inventoryPanel.SetActive(true);
-            }
-        }
+            Debug.Log(x.ItemName);
+            Debug.Log(x.ShortDescription);
+            Debug.Log(x.LongDescription);
+        });
     }
-
-    #endregion
-
-    #region methods
-    public void UpdateUI()
-    {
-        // update of the inventory panel
-    }
-    #endregion
 }

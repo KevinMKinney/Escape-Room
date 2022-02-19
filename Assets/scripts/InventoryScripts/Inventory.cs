@@ -4,49 +4,50 @@ using UnityEngine;
 
 public class Inventory : MonoBehaviour
 {
-    #region singleton_init
-    // initialization of single inventory instance:
-    public static Inventory inventoryInstance;
-
-    private void Awake()
-    {
-        inventoryInstance = this;
-    }
-    #endregion
-
     #region attributes
-    public List<Item> items = new List<Item>();
-    public List<Item> equippedItems = new List<Item>();
-    public InventoryUI ui;
+    private List<Item> items = new List<Item>();
+    private Item equippedItem = null;
     #endregion
 
     #region methods
+
+    public List<Item> GetItems()
+    {
+        return items;
+    }
+
     public void AddItem(Item item)
     {
         items.Add(item);
-        item.inInventory = true;
     }
 
     public void DropItem(Item item)
     {
         items.Remove(item);
-        item.inInventory = false;
+    }
+
+    public Item GetEquippedItem()
+    {
+        return equippedItem;
     }
 
     public void EquipItem(Item item)
     {
-        if (!equippedItems.Contains(item))
-        {
-            equippedItems.Add(item);
-        }
+        equippedItem = item;
     }
 
-    public void PackUpItem(Item item)
+    public void PackUpItem()
     {
-        if (equippedItems.Contains(item))
-        {
-            equippedItems.Remove(item);
-        }
+        equippedItem = null;
     }
     #endregion
+
+    public void Awake()
+    {
+        // tests:
+        Item gun = new Item("Gun", "A shiny new gun");
+        gun.LongDescription = "I found this gun in the room I woke up in. It is shiny and appears to be brand new.";
+        AddItem(gun);
+    }
 }
+

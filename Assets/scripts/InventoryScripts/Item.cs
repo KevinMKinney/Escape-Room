@@ -2,53 +2,62 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Item : ScriptableObject
+public class Item
 {
 
     #region attributes
     // attributes:
     private string itemName;
-    private string itemDescription;
+    private string shortDescription;
+    private string longDescription;
     public Sprite itemIcon;
     public GameObject inGameObject;
-    public bool inInventory = false;
     #endregion
 
     #region constructors
     // constructors:
-    public Item(string itemName, string itemDescription)
+    public Item(string itemName, string shortDescription)
     {
         this.itemName = itemName;
-        this.itemDescription = itemDescription;
+        this.shortDescription = shortDescription;
+        this.longDescription = "NO DESCRIPTION";
     }
 
     public Item(string itemName)
     {
         this.itemName = itemName;
+        this.shortDescription = "NO DESCRIPTION";
     }
 
     public Item()
     {
-        this.itemName = "";
-        this.itemDescription = "";
+        this.itemName = "NO NAME";
+        this.shortDescription = "NO DESCRIPTION";
+        this.longDescription = "NO DESCRIPTION";
     }
     #endregion
 
     #region methods
     // methods:
-    string ItemName
+    public string ItemName
     {
         get { return this.itemName; }
         set { this.itemName = value; }
     }
 
-    string ItemDescription
+    public string ShortDescription
     {
-        get { return this.itemDescription; }
-        set { this.itemDescription = value; }
+        get { return this.shortDescription; }
+        set { this.shortDescription = value; }
     }
 
-    Sprite ItemSprite
+    public string LongDescription
+    {
+        get { return this.longDescription; }
+        set { this.longDescription = value; }
+    }
+
+    public Sprite ItemSprite
     {
         get { return this.ItemSprite; }
         set { this.ItemSprite = value; }

@@ -8,7 +8,7 @@ using System.Linq;
 public static class MeshMap
 {
     // creates vertices for mesh based on pre-made noise
-    public static Vector3[] GenerateVerticies(float[,] noiseMap) {
+    public static Vector3[] generateVerticies(float[,] noiseMap) {
         // initialize variables
         int mapWidth = noiseMap.GetLength(0);
         int mapHeight = noiseMap.GetLength(1);
@@ -27,7 +27,7 @@ public static class MeshMap
     }
 
     // creates triangles for mesh
-    public static int[] GenerateTriangles(int mapWidth, int mapHeight) {
+    public static int[] generateTriangles(int mapWidth, int mapHeight) {
         // initialize variables
         int index = 0;
         int j = 0;
@@ -50,6 +50,16 @@ public static class MeshMap
         return triangles;
     }
 
+    public static Vector2[] generateUVs(Mesh mesh) {
+        int size = mesh.vertices.Length;
+        Vector2[] UVs = new Vector2[size];
+
+        for (int i = 0; i < size; i++) {
+            UVs[i] = new Vector2(mesh.vertices[i].x, mesh.vertices[i].y);
+        }
+        return UVs;
+    }
+
     // calculates the steepness of triangles based on their normal vectors (the functional way)
     public static float[] calculateSteepness(Mesh mesh) {
         Vector3[] norm = new Vector3[mesh.vertices.Length];
@@ -58,19 +68,19 @@ public static class MeshMap
     }
 
     // returns the max value in float array
-    public static float GetMaxVertex(Vector3[] vertices) {
+    public static float getMaxVertex(Vector3[] vertices) {
         float[] array = vertices.Select(x => x.y).ToArray();
         return array.Aggregate((x, y) => Mathf.Max(x, y));
     }
 
     // returns the min value in float array
-    public static float GetMinVertex(Vector3[] vertices) {
+    public static float getMinVertex(Vector3[] vertices) {
         float[] array = vertices.Select(x => x.y).ToArray();
         return array.Aggregate((x, y) => Mathf.Min(x, y));
     }
 
     // creates the colors of the mesh based on its steepness
-    public static Color[] GenerateColors(Mesh mesh, float[] steepVal, float snowThresh, float waterThresh) {
+    public static Color[] generateColors(Mesh mesh, float[] steepVal, float snowThresh, float waterThresh) {
         // initialize variables
         int size = mesh.vertices.Length;
         Color[] colors = new Color[size];

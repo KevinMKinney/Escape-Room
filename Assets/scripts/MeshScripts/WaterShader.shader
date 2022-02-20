@@ -3,12 +3,13 @@ Shader "Unlit/WaterShader"
     Properties {
         // input data
         //_MainTex ("Texture", 2D) = "white" {}
-        _Color ("Color", Color) = (1, 1, 1, 1)
-        _Size ("Size", Int) = 99
+        _Size ("Size", Int) = 1
+        _RayDistance ("RayDistance", float) = 1
 
     }
     SubShader {
-        Tags { "RenderType"="Opaque" }
+        // "RenderType"="Opaque"
+        Tags { "RenderType"="transparent" }
 
         Pass {
             CGPROGRAM
@@ -17,21 +18,25 @@ Shader "Unlit/WaterShader"
 
             #include "UnityCG.cginc"
 
-            float4 _Color;
             float _Size;
+            float _RayDistance;
+
+            sampler2D _CameraDepthTexture;
 
             struct meshData {
                 // data per vertex (needs to be floats) automatically initialized by Unity
                 float4 vertex : POSITION;
-                float3 normal : NORMAL;
+                //float3 normal : NORMAL;
                 float4 color : COLOR;
-                //float2 uv : TEXCOORD0;
+                float2 uv : TEXCOORD0;
             };
 
             struct Interpolator {
                 float4 vertex : SV_POSITION;
-                float3 normal : TEXTCORD0;
+                //float3 normal : TEXTCORD0;
                 float4 color : TEXTCORD1;
+                float3 viewVector : TEXTCORD2;
+                float2 uv : TEXCOORD3;
             };
 
             // most work should be done here
@@ -41,16 +46,37 @@ Shader "Unlit/WaterShader"
                 v.vertex.x = (v.vertex.x + _Time.y) % (_Size-1);
                 //v.vertex.z = (v.vertex.z + _Time.y) % (_Size-1);
 
+                // ndc = clipspace / w
+                float3 vw = mul(unity_CameraInvProjection, float4(1, 1, 1, 1));
+                o.viewVector = mul(unity_CameraToWorld, float4(vw,0));
+
                 // convert local space to clip space
+                //o.vertex = mul(UNITY_MATRIX_MVP, v.vertex);
                 o.vertex = UnityObjectToClipPos(v.vertex);
-                o.normal = UnityObjectToWorldNormal(v.normal);
+                //o.normal = UnityObjectToWorldNormal(v.normal);
+                //o.color = v.color;
+                o.uv = v.uv;
                 return o;
             }
 
             // could change float4 -> half4 for better performance/less detail
             float4 frag (Interpolator i) : SV_Target {
-                return _Color;
+                // get ray vector distance from other meshs
+
+                float nonlin_depth = SAMPLE_DEPTH_TEXTURE(_CameraDepthTexture, i.uv);
+				        float sceneDepth = LinearEyeDepth(nonlin_depth) * length(i.viewVector);
+
+
+                float alpha = 1;
+                return float4(i.color.z, i.color.z, i.color.z, (alpha*sceneDepth)); 
             }
+            /*
+            float distFromObj(float4 origin, float4 camVector, float maxDist) {
+                float dist = 0;
+                while(float i = 0; i < maxDist; i++) {
+
+                }
+            } */
             ENDCG
         }
     }

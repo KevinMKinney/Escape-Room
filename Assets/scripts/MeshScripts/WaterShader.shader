@@ -43,7 +43,6 @@ Shader "Unlit/WaterShader"
                 //float4 color : TEXTCORD1;
                 float3 viewVector : TEXTCORD2;
                 float2 uv : TEXCOORD3;
-                float2 depth : TEXTCORD4;
             };
 
             // most work should be done here (func happens over every vertex)
@@ -56,7 +55,6 @@ Shader "Unlit/WaterShader"
                 // pass info to fragment shader
                 o.vertex = UnityObjectToClipPos(v.vertex); // clip space = screen location
                 o.uv = v.uv;
-                COMPUTE_EYEDEPTH(o.depth);
                 return o;
             }
 

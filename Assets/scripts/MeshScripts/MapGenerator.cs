@@ -39,8 +39,8 @@ public class MapGenerator : MonoBehaviour
     // the "main" function that handles the generation proccess
     public void GenerateMap() {
         // noisemap gets shape of mesh (see Noise.cs for further information)
-        float[,] noiseMap = Noise.GenerateNoiseMap(mapWidth, mapHeight, seed, noiseScale, octaves, persistance, lacunarity, offset);
-        float[,] noiseMapWater = Noise.GenerateNoiseMap(mapWidth, mapHeight, seedWater, noiseScaleWater, octavesWater, persistanceWater, lacunarityWater, offset);
+        float[,] noiseMap = Noise.generateNoiseMap(mapWidth, mapHeight, seed, noiseScale, octaves, persistance, lacunarity, offset);
+        float[,] noiseMapWater = Noise.generateFlushNoiseMap(mapWidth, mapHeight, seedWater, noiseScaleWater, octavesWater, persistanceWater, lacunarityWater, offset);
         //float[,] noiseMapWater = Noise.GenerateNoiseMap(mapWidth, mapHeight, seed, noiseScale, 3, .35f, 2.4f, offset);
 
         // mesh init

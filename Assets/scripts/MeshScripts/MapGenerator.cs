@@ -57,6 +57,7 @@ public class MapGenerator : MonoBehaviour
         mesh.triangles = MeshMap.generateTriangles(mapWidth, mapHeight);
         mesh.RecalculateNormals();
         mesh.uv = MeshMap.generateUVs(mesh);
+        //mesh.uv = Unwrapping.GeneratePerTriangleUV(mesh);
 
         float[] steepVal = MeshMap.calculateSteepness(mesh);
         //mesh.colors = MeshMap.GenerateColors(mesh, steepVal, snowThresh, waterThresh);

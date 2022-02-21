@@ -46,7 +46,7 @@ public class MapDisplay : MonoBehaviour
         //Debug.Log("WP: "+waterPos);
         waterObj.transform.position = new Vector3(waterObj.transform.position.x, waterPos, waterObj.transform.position.z);
 
-        meshRendererWater.material.SetFloat("_Size", width);
+        meshRendererWater.sharedMaterial.SetFloat("_Size", width);
 
         meshFilter.mesh = meshMap;
         //meshObj.Renderer.material.setTexture(heightMap);

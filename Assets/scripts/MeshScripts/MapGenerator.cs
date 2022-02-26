@@ -55,20 +55,20 @@ public class MapGenerator : MonoBehaviour
         meshWater.Clear();
 
         // assign mesh aspects
-        mesh.vertices = MeshMap.generateVerticies(noiseMap);
-        mesh.triangles = MeshMap.generateTriangles(mapWidth, mapHeight);
+        mesh.SetVertices(MeshMap.generateVerticies(noiseMap));
+        mesh.SetTriangles(MeshMap.generateTriangles(mapWidth, mapHeight), 0);
         mesh.RecalculateNormals();
-        mesh.uv = MeshMap.generateUVs(mesh);
+        mesh.SetUVs(0, MeshMap.generateUVs(mesh, mapWidth, mapHeight));
         //mesh.uv = Unwrapping.GeneratePerTriangleUV(mesh);
 
-        float[] steepVal = MeshMap.calculateSteepness(mesh);
+        float[] steepVal = MeshMap.calculateSteepness(mesh, mapWidth, mapHeight);
         //mesh.colors = MeshMap.generateColors(mesh, steepVal, snowThresh, waterThresh);
-        mesh.SetColors(MeshMap.generateColors(mesh, steepVal, snowThresh, waterThresh));
+        mesh.SetColors(MeshMap.generateColors(mesh, mapWidth, mapHeight, steepVal, snowThresh, waterThresh));
 
-        meshWater.vertices = MeshMap.generateVerticies(noiseMapWater);
-        meshWater.triangles = MeshMap.generateTriangles(mapWidth, mapHeight);
+        meshWater.SetVertices(MeshMap.generateVerticies(noiseMapWater));
+        meshWater.SetTriangles(MeshMap.generateTriangles(mapWidth, mapHeight), 0);
         meshWater.RecalculateNormals();
-        meshWater.uv = MeshMap.generateUVs(mesh);
+        meshWater.SetUVs(0, MeshMap.generateUVs(mesh, mapWidth, mapHeight));
 
         // puts mesh and noise in game
         MapDisplay display = FindObjectOfType<MapDisplay>();

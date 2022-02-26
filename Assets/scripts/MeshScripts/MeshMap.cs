@@ -50,8 +50,8 @@ public static class MeshMap
         return triangles;
     }
 
-    public static Vector2[] generateUVs(Mesh mesh) {
-        int size = mesh.vertices.Length;
+    public static Vector2[] generateUVs(Mesh mesh, int mapWidth, int mapHeight) {
+        int size = mapWidth*mapHeight;
         Vector2[] UVs = new Vector2[size];
 
         for (int i = 0; i < size; i++) {
@@ -61,8 +61,8 @@ public static class MeshMap
     }
 
     // calculates the steepness of triangles based on their normal vectors (the functional way)
-    public static float[] calculateSteepness(Mesh mesh) {
-        Vector3[] norm = new Vector3[mesh.vertices.Length];
+    public static float[] calculateSteepness(Mesh mesh, int mapWidth, int mapHeight) {
+        Vector3[] norm = new Vector3[mapWidth*mapHeight];
         norm = mesh.normals;
         return norm.Select(x => Vector3.Angle(x, Vector3.up)).ToArray();
     }
@@ -80,9 +80,9 @@ public static class MeshMap
     }
 
     // creates the colors of the mesh based on its steepness
-    public static Color[] generateColors(Mesh mesh, float[] steepVal, float snowThresh, float waterThresh) {
+    public static Color[] generateColors(Mesh mesh, int mapWidth, int mapHeight, float[] steepVal, float snowThresh, float waterThresh) {
         // initialize variables
-        int size = mesh.vertices.Length;
+        int size = mapWidth*mapHeight;
         Color[] colors = new Color[size];
         // get some random colors
         //Color col1 = Random.ColorHSV(0f, 1f, 1f, 1f, 0.5f, 1f);

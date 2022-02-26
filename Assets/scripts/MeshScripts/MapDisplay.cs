@@ -43,8 +43,17 @@ public class MapDisplay : MonoBehaviour
         meshObj.transform.position = transform.position;
         waterObj.transform.position = transform.position;
         float waterPos = ((MeshMap.getMaxVertex(meshMap.vertices) - MeshMap.getMinVertex(meshMap.vertices)) * waterThresh * meshObj.transform.localScale.y) + transform.position.y;
-        //Debug.Log("WP: "+waterPos);
+        waterPos -= 50; // <--temp?
         waterObj.transform.position = new Vector3(waterObj.transform.position.x, waterPos, waterObj.transform.position.z);
+
+        meshRenderer.sharedMaterial.SetFloat("_Size", width);
+
+        /*
+        MaterialsPropertyBlock properties = new MaterialsPropertyBlock();
+        for (int i = 0; i < width*height; i++) {
+            properties.setColor("_Color", new Color(Random.value, Random.value, Random.value));
+            meshRenderer.SetPropertyBlock(properties);
+        } */
 
         meshRendererWater.sharedMaterial.SetFloat("_Size", width);
 

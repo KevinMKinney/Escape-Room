@@ -49,7 +49,7 @@ public static class MeshMap
         }
         return triangles;
     }
-    
+
     public static Vector2[] generateUVs(Mesh mesh) {
         int size = mesh.vertices.Length;
         Vector2[] UVs = new Vector2[size];
@@ -107,5 +107,9 @@ public static class MeshMap
 
         }
         return colors;
+    }
+
+    public static void getTime(int a) {
+        Debug.Log("Time at "+a+" is: "+Time.time);
     }
 }

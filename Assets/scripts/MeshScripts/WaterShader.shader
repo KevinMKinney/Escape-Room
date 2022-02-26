@@ -1,11 +1,16 @@
 Shader "Unlit/WaterShader"
 {
+    // this thread was very helpful: https://forum.unity.com/threads/decodedepthnormal-linear01depth-lineareyedepth-explanations.608452/
     Properties {
         // input data dev can manipulate
-        //_MainTex ("Texture", 2D) = "white" {}
         _Size ("Size", Int) = 1
-        _Color ("Color", Color) = (0, 0, 0, 1)
+
+        ShallowColor ("ShallowColor", Color) = (0, 0, 0, 1)
+        DeepColor ("DeepColor", Color) = (0, 0, 0, 1)
+        foamColor ("foamColor", Color) = (0, 0, 0, 1)
+
         edgeFade ("edgeFade", float) = 0
+        foamThresh ("foamThresh", float) = 0
 
     }
     SubShader {
@@ -23,8 +28,10 @@ Shader "Unlit/WaterShader"
 
             // initialize variables
             float _Size;
-            float4 _Color;
+            float4 ShallowColor;
+            float4 DeepColor;
             float edgeFade;
+            float foamThresh;
 
             sampler2D _CameraDepthTexture;
 
@@ -39,10 +46,12 @@ Shader "Unlit/WaterShader"
             struct Interpolator {
                 // data set by vertex shader for fragment shader
                 float4 vertex : SV_POSITION;
+                float3 position : TEXTCORD0;
                 //float3 normal : TEXTCORD0;
-                //float4 color : TEXTCORD1;
-                float3 viewVector : TEXTCORD2;
+                float4 color : TEXTCORD1;
+                //float3 viewVector : TEXTCORD2;
                 float2 uv : TEXCOORD3;
+                float4 screenPos : TEXTCORD4;
             };
 
             // most work should be done here (func happens over every vertex)
@@ -54,7 +63,10 @@ Shader "Unlit/WaterShader"
 
                 // pass info to fragment shader
                 o.vertex = UnityObjectToClipPos(v.vertex); // clip space = screen location
+                o.position = mul(unity_ObjectToWorld, float4(0,0,0,1)).xyz;
+                //o.color = v.color;
                 o.uv = v.uv;
+                o.screenPos = ComputeScreenPos(v.vertex);
                 return o;
             }
 
@@ -62,10 +74,19 @@ Shader "Unlit/WaterShader"
             // function happens over every pixel
             float4 frag (Interpolator i) : SV_Target {
 
-                float waterViewDepth = LinearEyeDepth(SAMPLE_DEPTH_TEXTURE_PROJ(_CameraDepthTexture, ComputeScreenPos(i.vertex)));
+                // would prob need to update this when player is added
+                float distToWater = i.screenPos.w - i.position;
+                float waterViewDepth = LinearEyeDepth(SAMPLE_DEPTH_TEXTURE_PROJ(_CameraDepthTexture, i.screenPos));
                 float alphaEdge = 1 - exp(-waterViewDepth * edgeFade);
-
-                return float4(_Color.x, _Color.y, _Color.z, alphaEdge);
+                /*
+                float foamCol = 0;
+                if (waterViewDepth < foamThresh+sin(_Time.y)) {
+                    foamCol = saturate(waterViewDepth);
+                }*/
+                float3 col = lerp(ShallowColor, DeepColor, 1-exp(-waterViewDepth * edgeFade));
+                //col = col + foamCol;
+                i.color = float4(col, alphaEdge);
+                return i.color;
             }
 
             ENDCG

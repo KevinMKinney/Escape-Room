@@ -15,6 +15,8 @@ public class MapGenerator : MonoBehaviour
     public float persistance;
     public float lacunarity;
 
+    public AnimationCurve meshHeightCurve;
+
     public int seed;
     public Vector2 offset;
 
@@ -39,7 +41,7 @@ public class MapGenerator : MonoBehaviour
     // the "main" function that handles the generation proccess
     public void GenerateMap() {
         // noisemap gets shape of mesh (see Noise.cs for further information)
-        float[,] noiseMap = Noise.generateNoiseMap(mapWidth, mapHeight, seed, noiseScale, octaves, persistance, lacunarity, offset);
+        float[,] noiseMap = Noise.generateNoiseMap(mapWidth, mapHeight, seed, noiseScale, octaves, persistance, lacunarity, meshHeightCurve, offset);
         float[,] noiseMapWater = Noise.generateFlushNoiseMap(mapWidth, mapHeight, seedWater, noiseScaleWater, octavesWater, persistanceWater, lacunarityWater, offset);
         //float[,] noiseMapWater = Noise.GenerateNoiseMap(mapWidth, mapHeight, seed, noiseScale, 3, .35f, 2.4f, offset);
 
@@ -60,7 +62,8 @@ public class MapGenerator : MonoBehaviour
         //mesh.uv = Unwrapping.GeneratePerTriangleUV(mesh);
 
         float[] steepVal = MeshMap.calculateSteepness(mesh);
-        //mesh.colors = MeshMap.GenerateColors(mesh, steepVal, snowThresh, waterThresh);
+        //mesh.colors = MeshMap.generateColors(mesh, steepVal, snowThresh, waterThresh);
+        mesh.SetColors(MeshMap.generateColors(mesh, steepVal, snowThresh, waterThresh));
 
         meshWater.vertices = MeshMap.generateVerticies(noiseMapWater);
         meshWater.triangles = MeshMap.generateTriangles(mapWidth, mapHeight);

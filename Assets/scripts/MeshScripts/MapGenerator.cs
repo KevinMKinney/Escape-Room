@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
+using System.Threading;
 
 public class MapGenerator : MonoBehaviour
 {
@@ -39,20 +41,14 @@ public class MapGenerator : MonoBehaviour
     public bool autoUpdate;
 
     // the "main" function that handles the generation proccess
-    public void GenerateMap() {
+    public MeshData generateMap() {
         // noisemap gets shape of mesh (see Noise.cs for further information)
         float[,] noiseMap = Noise.generateNoiseMap(mapWidth, mapHeight, seed, noiseScale, octaves, persistance, lacunarity, meshHeightCurve, offset);
-        float[,] noiseMapWater = Noise.generateFlushNoiseMap(mapWidth, mapHeight, seedWater, noiseScaleWater, octavesWater, persistanceWater, lacunarityWater, offset);
-        //float[,] noiseMapWater = Noise.GenerateNoiseMap(mapWidth, mapHeight, seed, noiseScale, 3, .35f, 2.4f, offset);
 
         // mesh init
         Mesh mesh = new Mesh();
         mesh.name = "PerlinMesh";
         mesh.Clear();
-
-        Mesh meshWater = new Mesh();
-        meshWater.name = "WaterMesh";
-        meshWater.Clear();
 
         // assign mesh aspects
         mesh.SetVertices(MeshMap.generateVerticies(noiseMap));
@@ -62,20 +58,39 @@ public class MapGenerator : MonoBehaviour
         //mesh.uv = Unwrapping.GeneratePerTriangleUV(mesh);
 
         float[] steepVal = MeshMap.calculateSteepness(mesh, mapWidth, mapHeight);
-        //mesh.colors = MeshMap.generateColors(mesh, steepVal, snowThresh, waterThresh);
-        mesh.SetColors(MeshMap.generateColors(mesh, mapWidth, mapHeight, steepVal, snowThresh, waterThresh));
+        Color[] meshCols = MeshMap.generateColors(mesh, mapWidth, mapHeight, steepVal, snowThresh, waterThresh);
+        mesh.SetColors(meshCols);
+
+        return new MeshData(noiseMap, mesh);
+    }
+
+    public Mesh generateWater() {
+        // noisemap gets shape of mesh (see Noise.cs for further information)
+        float[,] noiseMapWater = Noise.generateFlushNoiseMap(mapWidth, mapHeight, seedWater, noiseScaleWater, octavesWater, persistanceWater, lacunarityWater, offset);
+
+        // mesh init
+        Mesh meshWater = new Mesh();
+        meshWater.name = "WaterMesh";
+        meshWater.Clear();
 
         meshWater.SetVertices(MeshMap.generateVerticies(noiseMapWater));
         meshWater.SetTriangles(MeshMap.generateTriangles(mapWidth, mapHeight), 0);
         meshWater.RecalculateNormals();
-        meshWater.SetUVs(0, MeshMap.generateUVs(mesh, mapWidth, mapHeight));
+        meshWater.SetUVs(0, MeshMap.generateUVs(meshWater, mapWidth, mapHeight));
 
-        // puts mesh and noise in game
+        return meshWater;
+    }
+
+    public void drawMeshEditor() {
+        MeshData meshData = generateMap();
+        Mesh meshWater = generateWater();
         MapDisplay display = FindObjectOfType<MapDisplay>();
 
-        display.DrawNoiseMap(noiseMap);
-        display.DrawMeshMap(mesh, noiseMap, meshWater, waterThresh);
+        display.DrawNoiseMap(meshData.heightMap);
+        display.DrawMeshMap(meshData.mesh, meshData.heightMap, meshWater, waterThresh);
     }
+
+    //public void RequestMeshData(Action)
 
     // purely for fixing base cases (invalid inputs)
     void OnValidate() {
@@ -92,5 +107,15 @@ public class MapGenerator : MonoBehaviour
         if (octaves < 0) {
             octaves = 0;
         }
+    }
+}
+
+public struct MeshData {
+    public float[,] heightMap;
+    public Mesh mesh;
+
+    public MeshData(float[,] heightMap, Mesh mesh) {
+        this.heightMap = heightMap;
+        this.mesh = mesh;
     }
 }

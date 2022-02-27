@@ -6,7 +6,6 @@ public class InventorySlot : MonoBehaviour
 {
     #region attributes
     public Item item;
-    public GameObject slot;
     #endregion
 
     #region constructor

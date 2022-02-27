@@ -35,11 +35,31 @@ public class InventoryUI : MonoBehaviour
 
     private void UpdateItemPanel()
     {
+        int i = 0;
+        UnityEngine.UI.Text itemNameComponent;
+        UnityEngine.UI.Text itemDescComponent;
+        //UnityEngine.UI.Image itemSpriteComponent;
         inventoryInstance.ForEach(x => 
         {
-            Debug.Log(x.ItemName);
-            Debug.Log(x.ShortDescription);
-            Debug.Log(x.LongDescription);
+            // get the ui components to assign this item to
+            itemNameComponent = itemPanel.transform.GetChild(i).GetChild(0).GetComponent<UnityEngine.UI.Text>();
+            itemDescComponent = itemPanel.transform.GetChild(i).GetChild(1).GetComponent<UnityEngine.UI.Text>();
+            //itemSpriteComponent = itemPanel.transform.GetChild(i).GetChild(1).GetComponent<UnityEngine.UI.Image>();
+
+            // format the text for the item name
+            itemNameComponent.text = x.ItemName;
+            itemNameComponent.fontSize = 24;
+            itemNameComponent.fontStyle = FontStyle.Bold;
+            itemNameComponent.alignment = TextAnchor.LowerLeft;
+
+            // format the text for the item short description
+            itemDescComponent.text = x.ShortDescription;
+            itemDescComponent.fontSize = 16;
+            itemDescComponent.fontStyle = FontStyle.Italic;
+            itemDescComponent.alignment = TextAnchor.UpperLeft;
+
+            // move to next ui component
+            i++;
         });
     }
 }

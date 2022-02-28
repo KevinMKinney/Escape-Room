@@ -37,13 +37,30 @@ public class MapGenerator : MonoBehaviour
 
     public int seedWater;
 
+    [Header("Entity Settings")]
+    [Range(0,1)]
+    public float entityThresh;
+    public float entityspread;
+
+    public float noiseScaleEntity;
+
+    public int octavesEntity;
+    [Range(0,1)]
+    public float persistanceEntity;
+    public float lacunarityEntity;
+
+    public int seedEntity;
+
     [Space(10)]
     public bool autoUpdate;
+
+    Queue<meshThreadInfo<MeshData>> meshDataThreadInfoQueue = new Queue<meshThreadInfo<MeshData>>();
 
     // the "main" function that handles the generation proccess
     public MeshData generateMap() {
         // noisemap gets shape of mesh (see Noise.cs for further information)
-        float[,] noiseMap = Noise.generateNoiseMap(mapWidth, mapHeight, seed, noiseScale, octaves, persistance, lacunarity, meshHeightCurve, offset);
+        float[,] noiseMap = Noise.generateNoiseMap(mapWidth, mapHeight, seed, noiseScale, octaves, persistance, lacunarity, offset);
+        noiseMap = Noise.curveNoise(mapWidth, mapHeight, noiseMap, meshHeightCurve);
 
         // mesh init
         Mesh mesh = new Mesh();
@@ -81,16 +98,47 @@ public class MapGenerator : MonoBehaviour
         return meshWater;
     }
 
+    public float[,] generateEntities() {
+        float[,] meshMap = Noise.generateNoiseMap(mapWidth, mapHeight, seed, noiseScale, octaves, persistance, lacunarity, offset);
+        meshMap = Noise.curveNoise(mapWidth, mapHeight, meshMap, meshHeightCurve);
+        float[,] densityMap = Noise.generateNoiseMap(mapWidth, mapHeight, seedEntity, noiseScaleEntity, octavesEntity, persistanceEntity, lacunarityEntity, offset);
+
+        return EntityMap.generateEntityMap(meshMap, densityMap, entityThresh, entityspread);
+    }
+
     public void drawMeshEditor() {
         MeshData meshData = generateMap();
         Mesh meshWater = generateWater();
+        float[,] entities = generateEntities();
         MapDisplay display = FindObjectOfType<MapDisplay>();
 
-        display.DrawNoiseMap(meshData.heightMap);
-        display.DrawMeshMap(meshData.mesh, meshData.heightMap, meshWater, waterThresh);
+        display.drawNoiseMap(meshData.heightMap);
+        display.drawMeshMap(meshData.mesh, meshData.heightMap, meshWater, waterThresh, entities);
     }
 
-    //public void RequestMeshData(Action)
+    public void requestMeshData(Action<MeshData> callback) {
+        ThreadStart threadStart = delegate {
+            meshDataThread(callback);
+        };
+
+        new Thread(threadStart).Start();
+    }
+
+    private void meshDataThread(Action<MeshData> callback) {
+        MeshData meshData = generateMap();
+        lock (meshDataThreadInfoQueue) {
+            meshDataThreadInfoQueue.Enqueue(new meshThreadInfo<MeshData>(callback, meshData));
+        }
+    }
+
+    private void update() {
+        if (meshDataThreadInfoQueue.Count > 0) {
+            for(int i = 0; i > meshDataThreadInfoQueue.Count; i++) {
+                meshThreadInfo<MeshData> threadInfo = meshDataThreadInfoQueue.Dequeue();
+                threadInfo.callback(threadInfo.parameter);
+            }
+        }
+    }
 
     // purely for fixing base cases (invalid inputs)
     void OnValidate() {
@@ -108,11 +156,21 @@ public class MapGenerator : MonoBehaviour
             octaves = 0;
         }
     }
+
+    struct meshThreadInfo<T> {
+        public readonly Action<T> callback;
+        public readonly T parameter;
+
+        public meshThreadInfo(Action<T> callback, T parameter) {
+            this.callback = callback;
+            this.parameter = parameter;
+        }
+    }
 }
 
 public struct MeshData {
-    public float[,] heightMap;
-    public Mesh mesh;
+    public readonly float[,] heightMap;
+    public readonly Mesh mesh;
 
     public MeshData(float[,] heightMap, Mesh mesh) {
         this.heightMap = heightMap;

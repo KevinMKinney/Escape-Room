@@ -18,12 +18,11 @@ using UnityEngine;
 public class InventoryInitializer : MonoBehaviour
 {
     #region attributes
-    private GameObject parentCanvas;
     private GameObject inventoryPanel;
     private GameObject slotPanel;
     private GameObject displayPanel;
     private GameObject controlPanel;
-    private GameObject inventoryObject;
+    private GameObject inventoryWrapper;
     private GameObject displayImage;
     private GameObject displayName;
     private GameObject displayDescription;
@@ -39,21 +38,15 @@ public class InventoryInitializer : MonoBehaviour
     // actual inventory...
     void Start()
     {
-        // get the Canvas element that this script is attached to
-        parentCanvas = this.gameObject;
-
-        // create an empty Inventory object as a sibling to the parent Canvas,
-        // then attach the Inventory class/script to the Inventory object
-        inventoryObject = new GameObject("Inventory");
-        inventoryObject.transform.SetParent(parentCanvas.transform.parent);
-        inventoryObject.AddComponent<Inventory>();
-        inventory = inventoryObject.GetComponent<Inventory>();
+        inventoryWrapper = this.gameObject;
+        inventoryWrapper.AddComponent<Inventory>();
+        inventory = inventoryWrapper.GetComponent<Inventory>();
 
         // Create Inventory Panel if it doesn't exist
-        if (!parentCanvas.transform.Find("InventoryPanel"))
+        if (!inventoryWrapper.transform.Find("InventoryPanel"))
         {
             inventoryPanel = CreatePanel("InventoryPanel");
-            inventoryPanel.transform.SetParent(parentCanvas.transform);
+            inventoryPanel.transform.SetParent(inventoryWrapper.transform);
             SetBoundaries(inventoryPanel.GetComponent<RectTransform>(), 10f, 10f, 10f, 10f);
         }
 
@@ -109,6 +102,9 @@ public class InventoryInitializer : MonoBehaviour
         putAwayButton = CreateButton("PutAwayButton", controlPanel);
         dropButton = CreateButton("DropButton", controlPanel);
         inspectButton = CreateButton("InspectButton", controlPanel);
+
+        // Add inventory control
+        inventoryWrapper.AddComponent<InventoryControl>();
     }
 
     public GameObject CreatePanel(string name)

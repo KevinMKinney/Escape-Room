@@ -6,7 +6,7 @@ public class Inventory : MonoBehaviour
 {
     #region attributes
     private List<Item> items = new List<Item>();
-    private Item equippedItem = null;
+    private int equippedItemIndex = -1;
     private int maxItemCount = 5;
     #endregion
 
@@ -25,24 +25,25 @@ public class Inventory : MonoBehaviour
         }
     }
 
-    public void DropItem(Item item)
+    public void DropItem(int i)
     {
-        items.Remove(item);
+        items.RemoveAt(i);
     }
 
-    public Item GetEquippedItem()
+    public int GetEquippedItemIndex()
     {
-        return equippedItem;
+        return equippedItemIndex;
     }
 
-    public void EquipItem(Item item)
+    public int EquipItem(int i)
     {
-        equippedItem = item;
+        if (i >= 0 || i < maxItemCount) equippedItemIndex = i;
+        return equippedItemIndex;
     }
 
     public void PackUpItem()
     {
-        equippedItem = null;
+        equippedItemIndex = -1;
     }
 
     public int GetMaxItemCount()
@@ -61,6 +62,7 @@ public class Inventory : MonoBehaviour
         AddItem(gun);
         AddItem(gasCan);
         AddItem(mazeBoard);
+        EquipItem(0);
 
         Debug.Log("Inventory Initialized...");
     }

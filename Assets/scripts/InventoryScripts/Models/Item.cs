@@ -22,19 +22,6 @@ public class Item
         this.shortDescription = shortDescription;
         this.longDescription = "NO DESCRIPTION";
     }
-
-    public Item(string itemName)
-    {
-        this.itemName = itemName;
-        this.shortDescription = "NO DESCRIPTION";
-    }
-
-    public Item()
-    {
-        this.itemName = "NO NAME";
-        this.shortDescription = "NO DESCRIPTION";
-        this.longDescription = "NO DESCRIPTION";
-    }
     #endregion
 
     #region methods

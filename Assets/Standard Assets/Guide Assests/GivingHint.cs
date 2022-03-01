@@ -1,7 +1,7 @@
 //Concrete state
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+using System.Collections;//auto-generated code
+using System.Collections.Generic;//auto-generated code
+using UnityEngine;//auto-generated code
 using TMPro;//Used for the text UI components
 public class GivingHint : GuideBaseState //this line of code is based off of iHeartGameDev https://youtu.be/Vt8aZDPzRjI
 {

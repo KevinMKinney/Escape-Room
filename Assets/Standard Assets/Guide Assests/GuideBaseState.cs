@@ -1,5 +1,5 @@
 //Base State 
-using UnityEngine;
+using UnityEngine;//auto-generated code
 using static UnityStandardAssets.Characters.FirstPerson.RigidbodyFirstPersonController;//Calling RigidBody for the player
 using UnityEngine.UI;
 using TMPro;

@@ -4,13 +4,12 @@ using UnityEngine;
 
 public class Item
 {
-
     #region attributes
     // attributes:
     private string itemName;
     private string shortDescription;
     private string longDescription;
-    public Sprite itemIcon;
+    private Sprite itemIcon;
     public GameObject inGameObject;
     #endregion
 

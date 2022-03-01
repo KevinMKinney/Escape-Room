@@ -39,8 +39,9 @@ public class MapGenerator : MonoBehaviour
 
     [Header("Entity Settings")]
     [Range(0,1)]
-    public float entityThresh;
-    public float entityspread;
+    public float entityMaxThresh;
+    //[Range(0,1)]
+    public float entityFrequency;
 
     public float noiseScaleEntity;
 
@@ -53,6 +54,8 @@ public class MapGenerator : MonoBehaviour
 
     [Space(10)]
     public bool autoUpdate;
+    public bool coloredMesh;
+    public bool entities;
 
     Queue<meshThreadInfo<MeshData>> meshDataThreadInfoQueue = new Queue<meshThreadInfo<MeshData>>();
 
@@ -74,9 +77,11 @@ public class MapGenerator : MonoBehaviour
         mesh.SetUVs(0, MeshMap.generateUVs(mesh, mapWidth, mapHeight));
         //mesh.uv = Unwrapping.GeneratePerTriangleUV(mesh);
 
-        float[] steepVal = MeshMap.calculateSteepness(mesh, mapWidth, mapHeight);
-        Color[] meshCols = MeshMap.generateColors(mesh, mapWidth, mapHeight, steepVal, snowThresh, waterThresh);
-        mesh.SetColors(meshCols);
+        if (coloredMesh) {
+            float[] steepVal = MeshMap.calculateSteepness(mesh, mapWidth, mapHeight);
+            Color[] meshCols = MeshMap.generateColors(mesh, mapWidth, mapHeight, steepVal, snowThresh, waterThresh);
+            mesh.SetColors(meshCols);
+        }
 
         return new MeshData(noiseMap, mesh);
     }
@@ -103,17 +108,22 @@ public class MapGenerator : MonoBehaviour
         meshMap = Noise.curveNoise(mapWidth, mapHeight, meshMap, meshHeightCurve);
         float[,] densityMap = Noise.generateNoiseMap(mapWidth, mapHeight, seedEntity, noiseScaleEntity, octavesEntity, persistanceEntity, lacunarityEntity, offset);
 
-        return EntityMap.generateEntityMap(meshMap, densityMap, entityThresh, entityspread);
+        return EntityMap.generateEntityMap(meshMap, densityMap, waterThresh, entityMaxThresh, entityFrequency);
     }
 
     public void drawMeshEditor() {
         MeshData meshData = generateMap();
         Mesh meshWater = generateWater();
-        float[,] entities = generateEntities();
         MapDisplay display = FindObjectOfType<MapDisplay>();
 
         display.drawNoiseMap(meshData.heightMap);
-        display.drawMeshMap(meshData.mesh, meshData.heightMap, meshWater, waterThresh, entities);
+        display.drawMeshMap(meshData.mesh, meshData.heightMap, meshWater, waterThresh);
+
+        display.removeEntitySpheres();
+        if (entities) {
+            float[,] entities = generateEntities();
+            display.drawEntities(meshData.heightMap, waterThresh, entities);
+        }
     }
 
     public void requestMeshData(Action<MeshData> callback) {

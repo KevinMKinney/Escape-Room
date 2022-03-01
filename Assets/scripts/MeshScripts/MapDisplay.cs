@@ -10,7 +10,6 @@ public class MapDisplay : MonoBehaviour
     public MeshRenderer meshRenderer;
     public MeshFilter meshFilterWater;
     public MeshRenderer meshRendererWater;
-    public ComputeShader meshComp;
 
     // creates a texture based on pre-made noise
     public void drawNoiseMap(float[,] noiseMap) {
@@ -33,7 +32,7 @@ public class MapDisplay : MonoBehaviour
         textureRender.transform.localScale = new Vector3(width, 1, height);
     }
 
-    public void drawMeshMap(Mesh meshMap, float[,] noiseMap, Mesh waterMesh, float waterThresh, float[,] entities) {
+    public void drawMeshMap(Mesh meshMap, float[,] noiseMap, Mesh waterMesh, float waterThresh) {
 
         int width = noiseMap.GetLength(0);
         int height = noiseMap.GetLength(1);
@@ -57,8 +56,7 @@ public class MapDisplay : MonoBehaviour
 
         meshRendererWater.sharedMaterial.SetFloat("_Size", width);
 
-        removeEntitySpheres();
-        drawEntitySphere(noiseMap, entities);
+
 
         meshFilter.mesh = meshMap;
         //meshObj.Renderer.material.setTexture(heightMap);
@@ -66,32 +64,39 @@ public class MapDisplay : MonoBehaviour
 
     }
 
-    private void drawEntitySphere(float[,] noiseMap, float[,] entities) {
+    public void drawEntities(float[,] noiseMap, float waterThresh, float[,] entities) {
+        //removeEntitySpheres();
+        drawEntitySphere(noiseMap, entities, waterThresh);
+    }
+
+    private void drawEntitySphere(float[,] noiseMap, float[,] entities, float waterThresh) {
         int mapWidth = noiseMap.GetLength(0);
         int mapHeight = noiseMap.GetLength(1);
-
+        int scale = 30;
         GameObject meshObj = GameObject.Find("MeshObj");
 
         for (int y = 0; y < mapHeight; y++) {
             for (int x = 0; x < mapWidth; x++) {
-                if (entities[x, y] == 1) {
+                if (entities[x, y] >= 1) {
                     float _x = x * meshObj.transform.localScale.x + meshObj.transform.position.x;
                     float _y = noiseMap[x, y] * meshObj.transform.localScale.y + meshObj.transform.position.y;
                     float _z = y * meshObj.transform.localScale.z + meshObj.transform.position.z;
 
                     GameObject sphere = GameObject.CreatePrimitive(PrimitiveType.Sphere);
                     sphere.transform.position = new Vector3(_x, _y, _z);
+                    sphere.transform.localScale = new Vector3(scale, scale, scale);
+                    sphere.GetComponent<Renderer>().sharedMaterial.color = new Color(1,0.1f,0.1f,1);
                 }
             }
         }
     }
 
-    private void removeEntitySpheres() {
+    public void removeEntitySpheres() {
         object[] objects = GameObject.FindObjectsOfType(typeof(GameObject));
         foreach (object obj in objects) {
             GameObject o = (GameObject) obj;
-            if (o.name == "sphere") {
-                Destroy(o);
+            if (o.name == "Sphere") {
+                DestroyImmediate(o);
             }
         }
     }

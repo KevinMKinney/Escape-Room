@@ -32,6 +32,7 @@ public class MapDisplay : MonoBehaviour
         textureRender.transform.localScale = new Vector3(width, 1, height);
     }
 
+    // puts meshs onto the scene
     public void drawMeshMap(Mesh meshMap, float[,] noiseMap, Mesh waterMesh, float waterThresh) {
 
         int width = noiseMap.GetLength(0);
@@ -56,19 +57,19 @@ public class MapDisplay : MonoBehaviour
 
         meshRendererWater.sharedMaterial.SetFloat("_Size", width);
 
-
-
         meshFilter.mesh = meshMap;
         //meshObj.Renderer.material.setTexture(heightMap);
         meshFilterWater.mesh = waterMesh;
 
     }
 
+    // would probably add more later
     public void drawEntities(float[,] noiseMap, float waterThresh, float[,] entities) {
         //removeEntitySpheres();
         drawEntitySphere(noiseMap, entities, waterThresh);
     }
 
+    // temp function for dev
     private void drawEntitySphere(float[,] noiseMap, float[,] entities, float waterThresh) {
         int mapWidth = noiseMap.GetLength(0);
         int mapHeight = noiseMap.GetLength(1);
@@ -91,6 +92,7 @@ public class MapDisplay : MonoBehaviour
         }
     }
 
+    // clean up GameObjects from drawEntitySphere function
     public void removeEntitySpheres() {
         object[] objects = GameObject.FindObjectsOfType(typeof(GameObject));
         foreach (object obj in objects) {

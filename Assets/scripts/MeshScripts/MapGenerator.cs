@@ -11,7 +11,7 @@ public class MapGenerator : MonoBehaviour
     public int mapWidth;
     public int mapHeight;
     public float noiseScale;
-
+    [Range(0,15)]
     public int octaves;
     [Range(0,1)]
     public float persistance;
@@ -29,7 +29,7 @@ public class MapGenerator : MonoBehaviour
 
     [Header("Water Settings")]
     public float noiseScaleWater;
-
+    [Range(0,15)]
     public int octavesWater;
     [Range(0,1)]
     public float persistanceWater;
@@ -40,11 +40,11 @@ public class MapGenerator : MonoBehaviour
     [Header("Entity Settings")]
     [Range(0,1)]
     public float entityMaxThresh;
-    //[Range(0,1)]
     public float entityFrequency;
+    public float entitySpread;
 
     public float noiseScaleEntity;
-
+    [Range(0,15)]
     public int octavesEntity;
     [Range(0,1)]
     public float persistanceEntity;
@@ -57,9 +57,10 @@ public class MapGenerator : MonoBehaviour
     public bool coloredMesh;
     public bool entities;
 
+    // queue for threading purposes
     Queue<meshThreadInfo<MeshData>> meshDataThreadInfoQueue = new Queue<meshThreadInfo<MeshData>>();
 
-    // the "main" function that handles the generation proccess
+    // the "main" function that handles the generation proccess for land mesh
     public MeshData generateMap() {
         // noisemap gets shape of mesh (see Noise.cs for further information)
         float[,] noiseMap = Noise.generateNoiseMap(mapWidth, mapHeight, seed, noiseScale, octaves, persistance, lacunarity, offset);
@@ -75,7 +76,6 @@ public class MapGenerator : MonoBehaviour
         mesh.SetTriangles(MeshMap.generateTriangles(mapWidth, mapHeight), 0);
         mesh.RecalculateNormals();
         mesh.SetUVs(0, MeshMap.generateUVs(mesh, mapWidth, mapHeight));
-        //mesh.uv = Unwrapping.GeneratePerTriangleUV(mesh);
 
         if (coloredMesh) {
             float[] steepVal = MeshMap.calculateSteepness(mesh, mapWidth, mapHeight);
@@ -95,6 +95,7 @@ public class MapGenerator : MonoBehaviour
         meshWater.name = "WaterMesh";
         meshWater.Clear();
 
+        // assign mesh aspects
         meshWater.SetVertices(MeshMap.generateVerticies(noiseMapWater));
         meshWater.SetTriangles(MeshMap.generateTriangles(mapWidth, mapHeight), 0);
         meshWater.RecalculateNormals();
@@ -104,13 +105,15 @@ public class MapGenerator : MonoBehaviour
     }
 
     public float[,] generateEntities() {
+        // noisemap gets shape of mesh (see Noise.cs for further information)
         float[,] meshMap = Noise.generateNoiseMap(mapWidth, mapHeight, seed, noiseScale, octaves, persistance, lacunarity, offset);
         meshMap = Noise.curveNoise(mapWidth, mapHeight, meshMap, meshHeightCurve);
         float[,] densityMap = Noise.generateNoiseMap(mapWidth, mapHeight, seedEntity, noiseScaleEntity, octavesEntity, persistanceEntity, lacunarityEntity, offset);
 
-        return EntityMap.generateEntityMap(meshMap, densityMap, waterThresh, entityMaxThresh, entityFrequency);
+        return EntityMap.generateEntityMap(meshMap, densityMap, seedEntity, waterThresh, entityMaxThresh, entityFrequency, entitySpread);
     }
 
+    // function calls methods from MapDisplay
     public void drawMeshEditor() {
         MeshData meshData = generateMap();
         Mesh meshWater = generateWater();
@@ -126,6 +129,7 @@ public class MapGenerator : MonoBehaviour
         }
     }
 
+    // for threading (not implemented yet)
     public void requestMeshData(Action<MeshData> callback) {
         ThreadStart threadStart = delegate {
             meshDataThread(callback);
@@ -167,6 +171,7 @@ public class MapGenerator : MonoBehaviour
         }
     }
 
+    // for threading (not implemented yet)
     struct meshThreadInfo<T> {
         public readonly Action<T> callback;
         public readonly T parameter;

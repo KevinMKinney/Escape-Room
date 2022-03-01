@@ -73,6 +73,7 @@ public static class Noise
         return noiseMap;
     }
 
+    // variant of the generateNoiseMap function that is continuous
     public static float[,] generateFlushNoiseMap(int mapWidth, int mapHeight, int seed, float scale, int octaves, float persistance, float lacunarity, Vector2 offset) {
 
       float[,] noiseMap = new float[mapWidth, mapHeight];
@@ -136,6 +137,8 @@ public static class Noise
       return noiseMap;
       }
 
+      // Applies an AnimationCurve to noise
+      // (would proably be better to do it functionally, but I'm not sure how to with multidimensional arrays)
       public static float[,] curveNoise(int mapWidth, int mapHeight, float[,] noiseMap, AnimationCurve heightCurve) {
           for (int y = 0; y < mapHeight; y++) {
               for (int x = 0; x < mapWidth; x++) {

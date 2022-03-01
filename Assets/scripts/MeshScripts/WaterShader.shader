@@ -76,6 +76,7 @@ Shader "Unlit/WaterShader"
 
                 // would prob need to update this when player is added
                 float distToWater = i.screenPos.w - i.position;
+                // maybe UNITY_SAMPLE_SHADOW
                 float waterViewDepth = LinearEyeDepth(SAMPLE_DEPTH_TEXTURE_PROJ(_CameraDepthTexture, i.screenPos));
                 float alphaEdge = 1 - exp(-waterViewDepth * edgeFade);
                 /*

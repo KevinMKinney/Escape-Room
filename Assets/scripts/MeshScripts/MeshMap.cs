@@ -84,7 +84,7 @@ public static class MeshMap
         // initialize variables
         int size = mapWidth*mapHeight;
         Color[] colors = new Color[size];
-        // get some random colors
+        // color init
         //Color col1 = Random.ColorHSV(0f, 1f, 1f, 1f, 0.5f, 1f);
         //Color col2 = Random.ColorHSV(0f, 1f, 1f, 1f, 0.5f, 1f);
         Color col1 = Color.green;
@@ -109,6 +109,7 @@ public static class MeshMap
         return colors;
     }
 
+    // WIP - function for testing computational time
     public static void getTime(int a) {
         Debug.Log("Time at "+a+" is: "+Time.time);
     }

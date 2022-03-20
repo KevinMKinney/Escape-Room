@@ -11,11 +11,11 @@ namespace UnityStandardAssets.CrossPlatformInput
         
         
         protected Dictionary<string, CrossPlatformInputManager.VirtualAxis> m_VirtualAxes =
-            new Dictionary<string, CrossPlatformInputManager.VirtualAxis>();
+            new();
             // Dictionary to store the name relating to the virtual axes
         protected Dictionary<string, CrossPlatformInputManager.VirtualButton> m_VirtualButtons =
-            new Dictionary<string, CrossPlatformInputManager.VirtualButton>();
-        protected List<string> m_AlwaysUseVirtual = new List<string>();
+            new();
+        protected List<string> m_AlwaysUseVirtual = new();
             // list of the axis and button names that have been flagged to always use a virtual axis or button
         
 

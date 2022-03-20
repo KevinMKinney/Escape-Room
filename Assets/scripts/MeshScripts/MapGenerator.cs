@@ -37,7 +37,7 @@ public class MapGenerator : MonoBehaviour
         // might be more efficent to just update mesh instead of making a new one
 
         // mesh init
-        Mesh mesh = new Mesh();
+        Mesh mesh = new();
         mesh.name = "PerlinMesh";
         mesh.Clear();
 

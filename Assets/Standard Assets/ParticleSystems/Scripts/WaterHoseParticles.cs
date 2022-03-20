@@ -10,7 +10,7 @@ namespace UnityStandardAssets.Effects
         public float force = 1;
 
 
-        private List<ParticleCollisionEvent> m_CollisionEvents = new List<ParticleCollisionEvent>();
+        private List<ParticleCollisionEvent> m_CollisionEvents = new();
         private ParticleSystem m_ParticleSystem;
 
 

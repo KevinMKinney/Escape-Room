@@ -5,7 +5,7 @@ Project for CS 320 -
 - Kevin Kinney
 - Troy Rasband
 - Bradley Dowling
-- Joseph Wiedeman
+- Joseph Tyler Wiedeman
 - Nicole Batchelor
 
 # Getting started

@@ -11,7 +11,7 @@ public class pick_up : MonoBehaviour
     public Rigidbody rb;
     public int rotateY = 0;
     public int rotateX = 0;
-    public Vector3 trans = new Vector3(1, -1, 2);
+    public Vector3 trans = new(1, -1, 2);
     public raycast raycast;
     public bool firstPickUp;
     [HideInInspector]
@@ -23,7 +23,7 @@ public class pick_up : MonoBehaviour
 
     void Update()
     {
-        //If the object is in the void than teleport it to a possible spawn location.
+        //If the object is in the void than teleport, it to a possible spawn location.
         if (transform.position.y < -20)
         {
             // Get a random spawn location and set the location of the current object to its location.

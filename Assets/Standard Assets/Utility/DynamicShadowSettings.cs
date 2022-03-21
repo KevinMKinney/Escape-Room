@@ -28,7 +28,7 @@ namespace UnityStandardAssets.Utility
         // Update is called once per frame
         private void Update()
         {
-            Ray ray = new Ray(Camera.main.transform.position, -Vector3.up);
+            Ray ray = new(Camera.main.transform.position, -Vector3.up);
             RaycastHit hit;
             float height = transform.position.y;
             if (Physics.Raycast(ray, out hit))

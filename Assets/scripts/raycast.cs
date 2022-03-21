@@ -111,10 +111,10 @@ public class raycast : MonoBehaviour
                                             //Loop though all items that are picked up and find the one being held.
                                             foreach (pick_up islock in FindObjectsOfType<pick_up>())
                                             {
-                                                //The item is held
+                                                //The item is held.
                                                 if (islock.pickedup == 2)
                                                 {
-                                                    //Save the item
+                                                    //Save the item.
                                                     gasCan = islock;
                                                 }
                                             }
@@ -145,7 +145,7 @@ public class raycast : MonoBehaviour
             //If the player is not holding down the left mouse button than fire out a raycast anyway.
             if (Physics.Raycast(transform.position, transform.GetComponent<Camera>().transform.TransformDirection(Vector3.forward), out raycastHit))
             {
-                // If the item can be picked up than display it's name on the screen.
+                // If the item can be picked up than display its name on the screen.
                 if (raycastHit.transform.GetComponent<pick_up>() != null)
                 {
                     // Make sure the text is not transparent.

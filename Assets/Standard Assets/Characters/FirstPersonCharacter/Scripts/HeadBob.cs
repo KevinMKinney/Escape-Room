@@ -7,8 +7,8 @@ namespace UnityStandardAssets.Characters.FirstPerson
     public class HeadBob : MonoBehaviour
     {
         public Camera Camera;
-        public CurveControlledBob motionBob = new CurveControlledBob();
-        public LerpControlledBob jumpAndLandingBob = new LerpControlledBob();
+        public CurveControlledBob motionBob = new();
+        public LerpControlledBob jumpAndLandingBob = new();
         public RigidbodyFirstPersonController rigidbodyFirstPersonController;
         public float StrideInterval;
         [Range(0f, 1f)] public float RunningStrideLengthen;

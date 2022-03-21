@@ -13,4 +13,17 @@ public static class Extensions
     {
         return list.ElementAt(Random.Range(0, list.Count()));
     }
+    public static void Rearrange<T>( this IList<T> list)
+    {
+        int a = list.Count;
+        while (a > 1)
+        {
+            a--;
+            int b = Random.Range(0, a +1);
+            T value = list[b];
+            list[b] = list[a];  
+            list[a] = value;
+            
+        }
+    }
 }

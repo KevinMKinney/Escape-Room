@@ -1,5 +1,7 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
+using UnityEngine.Assertions;
 
 /* 
  * Written this semester.
@@ -31,8 +33,10 @@ struct MeshInfo
      */
     public void DeleteVertex(int index)
     {
+        // Test if the vertex we are deleting is in use.
+        Assert.IsFalse(triangles.Contains(index));
         /* Find any triangles referencing vertices with an index higher than the index of the vertex being deleted.
-         * Subtract one from thair index because the indexs higher than index will be shifted when an element is removed.
+         * Subtract one from their index because the index's higher than index will be shifted when an element is removed.
          */
         for (int i = 0; i < triangles.Length; i++)
         {
@@ -41,7 +45,7 @@ struct MeshInfo
                 triangles[i]--;
             }
         }
-        //Create new arrays for vertices and uvs, one shorter than the orginal becuase of the removed element.
+        //Create new arrays for vertices and uvs, one shorter than the original because of the removed element.
         Vector3[] newVertices = new Vector3[vertices.Length - 1];
         Vector2[] newUvs = new Vector2[uvs.Length - 1];
         //Counter for the index of the element of these arrays we are on.
@@ -125,7 +129,7 @@ struct MeshInfo
     public static MeshInfo operator +(MeshInfo a, MeshInfo b)
     {
         //The mesh info object to return.
-        MeshInfo info = new MeshInfo(new int[a.triangles.Length + b.triangles.Length], new Vector3[a.vertices.Length + b.vertices.Length], new Vector2[a.uvs.Length + b.uvs.Length]);
+        MeshInfo info = new(new int[a.triangles.Length + b.triangles.Length], new Vector3[a.vertices.Length + b.vertices.Length], new Vector2[a.uvs.Length + b.uvs.Length]);
 
         //Copy uvs from object 'a' to the return object.
         for (int i = 0; i < a.uvs.Length; i++)
@@ -197,7 +201,7 @@ public static class BlobGenerator
     static MeshInfo SideCube(Vector3 one, int design)
     {
         //Get the vectors so that we know what direction to generate the points at.
-        Vector3 vector1 = new Vector3(one.y, one.z, one.x);
+        Vector3 vector1 = new(one.y, one.z, one.x);
         Vector3 vector2 = CrossProduct(one, vector1);
         //Create the vertex, uv, and triangle arrays.
         Vector3[] vertices = new Vector3[design * design];
@@ -279,9 +283,9 @@ public static class BlobGenerator
     public static Mesh GenerateBlobMesh()
     {
         //The generated mesh.
-        Mesh mesh = new Mesh();
+        Mesh mesh = new();
         //Create an empty info object.
-        MeshInfo info = new MeshInfo(new int[0], new Vector3[0], new Vector2[0]);
+        MeshInfo info = new(new int[0], new Vector3[0], new Vector2[0]);
 
         //Generate all of the sides of the cube.
         foreach (MeshInfo meshInfo in GenSideCube(15))
@@ -314,7 +318,7 @@ public static class BlobGenerator
 
         //Set new vertices to the mesh.
         mesh.vertices = newVerts;
-        
+
         //Recalulate and optimize the mesh.
         mesh.RecalculateNormals();
         mesh.RecalculateTangents();

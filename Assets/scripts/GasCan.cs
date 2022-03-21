@@ -3,8 +3,8 @@ using UnityEngine;
 /* 
  * Written this semester.
  * This script is placed on the generator Gas Can.
- * It allows the player use the gas can and shake it, spilling blobs of gas everywhare and filling up the ganerator with gas.
- * When this happens it tells the generator that it has gas, and thus can be started.
+ * It allows the player to use the gas can and shake it, spilling blobs of gas everywhare and filling up the ganerator with gas.
+ * When this happens, it tells the generator that it has gas, and thus can be started.
  * To fill up the Generator with gas the gas cap must be fully open, the player is holding down the left mouse button and has the crosshair over the gas cap.
  */
 
@@ -40,7 +40,7 @@ public class GasCan : MonoBehaviour
     Vector3 oldRotation;
     Vector3 newRotation;
     //Where the gas can will be shaken in relation to the cas cap.
-    public Vector3 gasCanShakeOffSet = new Vector3(0, 2, 0);
+    public Vector3 gasCanShakeOffSet = new(0, 2, 0);
     //How much the gas can will shake up and down.
     public float shakeHeight = 0.75f;
     //A reference to the OpenGasCap script.
@@ -102,7 +102,7 @@ public class GasCan : MonoBehaviour
         }
     }
 
-    //Perform curent animation.
+    //Perform current animation.
     void GasCanPourAnimation()
     {
         if (state == GasCanAnimationState.TowardGenerator)
@@ -117,7 +117,7 @@ public class GasCan : MonoBehaviour
             //Assign the interpolated values
             transform.eulerAngles = lerpualRotation;
             transform.position = lerpual;
-            //When interpolateTime = 1 than the animation is commplete and the gas can is hovering above the Gas cap. 
+            //When interpolateTime = 1 than the animation is complete, and the gas can is hovering above the Gas cap. 
             if (interpolateTime >= 1)
             {
                 //Change the state to the next animation.
@@ -142,7 +142,7 @@ public class GasCan : MonoBehaviour
 
                 //Give the correct material to the gas splat script to use.
                 gasSplat.gasSplatMaterial = gasSplater;
-                //When the blob is destroyed parent the projecter gameobject to the generator.
+                //When the blob is destroyed parent the projector gameobject to the generator.
                 gasSplat.projectorParent = FindObjectOfType<Generator>().gameObject;
 
                 //Make the gas blob small and give it some random variation.
@@ -157,7 +157,7 @@ public class GasCan : MonoBehaviour
                 gasCopy.AddComponent<SphereCollider>();
 
                 //Assign a random rotation to the gas blob.
-                Vector3 rotaion = new Vector3(0, 0, 0);
+                Vector3 rotaion = new(0, 0, 0);
                 rotaion.x = Random.Range(-180f,180f );
                 rotaion.y = Random.Range(-180f, 180f);
                 rotaion.z = Random.Range(-180f, 180f);
@@ -166,17 +166,19 @@ public class GasCan : MonoBehaviour
                 //Make the gas blob invisible to raycasts.
                 gasCopy.layer = 2;
 
-                //Assign a random velocity to the blob using the gasBlobSpeed speed vaiable.
+                //Assign a random velocity to the blob using the gasBlobSpeed speed variable.
                 Vector3 velcity = Random.insideUnitSphere * gasBlobSpeed;
                 //The velocity is moved down to prevent the blobs from moving up.
                 velcity -= new Vector3(0, gasBlobSpeed, 0);
                 rb.velocity = velcity;
+                //Test that the gas blob is not moving upward.
+                UnityEngine.Assertions.Assert.IsTrue(rb.velocity.y <= 0);
             }
             //The value to use for the sine wave.
             float interpolateTime = (float)animationFrame / 20;
 
             //Find the next position using a sine wave to move the gas can up and down.
-            Vector3 nextPosition = new Vector3(newPostion.x, Mathf.Sin(interpolateTime) * shakeHeight + newPostion.y, newPostion.z);
+            Vector3 nextPosition = new(newPostion.x, Mathf.Sin(interpolateTime) * shakeHeight + newPostion.y, newPostion.z);
             transform.position = nextPosition;
         }
         else if (state == GasCanAnimationState.BackToPlayer)
@@ -194,7 +196,7 @@ public class GasCan : MonoBehaviour
             transform.eulerAngles = lerpualRotation;
             transform.position = lerpual;
 
-            //If the animation time is less than zero the gas can has fully returned to the players hand.
+            //If the animation time is less than zero the gas can has fully returned to the player's hand.
             if (interpolateTime <= 0)
             {
                 //The gas can is now in the players hand, end the animation.
@@ -206,7 +208,7 @@ public class GasCan : MonoBehaviour
             // Every frame 'animationFrame' will count down, so decrement it by 2 to invalidate the + 1 we get at the end of the frame.
             animationFrame -= 2;
         }
-        //Progress the aniamtion.
+        //Progress the animation.
         animationFrame++;
     }
     private void Update()

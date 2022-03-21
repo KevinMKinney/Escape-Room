@@ -18,7 +18,7 @@ public static class MeshMap
         // Turn noiseMap pixels into vertices (1 pixel = 1 vertex)
         for(int y = 0; y < mapHeight; y++) {
             for(int x = 0; x < mapWidth; x++) {
-                Vector3 v = new Vector3(x, (noiseMap[x, y]), y);
+                Vector3 v = new(x, (noiseMap[x, y]), y);
                 vertices.SetValue(v, (y*mapWidth+x));
             }
         }

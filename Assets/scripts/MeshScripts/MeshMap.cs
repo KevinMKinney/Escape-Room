@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering;
 using System.Linq;
+using System;
 
-[RequireComponent(typeof(MeshFilter), (typeof(MeshRenderer)))]
+//[RequireComponent(typeof(MeshFilter), (typeof(MeshRenderer)))]
 public static class MeshMap
 {
     // creates vertices for mesh based on pre-made noise
@@ -12,6 +13,11 @@ public static class MeshMap
         // initialize variables
         int mapWidth = noiseMap.GetLength(0);
         int mapHeight = noiseMap.GetLength(1);
+
+        if (mapWidth <= 1 || mapHeight <= 1) {
+            throw new Exception();
+            //return null;
+        }
 
         Vector3[] vertices = new Vector3[mapWidth*mapHeight];
 
@@ -28,6 +34,12 @@ public static class MeshMap
 
     // creates triangles for mesh
     public static int[] generateTriangles(int mapWidth, int mapHeight) {
+
+        if (mapWidth <= 1 || mapHeight <= 1) {
+            throw new Exception();
+            //return null;
+        }
+
         // initialize variables
         int index = 0;
         int j = 0;

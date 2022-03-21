@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class EntityMap {
 
@@ -14,14 +15,16 @@ public class EntityMap {
         int mapWidth = noiseMap.GetLength(0);
         int mapHeight = noiseMap.GetLength(1);
 
+        int points = 10;
+
         // get valid locations
         float[,] validEntityLocations = getValidLocations(noiseMap, minThresh, maxThresh);
         // make groups of entities
         validEntityLocations = multiplyMaps(validEntityLocations, densityMap, frequency);
 
-        //float[,] randomSpreadPoints = getRandomSpreadPoints(mapWidth, mapHeight, seed, spread);
+        float[,] randomSpreadPoints = getRandomSpreadPoints(mapWidth, mapHeight, seed, spread, points);
 
-        return validEntityLocations;
+        return multiplyMaps(validEntityLocations, randomSpreadPoints, 1);
     }
 
     // finds all valid locations for entities from the mesh's noise
@@ -58,16 +61,76 @@ public class EntityMap {
         return result;
     }
 
-    // WIP
-    private static float[,] getRandomSpreadPoints(int mapWidth, int mapHeight, int seed, float spread) {
-
-        System.Random prng = new System.Random(seed);
-        int randX = prng.Next(0, mapWidth);
-        int randY = prng.Next(0, mapHeight);
+    //
+    private static float[,] getRandomSpreadPoints(int mapWidth, int mapHeight, int seed, float spread, int points) {
+        //Debug.Log("X: "+randX+" | Y: "+randY);
 
         float[,] spreadPoints = new float[mapWidth, mapHeight];
-        //Vector2 direction = new Vector2[prng.Next(-1, 1), prng.Next(-1, 1)];
+        for (int y = 0; y < mapHeight; y++) {
+            for (int x = 0; x < mapWidth; x++) {
+                spreadPoints[x,y] = 1;
+            }
+        }
+
+        if (points >= (mapWidth * mapHeight)) {
+            Debug.Log("Invalid number of points");
+            return spreadPoints;
+        }
+
+        System.Random prng = new System.Random(seed);
+        Vector2 point;
+        while (points > 0) {
+            do {
+                int randX = prng.Next(0, mapWidth);
+                int randY = prng.Next(0, mapHeight);
+                point = new Vector2(randX, randY);
+                //Debug.Log("Testing point: "+randX+", "+randY);
+            } while (spreadPoints[(int)point.x, (int)point.y] != 1);
+
+            Vector2[] invalidPoints = getPointsInRadius(mapWidth, mapHeight, point, spread);
+            int invalidSize = invalidPoints.Length;
+            for (int i = 0; i < invalidSize; i++) {
+                Vector2 invalidPoint = invalidPoints[i];
+                //Debug.Log("test: "+spreadPoints[(int)invalidPoint.x, (int)invalidPoint.y]);
+                spreadPoints[(int)invalidPoint.x, (int)invalidPoint.y] = 0;
+            }
+
+            points--;
+        }
+        /*
+        for (int y = 0; y < mapHeight; y++) {
+            for (int x = 0; x < mapWidth; x++) {
+                Debug.Log("spreadPoints: "+spreadPoints[x, y]);
+            }
+        }*/
 
         return spreadPoints;
+    }
+
+    private static Vector2[] getPointsInRadius(int mapWidth, int mapHeight, Vector2 point, float radius) {
+        int index = 0;
+        Vector2[] pointArray = new Vector2[0];
+
+        int radFloor = Mathf.FloorToInt(radius);
+        int radCeil = Mathf.CeilToInt(radius);
+
+        int minX = Math.Clamp(((int)point.x - radFloor), 0, mapWidth);
+        int maxX = Math.Clamp(((int)point.x + radCeil), 0, mapWidth);
+        int minY = Math.Clamp(((int)point.y - radFloor), 0, mapHeight);
+        int maxY = Math.Clamp(((int)point.y + radCeil), 0, mapHeight);
+
+        for (int y = minY; y < maxY; y++) {
+            for (int x = minX; x < maxX; x++) {
+                Vector2 other = new Vector2(x,y);
+                float dist = Vector2.Distance(point, other);
+                if (dist <= radius) {
+                    Array.Resize(ref pointArray, pointArray.Length+1);
+                    pointArray[index] = other;
+                    index++;
+                }
+            }
+        }
+
+        return pointArray;
     }
 }

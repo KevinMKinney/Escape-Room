@@ -157,10 +157,10 @@ public class MapGenerator : MonoBehaviour
     // purely for fixing base cases (invalid inputs)
     void OnValidate() {
         if (mapWidth < 1) {
-            mapWidth = 1;
+            mapWidth = 2;
         }
         if (mapHeight < 1) {
-            mapHeight = 1;
+            mapHeight = 2;
         }
 
         if (lacunarity < 1) {

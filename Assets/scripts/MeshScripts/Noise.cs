@@ -138,7 +138,6 @@ public static class Noise
       }
 
       // Applies an AnimationCurve to noise
-      // (would proably be better to do it functionally, but I'm not sure how to with multidimensional arrays)
       public static float[,] curveNoise(int mapWidth, int mapHeight, float[,] noiseMap, AnimationCurve heightCurve) {
           for (int y = 0; y < mapHeight; y++) {
               for (int x = 0; x < mapWidth; x++) {
@@ -147,4 +146,9 @@ public static class Noise
           }
           return noiseMap;
       }
+
+      /* // does not work :(
+      public static float[,] curveNoiseFunctionally(float[,] noiseMap, AnimationCurve heightCurve) {
+          return noiseMap.Select(y => y.Select(x => heightCurve.Evaluate(x)).ToArray()).ToArray();
+      } */
 }

@@ -11,6 +11,7 @@ Shader "Unlit/WaterShader"
 
         edgeFade ("edgeFade", float) = 0
         foamThresh ("foamThresh", float) = 0
+        foamSize ("foamSize", float) = 0
 
     }
     SubShader {
@@ -30,8 +31,10 @@ Shader "Unlit/WaterShader"
             float _Size;
             float4 ShallowColor;
             float4 DeepColor;
+            float4 FoamColor;
             float edgeFade;
             float foamThresh;
+            float foamSize;
 
             sampler2D _CameraDepthTexture;
 
@@ -63,10 +66,12 @@ Shader "Unlit/WaterShader"
 
                 // pass info to fragment shader
                 o.vertex = UnityObjectToClipPos(v.vertex); // clip space = screen location
-                o.position = mul(unity_ObjectToWorld, float4(0,0,0,1)).xyz;
+                //o.position = mul(unity_ObjectToWorld, float4(0,0,0,1)).xyz;
+                o.position = mul(unity_ObjectToWorld, v.vertex).xyz;
                 //o.color = v.color;
                 o.uv = v.uv;
-                o.screenPos = ComputeScreenPos(v.vertex);
+                o.screenPos = ComputeScreenPos(float4(o.position.xyz, 1));
+                //o.screenPos = ComputeScreenPos(v.vertex);
                 return o;
             }
 
@@ -75,17 +80,26 @@ Shader "Unlit/WaterShader"
             float4 frag (Interpolator i) : SV_Target {
 
                 // would prob need to update this when player is added
-                float distToWater = i.screenPos.w - i.position;
+                //float distToWater = i.screenPos.w; // - i.position;
+                float distToWater = distance(_WorldSpaceCameraPos, i.position);
                 // maybe UNITY_SAMPLE_SHADOW
                 float waterViewDepth = LinearEyeDepth(SAMPLE_DEPTH_TEXTURE_PROJ(_CameraDepthTexture, i.screenPos));
-                float alphaEdge = 1 - exp(-waterViewDepth * edgeFade);
+
+                float alphaEdge = 1 - exp(-(waterViewDepth + distToWater) * edgeFade);
                 /*
                 float foamCol = 0;
                 if (waterViewDepth < foamThresh+sin(_Time.y)) {
                     foamCol = saturate(waterViewDepth);
                 }*/
-                float3 col = lerp(ShallowColor, DeepColor, 1-exp(-waterViewDepth * edgeFade));
-                //col = col + foamCol;
+
+                //float foamSize = 4;
+
+                float foamTrans = saturate(waterViewDepth / foamSize);
+                float foamAlpha = smoothstep(1, foamThresh, foamTrans);
+                FoamColor.a = foamAlpha;
+
+                float3 col = lerp(ShallowColor, DeepColor, alphaEdge);
+                col = col + FoamColor;
                 i.color = float4(col, alphaEdge);
                 return i.color;
             }

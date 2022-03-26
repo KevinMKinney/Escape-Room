@@ -2,31 +2,33 @@
 using System.Collections;//auto-generated code
 using System.Collections.Generic;//auto-generated code
 using UnityEngine;//auto-generated code
-using UnityStandardAssets.Characters.FirstPerson;//Calls user script
+//using UnityStandardAssets.Characters.FirstPerson;//Calls user script
 using TMPro;//Used for the text UI components
 
 public class RoomTrigger : GuideBaseState //this line of code is based off of iHeartGameDev https://youtu.be/Vt8aZDPzRjI
 {
-    KeyCode key2 = KeyCode.N;//Listens for user keyboard input to close prompt
+    public GuideStateManager Guide2;//test
+    public Collider collider2;//test
+    public KeyCode key2 = KeyCode.N;//Listens for user keyboard input to close prompt
     private TextMeshProUGUI sometext;//defining text UI variable
     //Calls OnTriggerEnter whenever the user enters a puzzle area
     public override void OnTriggerEnter(GuideStateManager Guide, Collider collider)
     {
         //If user enters any of the puzzle triggers, switch to RoomDialogue
         if(collider.gameObject.tag=="spawn"){
-        Guide.SwitchState(Guide.RoomState);
+            Guide.SwitchState(Guide.RoomState);
         }
         if(collider.gameObject.tag=="Puzzle 1 Wait"){
-        Guide.SwitchState(Guide.RoomState);
+            Guide.SwitchState(Guide.RoomState);
         }
         if(collider.gameObject.tag=="Puzzle 2 Wait"){
-        Guide.SwitchState(Guide.RoomState);
+            Guide.SwitchState(Guide.RoomState);
         }
         if(collider.gameObject.tag=="Puzzle 0 Wait"){
-        Guide.SwitchState(Guide.RoomState);
+            Guide.SwitchState(Guide.RoomState);
         }
         if(collider.gameObject.tag=="Puzzle 3 Wait"){
-        Guide.SwitchState(Guide.RoomState);
+            Guide.SwitchState(Guide.RoomState);
         }
     }
     //Initial state called when switching state
@@ -42,6 +44,9 @@ public class RoomTrigger : GuideBaseState //this line of code is based off of iH
             Guide.SwitchState(Guide.TriggerState);
       }
     }
+
+
     public override void Message(GuideStateManager Guide, TextMeshProUGUI sometext){    
     }
+
 }

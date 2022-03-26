@@ -6,9 +6,9 @@ using TMPro;//Used for the text UI components
 public class GivingHint : GuideBaseState //this line of code is based off of iHeartGameDev https://youtu.be/Vt8aZDPzRjI
 {
   private TextMeshProUGUI sometext;//defining text UI variable
-  int hintRoom=0;//A hint system that identifies which hint area the player has triggered
+  public int hintRoom=0;//A hint system that identifies which hint area the player has triggered
   KeyCode key = KeyCode.Y;//listens for the Y key being pressed
-  KeyCode key2 = KeyCode.N; //listens for the N key being pressed
+  public KeyCode key2 = KeyCode.N; //listens for the N key being pressed
 
 public override void OnTriggerEnter(GuideStateManager Guide, Collider collider){//Detects collision with puzzle triggers
            GameObject random = GameObject.Find("GuideMessage");//Whenever the player triggers a hint area, takes the object and attaches a text UI
@@ -38,7 +38,6 @@ public override void OnTriggerEnter(GuideStateManager Guide, Collider collider){
               Guide.SwitchState(Guide.TriggerState);
             }
         }
-        
         if(collider.gameObject.tag=="HintArea0" || collider.gameObject.tag=="HintArea0.1" || collider.gameObject.tag=="HintArea0.2" || collider.gameObject.tag=="HintArea0.3" || collider.gameObject.tag=="HintArea0.4" || collider.gameObject.tag=="HintArea0.5"){
            hintRoom=3;
            sometext.text = "Would you like a hint for this puzzle?  If yes press Y, if not then press N";
@@ -51,7 +50,7 @@ public override void OnTriggerEnter(GuideStateManager Guide, Collider collider){
               Guide.SwitchState(Guide.TriggerState);
             }
         }
-         if(collider.gameObject.tag=="HintArea3" || collider.gameObject.tag=="HintArea3.1" || collider.gameObject.tag=="HintArea3.2" || collider.gameObject.tag=="HintArea3.3" || collider.gameObject.tag=="HintArea3.4" || collider.gameObject.tag=="HintArea3.5" || collider.gameObject.tag=="HintArea3.6"){
+        if(collider.gameObject.tag=="HintArea3" || collider.gameObject.tag=="HintArea3.1" || collider.gameObject.tag=="HintArea3.2" || collider.gameObject.tag=="HintArea3.3" || collider.gameObject.tag=="HintArea3.4" || collider.gameObject.tag=="HintArea3.5" || collider.gameObject.tag=="HintArea3.6"){
            hintRoom=4;
            sometext.text = "Would you like a hint for this puzzle?  If yes press Y, if not then press N";
             if(Input.GetKeyDown(key)){
@@ -77,7 +76,7 @@ public override void OnTriggerEnter(GuideStateManager Guide, Collider collider){
         sometext.text=" ";
         Guide.SwitchState(Guide.TriggerState);
       }
-       if(Input.GetKeyDown(key)){//If user wants to see the hint, close current prompt and display the hint
+      if(Input.GetKeyDown(key)){//If user wants to see the hint, close current prompt and display the hint
            GameObject random = GameObject.Find("GuideMessage");
            sometext = random.GetComponent<TextMeshProUGUI>();
            sometext.text=" ";          
@@ -86,6 +85,7 @@ public override void OnTriggerEnter(GuideStateManager Guide, Collider collider){
     }
     //Provides the correlated hint for the hint area triggered
     public override void Message(GuideStateManager Guide, TextMeshProUGUI sometext){
+        
         //Depending on what hint is triggered, displays message, switches state and sets the hintRoom variable back to 0
         if(hintRoom==1){
           sometext.text = "It seems like the gun would be useful \n\n\nPress N to close hint";

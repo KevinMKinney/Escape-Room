@@ -9,8 +9,9 @@ public class pick_up : MonoBehaviour
     public int pickedup = 5;
     public Transform playerCam;
     public Rigidbody rb;
-    public int rotate = -90;
-    public Vector3 trans = new Vector3(1, -1, 2);
+    public int rotateY = 0;
+    public int rotateX = 0;
+    public Vector3 trans = new(1, -1, 2);
     public raycast raycast;
     public bool firstPickUp;
     [HideInInspector]
@@ -22,10 +23,10 @@ public class pick_up : MonoBehaviour
 
     void Update()
     {
-        //If the object is in the void than teleport it to a possible spawn location.
+        //If the object is in the void than teleport, it to a possible spawn location.
         if (transform.position.y < -20)
         {
-            // Get a random spawn location and and set the location of the current object to its location.
+            // Get a random spawn location and set the location of the current object to its location.
             transform.position = HelpfulInfo.SpawnPlaces.RandomElement().transform.position;
         }
 
@@ -34,7 +35,7 @@ public class pick_up : MonoBehaviour
             transform.position = playerCam.position;
             transform.Translate(trans, playerCam);
             transform.rotation = playerCam.rotation;
-            transform.Rotate(0, 0, rotate);
+            transform.Rotate(rotateX, 0, rotateY);
         }
 
 
@@ -48,15 +49,16 @@ public class pick_up : MonoBehaviour
                     transform.position = playerCam.position;
                     transform.Translate(trans, playerCam);
                     transform.rotation = playerCam.rotation;
-                    transform.Rotate(0, 0, rotate);
+                    transform.Rotate(rotateX, 0, rotateY);
                 }
                 if (pickedup == 2)
                 {
                     pickedup = 4;
                     rb.isKinematic = false;
+                    GetComponent<Collider>().enabled = true;
                     rb.velocity = Vector3.zero;
                     rb.angularVelocity = Vector3.zero;
-                    rb.AddRelativeForce(-500, 0, 1000);
+                    rb.AddForce(raycast.transform.forward * 500);
 
                 }
             }
@@ -76,6 +78,7 @@ public class pick_up : MonoBehaviour
                 transform.Rotate(0, 0, -90);
                 firstPickUp = true;
                 rb.isKinematic = true;
+                GetComponent<Collider>().enabled = false;
             }
         }
     }

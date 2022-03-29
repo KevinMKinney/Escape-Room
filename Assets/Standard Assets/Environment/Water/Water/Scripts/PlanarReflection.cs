@@ -66,7 +66,7 @@ namespace UnityStandardAssets.Water
 
         RenderTexture CreateTextureFor(Camera cam)
         {
-            RenderTexture rt = new RenderTexture(Mathf.FloorToInt(cam.pixelWidth * 0.5F),
+            RenderTexture rt = new(Mathf.FloorToInt(cam.pixelWidth * 0.5F),
                 Mathf.FloorToInt(cam.pixelHeight * 0.5F), 24);
             rt.hideFlags = HideFlags.DontSave;
             return rt;
@@ -178,7 +178,7 @@ namespace UnityStandardAssets.Water
             pos.y = reflectiveSurface.position.y;
             Vector3 normal = reflectiveSurface.transform.up;
             float d = -Vector3.Dot(normal, pos) - clipPlaneOffset;
-            Vector4 reflectionPlane = new Vector4(normal.x, normal.y, normal.z, d);
+            Vector4 reflectionPlane = new(normal.x, normal.y, normal.z, d);
 
             Matrix4x4 reflection = Matrix4x4.zero;
             reflection = CalculateReflectionMatrix(reflection, reflectionPlane);

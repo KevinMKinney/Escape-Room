@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 
 /* 
- * Lines 92 - 109 and 118 - 136 written this semester.
+ * Lines 46 - 49, 96 - 136 and 145 - 163 written this semester.
  * Finds objects under the crosshair
  */
 public class raycast : MonoBehaviour
@@ -42,7 +42,11 @@ public class raycast : MonoBehaviour
         {
             if (Physics.Raycast(transform.position, transform.GetComponent<Camera>().transform.TransformDirection(Vector3.forward), out raycastHit))
             {
-                if ((raycastHit.collider.GetComponent<door>() != null) || (raycastHit.collider.GetComponent<ExitDoor>() != null))
+                //If the player is looking at the gas can but is pouring gas continue to pour gas.
+                if(raycastHit.collider.GetComponent<GasCan>() != null && raycastHit.collider.GetComponent<GasCan>().frameSinceLastPour < 2)
+                {
+                    raycastHit.collider.GetComponent<GasCan>().ContinuePouringGas();
+                } else if ((raycastHit.collider.GetComponent<door>() != null) || (raycastHit.collider.GetComponent<ExitDoor>() != null))
                 {
                     canthrow = true;
                 }
@@ -89,13 +93,14 @@ public class raycast : MonoBehaviour
                                 }
                                 else
                                 {
-                                    //If a GameObject with the Starter script is under the crosshair than call it's clicked function 
+                                    //If a GameObject with the Starter script is under the crosshair than call it's clicked function. 
                                     if ((raycastHit.collider.GetComponent<Starter>() != null))
                                     {
                                         raycastHit.collider.GetComponent<Starter>().Clicked();
-                                    }//If a GameObject with the OpenGasCap script is under the crosshair than call it's clicked function 
+                                    }//If a GameObject with the OpenGasCap script is under the crosshair than call it's clicked function. 
                                     else if ((raycastHit.collider.GetComponent<OpenGasCap>() != null))
                                     {
+                                        //If the gas cap is not open try to open it.
                                         if (!raycastHit.collider.GetComponent<OpenGasCap>().isOpen)
                                         {
                                             raycastHit.collider.GetComponent<OpenGasCap>().Clicked();
@@ -106,14 +111,15 @@ public class raycast : MonoBehaviour
                                             //Loop though all items that are picked up and find the one being held.
                                             foreach (pick_up islock in FindObjectsOfType<pick_up>())
                                             {
-                                                //The item is held
+                                                //The item is held.
                                                 if (islock.pickedup == 2)
                                                 {
-                                                    //Save the item
+                                                    //Save the item.
                                                     gasCan = islock;
                                                 }
                                             }
-                                            if(gasCan.gameObject.name == "Gas Can")
+                                            //If the player is holding the gas can and the gas cap is open then start to pour the gas.
+                                            if(gasCan && gasCan.gameObject.name == "Gas Can")
                                             {
                                                 gasCan.gameObject.GetComponent<GasCan>().ContinuePouringGas();
                                             }
@@ -139,7 +145,7 @@ public class raycast : MonoBehaviour
             //If the player is not holding down the left mouse button than fire out a raycast anyway.
             if (Physics.Raycast(transform.position, transform.GetComponent<Camera>().transform.TransformDirection(Vector3.forward), out raycastHit))
             {
-                // If the item can be picked up than display it's name on the screen.
+                // If the item can be picked up than display its name on the screen.
                 if (raycastHit.transform.GetComponent<pick_up>() != null)
                 {
                     // Make sure the text is not transparent.

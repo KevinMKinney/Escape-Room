@@ -15,7 +15,7 @@ public class MapDisplay : MonoBehaviour
         int width = noiseMap.GetLength(0);
         int height = noiseMap.GetLength(1);
 
-        Texture2D texture = new Texture2D(width, height);
+        Texture2D texture = new(width, height);
 
         Color[] colorMap = new Color[width * height];
         for(int y = 0; y < height; y++)

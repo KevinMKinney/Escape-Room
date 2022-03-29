@@ -12,7 +12,7 @@ private TextMeshProUGUI sometext;//defining text UI variable
 KeyCode key2 = KeyCode.N;
 public int dialogueSet=0; //When no triggers have been tripped
 public int HintSet=0;//Setting the hint system to 0 
-public float timer=5;//Hint timer (5 minutes)
+public float timer=300;//Hint timer (5 minutes)
   //Calls OnTriggerEnter whenever the user enters a puzzle area
   public override void OnTriggerEnter(GuideStateManager Guide, Collider collider){
     //Debug.Log("ONTRIGGER in ROOMDIALOGUE");
@@ -25,7 +25,7 @@ public float timer=5;//Hint timer (5 minutes)
          }
          if(collider.gameObject.tag=="SpawnReset"){//When the user exits spawn area, reset the hint timer and the hint system
            HintSet=0;
-           timer=5;
+           timer=300;
          }
          if(collider.gameObject.tag=="Puzzle 1 Wait"){//When the player enters the first puzzle area, destroy the intro message and set hint system to specific puzzle
            HintSet=1;
@@ -44,7 +44,7 @@ public float timer=5;//Hint timer (5 minutes)
          }
          if(collider.gameObject.tag=="TReset"){//When the user goes into main area of level, reset the hint timer and the hint system
            HintSet=0;
-           timer=5;
+           timer=300;
          }
     }
   //Displays intro message for the user
@@ -70,7 +70,7 @@ public float timer=5;//Hint timer (5 minutes)
              timer -= 1*Time.deltaTime;
              //Debug.Log(timer);
            }else{
-             timer=5;
+             timer=300;
              HintSet=0;
              Guide.SwitchState(Guide.HintState);//Once the timer is up, switch to hint state
            }

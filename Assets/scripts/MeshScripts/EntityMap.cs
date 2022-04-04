@@ -15,22 +15,31 @@ public class EntityMap {
         int mapWidth = noiseMap.GetLength(0);
         int mapHeight = noiseMap.GetLength(1);
 
-        int points = 10;
-
         // get valid locations
         float[,] validEntityLocations = getValidLocations(noiseMap, minThresh, maxThresh);
         // make groups of entities
         validEntityLocations = multiplyMaps(validEntityLocations, densityMap, frequency);
 
+        int points = 250;
         float[,] randomSpreadPoints = getRandomSpreadPoints(mapWidth, mapHeight, seed, spread, points);
+        validEntityLocations = multiplyMaps(validEntityLocations, randomSpreadPoints, 1);
 
-        return multiplyMaps(validEntityLocations, randomSpreadPoints, 1);
+        return validEntityLocations;
     }
 
     // finds all valid locations for entities from the mesh's noise
     private static float[,] getValidLocations(float[,] noiseMap, float minThresh, float maxThresh) {
         int mapWidth = noiseMap.GetLength(0);
         int mapHeight = noiseMap.GetLength(1);
+
+        if (mapWidth <= 1 || mapHeight <= 1) {
+            throw new Exception();
+            //return null;
+        }
+
+        if (minThresh > maxThresh) {
+            throw new Exception();
+        }
 
         float[,] validLocations = new float[mapWidth, mapHeight];
 
@@ -68,7 +77,7 @@ public class EntityMap {
         float[,] spreadPoints = new float[mapWidth, mapHeight];
         for (int y = 0; y < mapHeight; y++) {
             for (int x = 0; x < mapWidth; x++) {
-                spreadPoints[x,y] = 1;
+                spreadPoints[x,y] = 0;
             }
         }
 
@@ -85,7 +94,7 @@ public class EntityMap {
                 int randY = prng.Next(0, mapHeight);
                 point = new Vector2(randX, randY);
                 //Debug.Log("Testing point: "+randX+", "+randY);
-            } while (spreadPoints[(int)point.x, (int)point.y] != 1);
+            } while (spreadPoints[(int)point.x, (int)point.y] != 0);
 
             Vector2[] invalidPoints = getPointsInRadius(mapWidth, mapHeight, point, spread);
             int invalidSize = invalidPoints.Length;
@@ -94,6 +103,8 @@ public class EntityMap {
                 //Debug.Log("test: "+spreadPoints[(int)invalidPoint.x, (int)invalidPoint.y]);
                 spreadPoints[(int)invalidPoint.x, (int)invalidPoint.y] = 0;
             }
+
+            spreadPoints[(int)point.x, (int)point.y] = 1;
 
             points--;
         }

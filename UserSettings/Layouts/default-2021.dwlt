@@ -19,7 +19,7 @@ MonoBehaviour:
     width: 1536
     height: 782
   m_ShowMode: 4
-  m_Title: Inspector
+  m_Title: Hierarchy
   m_RootView: {fileID: 6}
   m_MinSize: {x: 875, y: 300}
   m_MaxSize: {x: 10000, y: 10000}
@@ -48,7 +48,7 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 200}
   m_MaxSize: {x: 24288, y: 16192}
   vertical: 0
-  controlID: 57
+  controlID: 84
 --- !u!114 &3
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -64,12 +64,12 @@ MonoBehaviour:
   m_Children: []
   m_Position:
     serializedVersion: 2
-    x: 1173
+    x: 1138
     y: 0
-    width: 363
+    width: 398
     height: 732
-  m_MinSize: {x: 276, y: 71}
-  m_MaxSize: {x: 4001, y: 4021}
+  m_MinSize: {x: 275, y: 50}
+  m_MaxSize: {x: 4000, y: 4000}
   m_ActualView: {fileID: 14}
   m_Panes:
   - {fileID: 14}
@@ -93,10 +93,10 @@ MonoBehaviour:
     serializedVersion: 2
     x: 0
     y: 0
-    width: 292
+    width: 281
     height: 494
-  m_MinSize: {x: 201, y: 221}
-  m_MaxSize: {x: 4001, y: 4021}
+  m_MinSize: {x: 200, y: 200}
+  m_MaxSize: {x: 4000, y: 4000}
   m_ActualView: {fileID: 15}
   m_Panes:
   - {fileID: 15}
@@ -119,10 +119,10 @@ MonoBehaviour:
     serializedVersion: 2
     x: 0
     y: 494
-    width: 1173
+    width: 1138
     height: 238
-  m_MinSize: {x: 101, y: 121}
-  m_MaxSize: {x: 4001, y: 4021}
+  m_MinSize: {x: 100, y: 100}
+  m_MaxSize: {x: 4000, y: 4000}
   m_ActualView: {fileID: 18}
   m_Panes:
   - {fileID: 13}
@@ -219,12 +219,12 @@ MonoBehaviour:
     serializedVersion: 2
     x: 0
     y: 0
-    width: 1173
+    width: 1138
     height: 732
   m_MinSize: {x: 200, y: 200}
   m_MaxSize: {x: 16192, y: 16192}
   vertical: 1
-  controlID: 58
+  controlID: 85
 --- !u!114 &10
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -244,12 +244,12 @@ MonoBehaviour:
     serializedVersion: 2
     x: 0
     y: 0
-    width: 1173
+    width: 1138
     height: 494
   m_MinSize: {x: 200, y: 100}
   m_MaxSize: {x: 16192, y: 8096}
   vertical: 0
-  controlID: 59
+  controlID: 86
 --- !u!114 &11
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -265,12 +265,12 @@ MonoBehaviour:
   m_Children: []
   m_Position:
     serializedVersion: 2
-    x: 292
+    x: 281
     y: 0
-    width: 881
+    width: 857
     height: 494
-  m_MinSize: {x: 202, y: 221}
-  m_MaxSize: {x: 4002, y: 4021}
+  m_MinSize: {x: 200, y: 200}
+  m_MaxSize: {x: 4000, y: 4000}
   m_ActualView: {fileID: 16}
   m_Panes:
   - {fileID: 16}
@@ -297,9 +297,9 @@ MonoBehaviour:
     m_Tooltip: 
   m_Pos:
     serializedVersion: 2
-    x: 1173.2001
+    x: 1098
     y: 72
-    width: 362
+    width: 437
     height: 711
   m_ViewDataDictionary: {fileID: 0}
   m_OverlayCanvas:
@@ -389,9 +389,9 @@ MonoBehaviour:
       uniqueId: '[Hitchcockian][suite]'
       name: Hitchcockian
       fullName: Hitchcockian
-      resultStatus: 1
-      duration: 0.076389
-      messages: 
+      resultStatus: 2
+      duration: 0.1849119
+      messages: One or more child tests had errors
       output: 
       stacktrace: 
       notRunnable: 0
@@ -405,9 +405,9 @@ MonoBehaviour:
       uniqueId: '[Tests][C:/Users/kevinkinney/code/Escape-Room/Library/ScriptAssemblies/Tests.dll][suite]'
       name: Tests.dll
       fullName: C:/Users/kevinkinney/code/Escape-Room/Library/ScriptAssemblies/Tests.dll
-      resultStatus: 1
-      duration: 0.0486879
-      messages: 
+      resultStatus: 2
+      duration: 0.1311896
+      messages: One or more child tests had errors
       output: 
       stacktrace: 
       notRunnable: 0
@@ -418,11 +418,138 @@ MonoBehaviour:
       parentId: 1000
       parentUniqueId: '[Hitchcockian][suite]'
     - id: 1001
+      uniqueId: Tests.dll/[Tests][EntityMapTest][suite]
+      name: EntityMapTest
+      fullName: EntityMapTest
+      resultStatus: 2
+      duration: 0.0800706
+      messages: One or more child tests had errors
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 1
+      categories: []
+      parentId: 1015
+      parentUniqueId: '[Tests][C:/Users/kevinkinney/code/Escape-Room/Library/ScriptAssemblies/Tests.dll][suite]'
+    - id: 1003
+      uniqueId: Tests.dll/EntityMapTest/[Tests][EntityMapTest.getValidLocationsInvalidTest00]
+      name: getValidLocationsInvalidTest00
+      fullName: EntityMapTest.getValidLocationsInvalidTest00
+      resultStatus: 1
+      duration: 0.03714
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1001
+      parentUniqueId: Tests.dll/[Tests][EntityMapTest][suite]
+    - id: 1004
+      uniqueId: Tests.dll/EntityMapTest/[Tests][EntityMapTest.getValidLocationsInvalidTest01]
+      name: getValidLocationsInvalidTest01
+      fullName: EntityMapTest.getValidLocationsInvalidTest01
+      resultStatus: 1
+      duration: 0.0004576
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1001
+      parentUniqueId: Tests.dll/[Tests][EntityMapTest][suite]
+    - id: 1005
+      uniqueId: Tests.dll/EntityMapTest/[Tests][EntityMapTest.getValidLocationsInvalidTest10]
+      name: getValidLocationsInvalidTest10
+      fullName: EntityMapTest.getValidLocationsInvalidTest10
+      resultStatus: 1
+      duration: 0.0003555
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1001
+      parentUniqueId: Tests.dll/[Tests][EntityMapTest][suite]
+    - id: 1006
+      uniqueId: Tests.dll/EntityMapTest/[Tests][EntityMapTest.getValidLocationsInvalidTest11]
+      name: getValidLocationsInvalidTest11
+      fullName: EntityMapTest.getValidLocationsInvalidTest11
+      resultStatus: 1
+      duration: 0.0003304
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1001
+      parentUniqueId: Tests.dll/[Tests][EntityMapTest][suite]
+    - id: 1007
+      uniqueId: Tests.dll/EntityMapTest/[Tests][EntityMapTest.getValidLocationsInvalidTestThresh]
+      name: getValidLocationsInvalidTestThresh
+      fullName: EntityMapTest.getValidLocationsInvalidTestThresh
+      resultStatus: 2
+      duration: 0.0076252
+      messages: "  Expected: <System.Exception>\r\n  But was:  no exception thrown\r\n"
+      output: 
+      stacktrace: 'at EntityMapTest.getValidLocationsInvalidTestThresh () [0x00012]
+        in C:\Users\kevinkinney\code\Escape-Room\Assets\scripts\Tests\EntityMapTests.cs:47
+
+'
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1001
+      parentUniqueId: Tests.dll/[Tests][EntityMapTest][suite]
+    - id: 1002
+      uniqueId: Tests.dll/EntityMapTest/[Tests][EntityMapTest.getValidLocationsValidTest]
+      name: getValidLocationsValidTest
+      fullName: EntityMapTest.getValidLocationsValidTest
+      resultStatus: 2
+      duration: 0.0027287
+      messages: 'System.Exception : Exception of type ''System.Exception'' was thrown.'
+      output: 
+      stacktrace: "  at EntityMap.getValidLocations (System.Single[,] noiseMap, System.Single
+        minThresh, System.Single maxThresh) [0x00022] in C:\\Users\\kevinkinney\\code\\Escape-Room\\Assets\\scripts\\MeshScripts\\EntityMap.cs:41
+        \r\n  at EntityMapTest.getValidLocationsValidTest () [0x00034] in C:\\Users\\kevinkinney\\code\\Escape-Room\\Assets\\scripts\\Tests\\EntityMapTests.cs:16
+        \r\n  at (wrapper managed-to-native) System.Reflection.RuntimeMethodInfo.InternalInvoke(System.Reflection.RuntimeMethodInfo,object,object[],System.Exception&)\r\n 
+        at System.Reflection.RuntimeMethodInfo.Invoke (System.Object obj, System.Reflection.BindingFlags
+        invokeAttr, System.Reflection.Binder binder, System.Object[] parameters,
+        System.Globalization.CultureInfo culture) [0x0006a] in <31c0f51ac5a24a22ba784db24f4ba023>:0 "
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1001
+      parentUniqueId: Tests.dll/[Tests][EntityMapTest][suite]
+    - id: 1001
       uniqueId: Tests.dll/[Tests][MeshMapTest][suite]
       name: MeshMapTest
       fullName: MeshMapTest
       resultStatus: 1
-      duration: 0.0422024
+      duration: 0.0395002
       messages: 
       output: 
       stacktrace: 
@@ -433,12 +560,12 @@ MonoBehaviour:
       categories: []
       parentId: 1004
       parentUniqueId: '[Tests][C:/Users/kevinkinney/code/Escape-Room/Library/ScriptAssemblies/Tests.dll][suite]'
-    - id: 1003
-      uniqueId: Tests.dll/MeshMapTest/[Tests][MeshMapTest.generateTrianglesInvalidInputs]
-      name: generateTrianglesInvalidInputs
-      fullName: MeshMapTest.generateTrianglesInvalidInputs
+    - id: 1012
+      uniqueId: Tests.dll/MeshMapTest/[Tests][MeshMapTest.generateColorsTest]
+      name: generateColorsTest
+      fullName: MeshMapTest.generateColorsTest
       resultStatus: 1
-      duration: 0.0158984
+      duration: 0.0089274
       messages: 
       output: 
       stacktrace: 
@@ -449,13 +576,183 @@ MonoBehaviour:
       categories:
       - Uncategorized
       parentId: 1001
+      parentUniqueId: Tests.dll/[Tests][MeshMapTest][suite]
+    - id: 1010
+      uniqueId: Tests.dll/MeshMapTest/[Tests][MeshMapTest.generateTrianglesInvalidInput01]
+      name: generateTrianglesInvalidInput01
+      fullName: MeshMapTest.generateTrianglesInvalidInput01
+      resultStatus: 1
+      duration: 0.0008488
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1001
+      parentUniqueId: Tests.dll/[Tests][MeshMapTest][suite]
+    - id: 1009
+      uniqueId: Tests.dll/MeshMapTest/[Tests][MeshMapTest.generateTrianglesInvalidInput10]
+      name: generateTrianglesInvalidInput10
+      fullName: MeshMapTest.generateTrianglesInvalidInput10
+      resultStatus: 1
+      duration: 0.0003415
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1001
+      parentUniqueId: Tests.dll/[Tests][MeshMapTest][suite]
+    - id: 1011
+      uniqueId: Tests.dll/MeshMapTest/[Tests][MeshMapTest.generateTrianglesInvalidInput11]
+      name: generateTrianglesInvalidInput11
+      fullName: MeshMapTest.generateTrianglesInvalidInput11
+      resultStatus: 1
+      duration: 0.0003575
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1001
+      parentUniqueId: Tests.dll/[Tests][MeshMapTest][suite]
+    - id: 1007
+      uniqueId: Tests.dll/MeshMapTest/[Tests][MeshMapTest.generateTrianglesValidInput]
+      name: generateTrianglesValidInput
+      fullName: MeshMapTest.generateTrianglesValidInput
+      resultStatus: 1
+      duration: 0.0090588
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1001
+      parentUniqueId: Tests.dll/[Tests][MeshMapTest][suite]
+    - id: 1008
+      uniqueId: Tests.dll/MeshMapTest/[Tests][MeshMapTest.generateTrianglesValidInputBackup]
+      name: generateTrianglesValidInputBackup
+      fullName: MeshMapTest.generateTrianglesValidInputBackup
+      resultStatus: 1
+      duration: 0.0003186
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1001
+      parentUniqueId: Tests.dll/[Tests][MeshMapTest][suite]
+    - id: 1003
+      uniqueId: Tests.dll/MeshMapTest/[Tests][MeshMapTest.generateVerticiesInvalidInput00]
+      name: generateVerticiesInvalidInput00
+      fullName: MeshMapTest.generateVerticiesInvalidInput00
+      resultStatus: 1
+      duration: 0.0005081
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1001
+      parentUniqueId: Tests.dll/[Tests][MeshMapTest][suite]
+    - id: 1005
+      uniqueId: Tests.dll/MeshMapTest/[Tests][MeshMapTest.generateVerticiesInvalidInput01]
+      name: generateVerticiesInvalidInput01
+      fullName: MeshMapTest.generateVerticiesInvalidInput01
+      resultStatus: 1
+      duration: 0.0003557
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1001
+      parentUniqueId: Tests.dll/[Tests][MeshMapTest][suite]
+    - id: 1004
+      uniqueId: Tests.dll/MeshMapTest/[Tests][MeshMapTest.generateVerticiesInvalidInput10]
+      name: generateVerticiesInvalidInput10
+      fullName: MeshMapTest.generateVerticiesInvalidInput10
+      resultStatus: 1
+      duration: 0.0003516
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1001
+      parentUniqueId: Tests.dll/[Tests][MeshMapTest][suite]
+    - id: 1006
+      uniqueId: Tests.dll/MeshMapTest/[Tests][MeshMapTest.generateVerticiesInvalidInput11]
+      name: generateVerticiesInvalidInput11
+      fullName: MeshMapTest.generateVerticiesInvalidInput11
+      resultStatus: 1
+      duration: 0.0003469
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1001
+      parentUniqueId: Tests.dll/[Tests][MeshMapTest][suite]
+    - id: 1010
+      uniqueId: Tests.dll/MeshMapTest/[Tests][MeshMapTest.generateVerticiesValidFloatInput]
+      name: generateVerticiesValidFloatInput
+      fullName: MeshMapTest.generateVerticiesValidFloatInput
+      resultStatus: 1
+      duration: 0.0031074
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1008
       parentUniqueId: Tests.dll/[Tests][MeshMapTest][suite]
     - id: 1002
-      uniqueId: Tests.dll/MeshMapTest/[Tests][MeshMapTest.generateTrianglesValidInputs]
-      name: generateTrianglesValidInputs
-      fullName: MeshMapTest.generateTrianglesValidInputs
+      uniqueId: Tests.dll/MeshMapTest/[Tests][MeshMapTest.generateVerticiesValidIntInput]
+      name: generateVerticiesValidIntInput
+      fullName: MeshMapTest.generateVerticiesValidIntInput
       resultStatus: 1
-      duration: 0.0054764
+      duration: 0.0004709
       messages: 
       output: 
       stacktrace: 
@@ -467,47 +764,27 @@ MonoBehaviour:
       - Uncategorized
       parentId: 1001
       parentUniqueId: Tests.dll/[Tests][MeshMapTest][suite]
-    - id: 1003
-      uniqueId: Tests.dll/MeshMapTest/[Tests][MeshMapTest.generateVerticiesInvalidInputs]
-      name: generateVerticiesInvalidInputs
-      fullName: MeshMapTest.generateVerticiesInvalidInputs
-      resultStatus: 1
-      duration: 0.0007622
-      messages: 
-      output: 
-      stacktrace: 
-      notRunnable: 0
-      ignoredOrSkipped: 0
-      description: 
-      isSuite: 0
-      categories:
-      - Uncategorized
-      parentId: 1001
-      parentUniqueId: Tests.dll/[Tests][MeshMapTest][suite]
-    - id: 1002
-      uniqueId: Tests.dll/MeshMapTest/[Tests][MeshMapTest.generateVerticiesValidInputs]
-      name: generateVerticiesValidInputs
-      fullName: MeshMapTest.generateVerticiesValidInputs
-      resultStatus: 1
-      duration: 0.0018253
-      messages: 
-      output: 
-      stacktrace: 
-      notRunnable: 0
-      ignoredOrSkipped: 0
-      description: 
-      isSuite: 0
-      categories:
-      - Uncategorized
-      parentId: 1001
-      parentUniqueId: Tests.dll/[Tests][MeshMapTest][suite]
-    m_ResultText: generateVerticiesValidInputs (0.002s)
-    m_ResultStacktrace: 
+    m_ResultText: "getValidLocationsValidTest (0.003s)\n---\nSystem.Exception : Exception
+      of type 'System.Exception' was thrown.\n---\nat EntityMap.getValidLocations
+      (System.Single[,] noiseMap, System.Single minThresh, System.Single maxThresh)
+      [0x00022] in C:\\Users\\kevinkinney\\code\\Escape-Room\\Assets\\scripts\\MeshScripts\\EntityMap.cs:41
+      \r\n  at EntityMapTest.getValidLocationsValidTest () [0x00034] in C:\\Users\\kevinkinney\\code\\Escape-Room\\Assets\\scripts\\Tests\\EntityMapTests.cs:16
+      \r\n  at (wrapper managed-to-native) System.Reflection.RuntimeMethodInfo.InternalInvoke(System.Reflection.RuntimeMethodInfo,object,object[],System.Exception&)\r\n 
+      at System.Reflection.RuntimeMethodInfo.Invoke (System.Object obj, System.Reflection.BindingFlags
+      invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo
+      culture) [0x0006a] in <31c0f51ac5a24a22ba784db24f4ba023>:0"
+    m_ResultStacktrace: "  at EntityMap.getValidLocations (System.Single[,] noiseMap,
+      System.Single minThresh, System.Single maxThresh) [0x00022] in C:\\Users\\kevinkinney\\code\\Escape-Room\\Assets\\scripts\\MeshScripts\\EntityMap.cs:41
+      \r\n  at EntityMapTest.getValidLocationsValidTest () [0x00034] in C:\\Users\\kevinkinney\\code\\Escape-Room\\Assets\\scripts\\Tests\\EntityMapTests.cs:16
+      \r\n  at (wrapper managed-to-native) System.Reflection.RuntimeMethodInfo.InternalInvoke(System.Reflection.RuntimeMethodInfo,object,object[],System.Exception&)\r\n 
+      at System.Reflection.RuntimeMethodInfo.Invoke (System.Object obj, System.Reflection.BindingFlags
+      invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo
+      culture) [0x0006a] in <31c0f51ac5a24a22ba784db24f4ba023>:0 "
     m_TestListState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: 08ca22a0
-      m_LastClickedID: -1608332792
-      m_ExpandedIDs: 850f708c36733490c2fde130ffffff7f
+      m_SelectedIDs: 72c09405
+      m_LastClickedID: 93634674
+      m_ExpandedIDs: 850f708c367334901cc4012dc2fde130ffffff7f
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -549,14 +826,14 @@ MonoBehaviour:
   m_MaxSize: {x: 10000, y: 10000}
   m_TitleContent:
     m_Text: Project
-    m_Image: {fileID: -5467254957812901981, guid: 0000000000000000d000000000000000,
+    m_Image: {fileID: -5179483145760003458, guid: 0000000000000000d000000000000000,
       type: 0}
     m_Tooltip: 
   m_Pos:
     serializedVersion: 2
     x: 0
     y: 566
-    width: 1172
+    width: 1173
     height: 217
   m_ViewDataDictionary: {fileID: 0}
   m_OverlayCanvas:
@@ -588,9 +865,9 @@ MonoBehaviour:
     m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 223}
-    m_SelectedIDs: 62550000
-    m_LastClickedID: 21858
-    m_ExpandedIDs: 00000000185500001a550000
+    m_SelectedIDs: 245f0000
+    m_LastClickedID: 24356
+    m_ExpandedIDs: 000000001a550000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -618,7 +895,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 00000000185500001a550000
+    m_ExpandedIDs: 000000001a550000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -643,8 +920,8 @@ MonoBehaviour:
       m_Icon: {fileID: 0}
       m_ResourceFile: 
   m_ListAreaState:
-    m_SelectedInstanceIDs: 
-    m_LastClickedInstanceID: 0
+    m_SelectedInstanceIDs: e25f0000
+    m_LastClickedInstanceID: 24546
     m_HadKeyboardFocusLastEvent: 1
     m_ExpandedInstanceIDs: c623000000000000
     m_RenameOverlay:
@@ -695,9 +972,9 @@ MonoBehaviour:
     m_Tooltip: 
   m_Pos:
     serializedVersion: 2
-    x: 1173.2001
+    x: 1138
     y: 72
-    width: 362
+    width: 397
     height: 711
   m_ViewDataDictionary: {fileID: 0}
   m_OverlayCanvas:
@@ -710,7 +987,7 @@ MonoBehaviour:
     m_ControlHash: -371814159
     m_PrefName: Preview_InspectorPreview
   m_LastInspectedObjectInstanceID: -1
-  m_LastVerticalScrollValue: 0
+  m_LastVerticalScrollValue: 348.8001
   m_GlobalObjectId: 
   m_InspectorMode: 0
   m_LockTracker:
@@ -732,14 +1009,14 @@ MonoBehaviour:
   m_MaxSize: {x: 4000, y: 4000}
   m_TitleContent:
     m_Text: Hierarchy
-    m_Image: {fileID: 7966133145522015247, guid: 0000000000000000d000000000000000,
+    m_Image: {fileID: -3734745235275155857, guid: 0000000000000000d000000000000000,
       type: 0}
     m_Tooltip: 
   m_Pos:
     serializedVersion: 2
     x: 0
     y: 72
-    width: 291
+    width: 280
     height: 473
   m_ViewDataDictionary: {fileID: 0}
   m_OverlayCanvas:
@@ -748,8 +1025,8 @@ MonoBehaviour:
   m_SceneHierarchy:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: c8540000
-      m_LastClickedID: 21704
+      m_SelectedIDs: ca540000
+      m_LastClickedID: 21706
       m_ExpandedIDs: 18fbffff
       m_RenameOverlay:
         m_UserAcceptedRename: 0
@@ -790,14 +1067,14 @@ MonoBehaviour:
   m_MaxSize: {x: 4000, y: 4000}
   m_TitleContent:
     m_Text: Scene
-    m_Image: {fileID: 2593428753322112591, guid: 0000000000000000d000000000000000,
+    m_Image: {fileID: 8634526014445323508, guid: 0000000000000000d000000000000000,
       type: 0}
     m_Tooltip: 
   m_Pos:
     serializedVersion: 2
-    x: 292
+    x: 281.2
     y: 72
-    width: 879
+    width: 855
     height: 473
   m_ViewDataDictionary: {fileID: 0}
   m_OverlayCanvas:
@@ -1000,9 +1277,9 @@ MonoBehaviour:
   m_PlayAudio: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: 2125.041, y: 47.214447, z: 2673.5771}
+    m_Target: {x: 2218.8657, y: -516.3607, z: 2741.6685}
     speed: 2
-    m_Value: {x: 2125.041, y: 47.214447, z: 2673.5771}
+    m_Value: {x: 2218.8657, y: -516.3607, z: 2741.6685}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -1049,13 +1326,13 @@ MonoBehaviour:
     m_GridAxis: 1
     m_gridOpacity: 0.5
   m_Rotation:
-    m_Target: {x: -0.14487846, y: -0.54413563, z: 0.095906004, w: -0.8209687}
+    m_Target: {x: -0.24259531, y: -0.5205912, z: 0.15700707, w: -0.80358845}
     speed: 2
-    m_Value: {x: -0.14500324, y: -0.54283273, z: 0.0956761, w: -0.8216768}
+    m_Value: {x: -0.24256217, y: -0.5205201, z: 0.15698563, w: -0.80347866}
   m_Size:
-    m_Target: 1633.4822
+    m_Target: 1275.8323
     speed: 2
-    m_Value: 1563.1409
+    m_Value: 1335.9501
   m_Ortho:
     m_Target: 0
     speed: 2
@@ -1096,7 +1373,7 @@ MonoBehaviour:
   m_MaxSize: {x: 4000, y: 4000}
   m_TitleContent:
     m_Text: Game
-    m_Image: {fileID: -6423792434712278376, guid: 0000000000000000d000000000000000,
+    m_Image: {fileID: 4621777727084837110, guid: 0000000000000000d000000000000000,
       type: 0}
     m_Tooltip: 
   m_Pos:
@@ -1130,10 +1407,10 @@ MonoBehaviour:
     m_VRangeLocked: 0
     hZoomLockedByDefault: 0
     vZoomLockedByDefault: 0
-    m_HBaseRangeMin: -439.5
-    m_HBaseRangeMax: 439.5
-    m_VBaseRangeMin: -236.5
-    m_VBaseRangeMax: 236.5
+    m_HBaseRangeMin: -175.8
+    m_HBaseRangeMax: 175.8
+    m_VBaseRangeMin: -90.4
+    m_VBaseRangeMax: 90.4
     m_HAllowExceedBaseRangeMin: 1
     m_HAllowExceedBaseRangeMax: 1
     m_VAllowExceedBaseRangeMin: 1
@@ -1150,24 +1427,24 @@ MonoBehaviour:
     m_DrawArea:
       serializedVersion: 2
       x: 0
-      y: 0
+      y: 21
       width: 879
-      height: 473
-    m_Scale: {x: 1, y: 1}
-    m_Translation: {x: 439.5, y: 236.5}
+      height: 452
+    m_Scale: {x: 2, y: 2}
+    m_Translation: {x: 439.5, y: 226}
     m_MarginLeft: 0
     m_MarginRight: 0
     m_MarginTop: 0
     m_MarginBottom: 0
     m_LastShownAreaInsideMargins:
       serializedVersion: 2
-      x: -439.5
-      y: -236.5
-      width: 879
-      height: 473
+      x: -219.75
+      y: -113
+      width: 439.5
+      height: 226
     m_MinimalGUI: 1
-  m_defaultScale: 1
-  m_LastWindowPixelSize: {x: 879, y: 473}
+  m_defaultScale: 2
+  m_LastWindowPixelSize: {x: 2197.5, y: 1182.5}
   m_ClearInEditMode: 1
   m_NoCameraWarning: 1
   m_LowResolutionForAspectRatios: 01000000000000000000
@@ -1189,14 +1466,14 @@ MonoBehaviour:
   m_MaxSize: {x: 4000, y: 4000}
   m_TitleContent:
     m_Text: Console
-    m_Image: {fileID: -4327648978806127646, guid: 0000000000000000d000000000000000,
+    m_Image: {fileID: -4950941429401207979, guid: 0000000000000000d000000000000000,
       type: 0}
     m_Tooltip: 
   m_Pos:
     serializedVersion: 2
     x: 0
     y: 566
-    width: 1172
+    width: 1137
     height: 217
   m_ViewDataDictionary: {fileID: 0}
   m_OverlayCanvas:

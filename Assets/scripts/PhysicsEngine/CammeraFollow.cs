@@ -4,20 +4,18 @@ using UnityEngine;
 
 public class CammeraFollow : MonoBehaviour
 {
-    public GameObject player;
+    public GameObject player;//mine
 
-    // Start is called before the first frame update
     void Start()
     {
-        player = GameObject.Find("Player");
-        transform.position = player.transform.position;
-        
+        player = GameObject.Find("Player");//mine
+        transform.position = player.transform.position;//mine
     }
 
-    void FixedUpdate()
+    void FixedUpdate()//mine
     {
-        transform.position = GameObject.Find("Player").transform.position;
-        transform.Rotate(0, Input.GetAxis("Mouse X"), 0);
+        transform.position = GameObject.Find("Player").transform.position;//mine
+        transform.Rotate(0, Input.GetAxis("Mouse X"), 0);//next two from a website
         transform.Rotate(-Input.GetAxis("Mouse Y"), 0, 0);
     }
 }

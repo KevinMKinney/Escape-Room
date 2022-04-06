@@ -15,9 +15,9 @@ public class GunTests
         //Get the player a disabled movement component.
         GameObject player = GameObject.Find("FPSController");
         foreach (var com in player.GetComponents(typeof(MonoBehaviour)))
-            Object.DestroyImmediate(com);
+            UnityEngine.Object.DestroyImmediate(com);
         foreach (var com in player.GetComponents(typeof(Component)))
-            if (!com.GetType().Equals(typeof(Transform))) Object.Destroy(com);
+            if (!com.GetType().Equals(typeof(Transform))) UnityEngine.Object.Destroy(com);
 
         //Sets the position of the player to the correct position.
         player.transform.position = position;
@@ -153,7 +153,7 @@ public class GunTests
         yield return new WaitForSeconds(1);
 
         //Get the script that has the function we are testing.
-        TargetScriptManager manager = Object.FindObjectOfType<TargetScriptManager>();
+        TargetScriptManager manager = UnityEngine.Object.FindObjectOfType<TargetScriptManager>();
 
         //Tell the script that the targets have been fired at in the correct order by looking at what color is next on the stack.
         while (manager.targetColorOrder.Count > 0)
@@ -173,7 +173,7 @@ public class GunTests
         yield return new WaitForSeconds(1);
 
         //Get the script to test.
-        TargetScriptManager manager = Object.FindObjectOfType<TargetScriptManager>();
+        TargetScriptManager manager = UnityEngine.Object.FindObjectOfType<TargetScriptManager>();
 
         //Make a flag variable and subscribe a function to the OnReset event on the script manager that will set this flag to true.
         //This allows us to see if the event was fired.
@@ -206,7 +206,7 @@ public class GunTests
         yield return new WaitForSeconds(1);
 
         //Get the script to test.
-        TargetScriptManager manager = Object.FindObjectOfType<TargetScriptManager>();
+        TargetScriptManager manager = UnityEngine.Object.FindObjectOfType<TargetScriptManager>();
 
         //Make a flag variable and subscribe a function to the OnReset event on the script manager that will set this flag to true.
         //This allows us to see if the event was fired.
@@ -236,7 +236,7 @@ public class GunTests
         yield return new WaitForSeconds(1);
 
         //Get the script to test.
-        TargetScriptManager manager = Object.FindObjectOfType<TargetScriptManager>();
+        TargetScriptManager manager = UnityEngine.Object.FindObjectOfType<TargetScriptManager>();
 
         //Store a material to test later.
         Material material = manager.targetColorOrder.Peek();

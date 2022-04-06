@@ -12,7 +12,7 @@ public class SequentialTests
         SceneManager.LoadScene(1);
         yield return new WaitForSeconds(1);
 
-        ExitDoor script = Object.FindObjectOfType<ExitDoor>();
+        ExitDoor script = UnityEngine.Object.FindObjectOfType<ExitDoor>();
         script.key.SetActive(true);
         script.key.GetComponent<pick_up>().pickedup = 2;
         script.doremode = 1;

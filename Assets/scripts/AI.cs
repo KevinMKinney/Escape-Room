@@ -193,7 +193,10 @@ public class AI : MonoBehaviour
         if (IsTouchingPlayer())
         {
             // End the Game / Quit Application
+#if UNITY_EDITOR
             UnityEditor.EditorApplication.isPlaying = false;
+#endif
+            Application.Quit();
         }
         else if (!coolDown)
         {

@@ -103,7 +103,7 @@ public class OpenGasCap : MonoBehaviour
             transform.parent.eulerAngles = pos;
 
             //Wait for the next frame before continuing.
-            yield return new WaitForEndOfFrame();
+            yield return new WaitForFixedUpdate();
         }
         //Set its state to open.
         isOpen = true; 

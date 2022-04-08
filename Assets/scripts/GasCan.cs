@@ -206,12 +206,12 @@ public class GasCan : MonoBehaviour
                 generator.hasGas = true;
             }
             // Every frame 'animationFrame' will count down, so decrement it by 2 to invalidate the + 1 we get at the end of the frame.
-            animationFrame -= 2;
+            animationFrame -= 3;
         }
         //Progress the animation.
-        animationFrame++;
+        animationFrame += 2;
     }
-    private void Update()
+    private void FixedUpdate()
     {
         //If the player has poured the gas recently and then animation has not timed out.
         if (frameSinceLastPour < 2 && animationFrame < maxAnimationFrames)
@@ -226,7 +226,7 @@ public class GasCan : MonoBehaviour
             GasCanPourAnimation();
         }
         //If the current animation has timed out then bring the gas can back to the player.
-        else if (state == GasCanAnimationState.Shaking)
+        else if (state == GasCanAnimationState.Shaking || state == GasCanAnimationState.TowardGenerator)
         {
             ChangeState(GasCanAnimationState.BackToPlayer);
             //Countinue the current animation.
@@ -236,6 +236,9 @@ public class GasCan : MonoBehaviour
         {
             //Countinue the current animation.
             GasCanPourAnimation();
+        } else
+        {
+            pickUp.constrainHeldItem = true;
         }
     }
 

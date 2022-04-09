@@ -17,15 +17,15 @@ public static class Extensions
     //Shuffles a list.
     public static void Rearrange<T>( this IList<T> list)
     {
-        //Start at the list length
+        //Start at the list length.
         int a = list.Count;
-        //Keep updating the list until all elements have been shuffled
+        //Keep updating the list until all elements have been shuffled.
         while (a > 1)
         {
             a--;
             //Get a random element to swap with.
             int b = Random.Range(0, a + 1);
-            //Swap value at index a with index b
+            //Swap value at index a with index b.
             T value = list[b];
             list[b] = list[a];  
             list[a] = value;

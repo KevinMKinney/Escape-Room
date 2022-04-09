@@ -4,14 +4,14 @@ using UnityEngine;
 
 /* 
  * Written this semester.
- * This namspace contains helpfull classes for events
+ * This namespace contains helpful classes for events.
  */
 namespace CustomEventKit
 {
-    //An event that has listeners and can be invoked to call all of the listeners.
+    //An event that has listeners and can be invoked to call all the listeners.
     public class CustomEvent<T, T2>
     {
-        //Calls all of the listeners.
+        //Calls all the listeners.
         public virtual void Invoke(T t, T2 t2)
         {
             //Loop over each listener in the listeners array and call it.
@@ -20,7 +20,7 @@ namespace CustomEventKit
                 listener(t, t2);
             }
         }
-        //Holds all of the listeners.
+        //Holds all the listeners.
         public List<System.Action<T, T2>> listeners;
         //Custom operator. This class can be 'added' to a function to subscribe the function to the event.
         public static CustomEvent<T, T2> operator +(CustomEvent<T, T2> c, System.Action<T, T2> function)
@@ -40,7 +40,7 @@ namespace CustomEventKit
             return c;
         }
 
-        //Add a listener to the event
+        //Add a listener to the event.
         public virtual void AddListener(System.Action<T, T2> function)
         {
             //Add the listener to the listeners list.
@@ -67,7 +67,7 @@ namespace CustomEventKit
         Deny
     }
 
-    //Holds a CancelableState. It is passed with cancalable event so listeners can chanage the state and decide if the event firier should continue with it's action.
+    //Holds a CancelableState. It is passed with cancelable event so listeners can change the state and decide if the event firer should continue with its action.
     public class CancelableObject
     {
         //The state the event is in. Starts with Default.
@@ -84,22 +84,22 @@ namespace CustomEventKit
         }
     }
 
-    //A event that has listeners for the event and listeners for after all of the normal listers have beed called.
-    //Normal listeners can object of agree that the event's firerer should continue with the action.
+    //A event that has listeners for the event and listeners for after all of the normal listers have been called.
+    //Normal listeners can object or agree that the event's firer should continue with the action.
     public class CancelableEvent<T> : CustomEvent<T, CancelableObject>
     {
-        //The event for after the all of the normal listers have beed called. The original object and CancelableObject is passed in.
+        //The event for after all of the normal listers have been called. The original object and CancelableObject is passed in.
         CustomEvent<T, CancelableObject> onEnd;
        
-        //Calls all of the listeners and fires the onEnd event with the result of the listeners.
+        //Calls all the listeners and fires the onEnd event with the result of the listeners.
         public override void Invoke(T t, CancelableObject cancelableObject)
         {
-            //The index of the current listener
+            //The index of the current listener.
             int index = 0;
-            //Loop utill there are no more listeners or the CancelableObject's state is Deny.
+            //Loop until there are no more listeners or the CancelableObject's state is Deny.
             while (cancelableObject.GetState() != CancelableState.Deny && index < listeners.Count)
             {
-                //Call the listener at index int the listners array.
+                //Call the listener at index int the listener's array.
                 listeners[index](t, cancelableObject);
                 index++;
             }
@@ -125,7 +125,7 @@ namespace CustomEventKit
             return c;
         }
 
-        //Add a listener to the end of the event, after all of  the normal listeners have been called.
+        //Add a listener to the end of the event, after all of the normal listeners have been called.
         public void AddResultListener(System.Action<T, CancelableObject> function)
         {
             //If the onEnd event is null create one.
@@ -134,7 +134,7 @@ namespace CustomEventKit
             onEnd += function;
         }
 
-        //Remove a listener to the end of the event, after all of  the normal listeners have been called.
+        //Remove a listener to the end of the event, after all of the normal listeners have been called.
         public void RemoveResultListener(System.Action<T, CancelableObject> function)
         {
             //If the onEnd event is null then return early.

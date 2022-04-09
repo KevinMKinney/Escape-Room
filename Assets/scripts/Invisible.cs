@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Invisable : MonoBehaviour
+public class Invisible : MonoBehaviour
 {
-    public bool isInvisable;
+    public bool isInvisible;
 }

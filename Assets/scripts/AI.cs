@@ -192,7 +192,7 @@ public class AI : MonoBehaviour
 
     bool PlayerIsInvisable()
     {
-        return player.GetComponent<Invisable>().isInvisable;
+        return player.GetComponent<Invisible>().isInvisible;
     }
 
     //End Code Written By Nicole Batchelor

@@ -1,5 +1,6 @@
 using UnityEngine;
 using CustomEventKit;
+using System.Collections.Generic;
 
 /* 
  * Written this semester,  starting at line 14.
@@ -9,12 +10,14 @@ using CustomEventKit;
 public class Bomb : MonoBehaviour
 {
     //The scriptable object referance.
-    public BombScriptableObject bombScriptableObject;
+    public List<BombScriptableObject> availableScriptableObjects;
+    BombScriptableObject bombScriptableObject;
     //The pick_up script atteched to this gameobject.
     public pick_up pickUpScript = null;
 
     private void Start()
     {
+        bombScriptableObject = availableScriptableObjects.RandomElement();
         //Set this variable to the pick_up script on this gameobject
         pickUpScript = GetComponent<pick_up>();
         //Subscribe an anonymous function to listen for the result of the event.

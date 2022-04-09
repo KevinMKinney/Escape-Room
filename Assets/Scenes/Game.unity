@@ -11942,6 +11942,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1247525264}
     m_Modifications:
+    - target: {fileID: 610181144953315479, guid: f14eb06b1fc5fee4dae7d6d592239a34,
+        type: 3}
+      propertyPath: playerCam
+      value: 
+      objectReference: {fileID: 758360819}
     - target: {fileID: 610181144953315688, guid: f14eb06b1fc5fee4dae7d6d592239a34,
         type: 3}
       propertyPath: m_RootOrder
@@ -20911,6 +20916,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Olive
       objectReference: {fileID: 0}
+    - target: {fileID: 157921748462413874, guid: f967206674de431469d32c3fffb4558f,
+        type: 3}
+      propertyPath: playerCam
+      value: 
+      objectReference: {fileID: 758360819}
     - target: {fileID: 157921748462777359, guid: f967206674de431469d32c3fffb4558f,
         type: 3}
       propertyPath: m_RootOrder
@@ -34361,6 +34371,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2172246158588752076, guid: 83436269ff1efc8418f3a1b5deb566b9,
+        type: 3}
+      propertyPath: playerCam
+      value: 
+      objectReference: {fileID: 758360819}
     - target: {fileID: 2172246158588783762, guid: 83436269ff1efc8418f3a1b5deb566b9,
         type: 3}
       propertyPath: m_Name
@@ -34648,6 +34663,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a13cc935f58f9a46849c5440c4c48a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &907073878
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 907073870}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b94895586a061bf41909fbbe8526acd1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isInvisable: 0
 --- !u!43 &918235693
 Mesh:
   m_ObjectHideFlags: 0
@@ -40279,6 +40307,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1247525264}
     m_Modifications:
+    - target: {fileID: 610181144953315479, guid: f14eb06b1fc5fee4dae7d6d592239a34,
+        type: 3}
+      propertyPath: playerCam
+      value: 
+      objectReference: {fileID: 758360819}
     - target: {fileID: 610181144953315688, guid: f14eb06b1fc5fee4dae7d6d592239a34,
         type: 3}
       propertyPath: m_RootOrder
@@ -40963,6 +40996,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Cherry
       objectReference: {fileID: 0}
+    - target: {fileID: 2765192019942836519, guid: 71d6b3a89ecaad742815403519619c00,
+        type: 3}
+      propertyPath: playerCam
+      value: 
+      objectReference: {fileID: 758360819}
     - target: {fileID: 2765192019943331077, guid: 71d6b3a89ecaad742815403519619c00,
         type: 3}
       propertyPath: m_RootOrder

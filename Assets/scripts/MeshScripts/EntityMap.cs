@@ -20,8 +20,9 @@ public class EntityMap {
         // make groups of entities
         validEntityLocations = multiplyMaps(validEntityLocations, densityMap, frequency);
 
-        int points = 250;
-        float[,] randomSpreadPoints = getRandomSpreadPoints(mapWidth, mapHeight, seed, spread, points);
+        int points = (int)(mapWidth*mapHeight / spread);
+        int limit = 10;
+        float[,] randomSpreadPoints = getRandomSpreadPoints(mapWidth, mapHeight, seed, spread, points, limit);
         validEntityLocations = multiplyMaps(validEntityLocations, randomSpreadPoints, 1);
 
         return validEntityLocations;
@@ -71,8 +72,12 @@ public class EntityMap {
     }
 
     //
-    private static float[,] getRandomSpreadPoints(int mapWidth, int mapHeight, int seed, float spread, int points) {
+    private static float[,] getRandomSpreadPoints(int mapWidth, int mapHeight, int seed, float spread, int points, int limit) {
         //Debug.Log("X: "+randX+" | Y: "+randY);
+
+        if (mapWidth <= 1 || mapHeight <= 1 || spread < 0 || points < 1 || (points*spread) >= (mapWidth*mapHeight)) {
+            throw new Exception();
+        }
 
         float[,] spreadPoints = new float[mapWidth, mapHeight];
         for (int y = 0; y < mapHeight; y++) {
@@ -81,39 +86,41 @@ public class EntityMap {
             }
         }
 
-        if (points >= (mapWidth * mapHeight)) {
-            Debug.Log("Invalid number of points");
-            return spreadPoints;
-        }
-
         System.Random prng = new System.Random(seed);
+        bool redo;
+        int randX;
+        int randY;
         Vector2 point;
+        Vector2[] invalidPoints;
+        Vector2 invalidPoint;
+        int lim = 0;
+
         while (points > 0) {
             do {
-                int randX = prng.Next(0, mapWidth);
-                int randY = prng.Next(0, mapHeight);
+                redo = false;
+                randX = prng.Next(0, mapWidth);
+                randY = prng.Next(0, mapHeight);
                 point = new Vector2(randX, randY);
                 //Debug.Log("Testing point: "+randX+", "+randY);
-            } while (spreadPoints[(int)point.x, (int)point.y] != 0);
+            //} while (spreadPoints[(int)point.x, (int)point.y] != 0);
+                invalidPoints = getPointsInRadius(mapWidth, mapHeight, point, spread);
 
-            Vector2[] invalidPoints = getPointsInRadius(mapWidth, mapHeight, point, spread);
-            int invalidSize = invalidPoints.Length;
-            for (int i = 0; i < invalidSize; i++) {
-                Vector2 invalidPoint = invalidPoints[i];
-                //Debug.Log("test: "+spreadPoints[(int)invalidPoint.x, (int)invalidPoint.y]);
-                spreadPoints[(int)invalidPoint.x, (int)invalidPoint.y] = 0;
+                for (int i = 0; i < invalidPoints.Length; i++) {
+                    invalidPoint = invalidPoints[i];
+                    if (spreadPoints[(int)invalidPoint.x, (int)invalidPoint.y] == 1) {
+                        redo = true;
+                    }
+                }
+                lim++;
+
+            } while (redo && (lim > limit));
+
+            if (lim <= limit) {
+                spreadPoints[(int)point.x, (int)point.y] = 1;
             }
-
-            spreadPoints[(int)point.x, (int)point.y] = 1;
-
+            lim = 0;
             points--;
         }
-        /*
-        for (int y = 0; y < mapHeight; y++) {
-            for (int x = 0; x < mapWidth; x++) {
-                Debug.Log("spreadPoints: "+spreadPoints[x, y]);
-            }
-        }*/
 
         return spreadPoints;
     }
@@ -129,6 +136,8 @@ public class EntityMap {
         int maxX = Math.Clamp(((int)point.x + radCeil), 0, mapWidth);
         int minY = Math.Clamp(((int)point.y - radFloor), 0, mapHeight);
         int maxY = Math.Clamp(((int)point.y + radCeil), 0, mapHeight);
+
+        //Debug.Log("minX: "+minX+" | maxX: "+maxX+" | minY: "+minY+" | maxY: "+maxY);
 
         for (int y = minY; y < maxY; y++) {
             for (int x = minX; x < maxX; x++) {

@@ -168,12 +168,12 @@ public class MeshMapTest {
         meshTest.SetTriangles(MeshMap.generateTriangles(mapWidth, mapHeight), 0);
         meshTest.RecalculateNormals();
 
-        float[] steepVal = MeshMap.calculateSteepness(meshTest, mapWidth, mapHeight);
-        Color[] meshCols = MeshMap.generateColors(meshTest, mapWidth, mapHeight, steepVal, snowThresh, waterThresh);
-
         Color col1 = Color.green;
         Color col2 = new Color32(160, 82, 45, 1);
         Color col3 = Color.white;
+
+        float[] steepVal = MeshMap.calculateSteepness(meshTest, mapWidth, mapHeight);
+        Color[] meshCols = MeshMap.generateColors(meshTest, mapWidth, mapHeight, steepVal, snowThresh, waterThresh, col1, col2);
 
         Assert.IsTrue((meshCols[0] == col2) && (meshCols[1] == col2) && (meshCols[6] == col1) && (meshCols[7] == col1) && (meshCols[12] == col3) && (meshCols[13] == col3));
     }

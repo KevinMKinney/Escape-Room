@@ -99,7 +99,21 @@ public class MapDisplay : MonoBehaviour
             GameObject o = (GameObject) obj;
             if (o.name == "Sphere") {
                 DestroyImmediate(o);
+                //Destroy(o, 0);
             }
         }
+    }
+
+    public void drawPortal(float[,] noiseMap, int portalPointX, int portalPointZ) {
+        int scale = 30;
+        GameObject meshObj = GameObject.Find("MeshObj");
+        float _x = portalPointX * meshObj.transform.localScale.x + meshObj.transform.position.x;
+        float _y = noiseMap[portalPointX, portalPointZ] * meshObj.transform.localScale.y + meshObj.transform.position.y;
+        float _z = portalPointZ * meshObj.transform.localScale.z + meshObj.transform.position.z;
+
+        GameObject sphere = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+        sphere.transform.position = new Vector3(_x, _y, _z);
+        sphere.transform.localScale = new Vector3(scale, scale, scale);
+        sphere.GetComponent<Renderer>().sharedMaterial.color = new Color(0.1f,1,0.1f,1);
     }
 }

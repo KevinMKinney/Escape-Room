@@ -26,16 +26,17 @@ public class MapGenerator : MonoBehaviour
     public float snowThresh;
     [Range(0,1)]
     public float waterThresh;
+    public Color flatCol;
+    public Color steepCol;
 
     [Header("Water Settings")]
+
     public float noiseScaleWater;
     [Range(0,15)]
     public int octavesWater;
     [Range(0,1)]
     public float persistanceWater;
     public float lacunarityWater;
-
-    public int seedWater;
 
     [Header("Entity Settings")]
     [Range(0,1)]
@@ -50,7 +51,7 @@ public class MapGenerator : MonoBehaviour
     public float persistanceEntity;
     public float lacunarityEntity;
 
-    public int seedEntity;
+    public Vector2 portalPoint;
 
     [Space(10)]
     public bool autoUpdate;
@@ -79,7 +80,7 @@ public class MapGenerator : MonoBehaviour
 
         if (coloredMesh) {
             float[] steepVal = MeshMap.calculateSteepness(mesh, mapWidth, mapHeight);
-            Color[] meshCols = MeshMap.generateColors(mesh, mapWidth, mapHeight, steepVal, snowThresh, waterThresh);
+            Color[] meshCols = MeshMap.generateColors(mesh, mapWidth, mapHeight, steepVal, snowThresh, waterThresh, flatCol, steepCol);
             mesh.SetColors(meshCols);
         }
 
@@ -88,7 +89,7 @@ public class MapGenerator : MonoBehaviour
 
     public Mesh generateWater() {
         // noisemap gets shape of mesh (see Noise.cs for further information)
-        float[,] noiseMapWater = Noise.generateFlushNoiseMap(mapWidth, mapHeight, seedWater, noiseScaleWater, octavesWater, persistanceWater, lacunarityWater, offset);
+        float[,] noiseMapWater = Noise.generateFlushNoiseMap(mapWidth, mapHeight, seed, noiseScaleWater, octavesWater, persistanceWater, lacunarityWater, offset);
 
         // mesh init
         Mesh meshWater = new Mesh();
@@ -108,9 +109,9 @@ public class MapGenerator : MonoBehaviour
         // noisemap gets shape of mesh (see Noise.cs for further information)
         float[,] meshMap = Noise.generateNoiseMap(mapWidth, mapHeight, seed, noiseScale, octaves, persistance, lacunarity, offset);
         meshMap = Noise.curveNoise(mapWidth, mapHeight, meshMap, meshHeightCurve);
-        float[,] densityMap = Noise.generateNoiseMap(mapWidth, mapHeight, seedEntity, noiseScaleEntity, octavesEntity, persistanceEntity, lacunarityEntity, offset);
+        float[,] densityMap = Noise.generateNoiseMap(mapWidth, mapHeight, seed, noiseScaleEntity, octavesEntity, persistanceEntity, lacunarityEntity, offset);
 
-        return EntityMap.generateEntityMap(meshMap, densityMap, seedEntity, waterThresh, entityMaxThresh, entityFrequency, entitySpread);
+        return EntityMap.generateEntityMap(meshMap, densityMap, seed, waterThresh, entityMaxThresh, entityFrequency, entitySpread);
     }
 
     // function calls methods from MapDisplay
@@ -127,6 +128,7 @@ public class MapGenerator : MonoBehaviour
             float[,] entities = generateEntities();
             display.drawEntities(meshData.heightMap, waterThresh, entities);
         }
+        display.drawPortal(meshData.heightMap, (int)portalPoint.x, (int)portalPoint.y);
     }
 
     // for threading (not implemented yet)

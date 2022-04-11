@@ -92,15 +92,13 @@ public static class MeshMap
     }
 
     // creates the colors of the mesh based on its steepness
-    public static Color[] generateColors(Mesh mesh, int mapWidth, int mapHeight, float[] steepVal, float snowThresh, float waterThresh) {
+    public static Color[] generateColors(Mesh mesh, int mapWidth, int mapHeight, float[] steepVal, float snowThresh, float waterThresh, Color flatCol, Color steepCol) {
         // initialize variables
         int size = mapWidth*mapHeight;
         Color[] colors = new Color[size];
         // color init
-        //Color col1 = Random.ColorHSV(0f, 1f, 1f, 1f, 0.5f, 1f);
-        //Color col2 = Random.ColorHSV(0f, 1f, 1f, 1f, 0.5f, 1f);
-        Color col1 = Color.green;
-        Color col2 = new Color32(160, 82, 45, 1);
+        //Color flatCol = Random.ColorHSV(0f, 1f, 1f, 1f, 0.5f, 1f);
+        //Color steepCol = Random.ColorHSV(0f, 1f, 1f, 1f, 0.5f, 1f);
 
         //float maxSteep = steepVal.Aggregate((x, y) => Mathf.Max(x, y));
         float maxSteep = Mathf.Max(steepVal);
@@ -108,12 +106,12 @@ public static class MeshMap
         // assign colors
         for (int i = 0; i < size; i++) {
             if (mesh.vertices[i].y <= waterThresh) {
-                colors[i] = col2;
+                colors[i] = flatCol;
             } else {
                 if (mesh.vertices[i].y >= snowThresh) {
-                    colors[i] = Color.Lerp(Color.white, col2, (steepVal[i])/maxSteep);
+                    colors[i] = Color.Lerp(Color.white, steepCol, (steepVal[i])/maxSteep);
                 } else {
-                    colors[i] = Color.Lerp(col1, col2, (steepVal[i])/maxSteep);
+                    colors[i] = Color.Lerp(flatCol, steepCol, (steepVal[i])/maxSteep);
                 }
             }
 

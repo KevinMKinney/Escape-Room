@@ -187,17 +187,30 @@ public class AI : MonoBehaviour
         GoTo(chosenWP);
     }
 
+
+    //Section Writen By Nicole Batchelor
+
+    bool PlayerIsInvisable()
+    {
+        return player.GetComponent<Invisible>().isInvisible;
+    }
+
+    //End Code Written By Nicole Batchelor
+
     // Update is called once per frame
     void Update()
     {
         if (IsTouchingPlayer())
         {
             // End the Game / Quit Application
-            UnityEditor.EditorApplication.isPlaying = false;
+            #if UNITY_EDITOR
+                UnityEditor.EditorApplication.isPlaying = false;
+            #endif
+            Application.Quit();
         }
         else if (!coolDown)
         {
-            if (!PlayerInRange())
+            if (!PlayerInRange() || PlayerIsInvisable())
             {
                 Patrol();
             }

@@ -34675,7 +34675,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b94895586a061bf41909fbbe8526acd1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isInvisable: 0
+--- !u!114 &907073880
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 907073870}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1f69f8f3f6d46a41aaf762bc18cb15b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isInvisible: 1
 --- !u!43 &918235693
 Mesh:
   m_ObjectHideFlags: 0

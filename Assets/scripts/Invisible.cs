@@ -5,4 +5,9 @@ using UnityEngine;
 public class Invisible : MonoBehaviour
 {
     public bool isInvisible;
+
+    public void Start()
+    {
+        isInvisible = true;
+    }
 }

@@ -34,6 +34,7 @@ TagManager:
   - HintArea3
   - TestObject
   - puzzle 1
+  - items
   layers:
   - Default
   - TransparentFX

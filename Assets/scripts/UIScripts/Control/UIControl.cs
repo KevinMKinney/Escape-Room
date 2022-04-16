@@ -30,10 +30,16 @@ public class UIControl : MonoBehaviour
         {
             if (visible)
             {
+                Time.timeScale = 1.0f;
                 HideUI();
+                Cursor.visible = false;
+                Cursor.lockState = CursorLockMode.Locked;
             } else
             {
+                Time.timeScale = 0f;
                 ShowUI();
+                Cursor.visible = true;
+                Cursor.lockState = CursorLockMode.None;
             }
         }
     }

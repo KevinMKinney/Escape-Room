@@ -15,7 +15,7 @@ public class ItemListEntry : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     void Start()
     {
         itemText = this.gameObject.GetComponent<TMP_Text>();
-        inventory = GameObject.FindGameObjectWithTag("Items").GetComponent<Inventory>();
+        inventory = GameObject.FindGameObjectWithTag("items").GetComponent<Inventory>();
         itemDisplay = GameObject.Find("ItemDisplay").GetComponent<ItemDisplay>();
         itemControls = GameObject.Find("ItemControls").GetComponent<ItemControls>();
     }

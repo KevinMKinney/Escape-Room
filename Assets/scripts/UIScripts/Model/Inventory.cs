@@ -8,7 +8,7 @@ public class Inventory : MonoBehaviour
     private List<Item> items = new List<Item>(); // list of items in inventory
     private int equippedItemIndex = -1; // -1 indicates that no item is equipped
     private int selectedItemIndex = -1; // -1 indicates that no item is selected
-    public static int maxItemCount = 5; // inventory can have no more than maxItemCount items
+    public static int maxItemCount = 8; // inventory can have no more than maxItemCount items
     #endregion
 
     #region methods
@@ -114,12 +114,21 @@ public class Inventory : MonoBehaviour
         Item gun = new Item("Gun", "A GUN?!!!");
         Item gasCan = new Item("Gas Can", "Full can of gas");
         Item mazeBoard = new Item("Maze Board", "Wierd maze enclosed in glass");
+        Item watermelon = new Item("Watermelon", "An actual watermelon");
+        Item banana = new Item("Banana", "A ripe banana");
+        Item grape = new Item("Grape", "A big juicy grape");
         mazeBoard.LongDescription = "I found this 3D maze... It looks like there is a button at the center of it. But how do I press it?";
         gun.LongDescription = "Can't believe I found a gun. I hope I won't have to use it.";
         gasCan.LongDescription = "Found a full gas can... What takes gas around here though?";
+        watermelon.LongDescription = "I really hope somebody took the seeds out of this.";
+        banana.LongDescription = "I prefer my bananas in bread form...";
+        grape.LongDescription = "Seriously, why is there fruit in here?";
         AddItem(gun);
         AddItem(gasCan);
         AddItem(mazeBoard);
+        AddItem(watermelon);
+        AddItem(banana);
+        AddItem(grape);
     }
     #endregion
 }

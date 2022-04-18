@@ -20,12 +20,6 @@ public class ItemControls : MonoBehaviour
         dropButton = GameObject.Find("DropButton");
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     public void ShowControls()
     {
         equipButton.SetActive(true);

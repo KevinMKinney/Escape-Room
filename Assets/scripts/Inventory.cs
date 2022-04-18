@@ -13,11 +13,6 @@ public class Inventory : MonoBehaviour
 
     #region methods
 
-    private void Start()
-    {
-        // do some stuff here at some point?
-    }
-
     // Get the items currently in the inventory
     public List<Item> GetItems()
     {

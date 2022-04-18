@@ -13,12 +13,6 @@ public class ItemList : MonoBehaviour
         itemList = this.gameObject;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     public void UpdateList(Inventory inventory)
     {
         List<Item> items = inventory.GetItems();

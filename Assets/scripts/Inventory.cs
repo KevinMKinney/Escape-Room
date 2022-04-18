@@ -41,6 +41,7 @@ public class Inventory : MonoBehaviour
     {
         if (i >= 0 && i < items.Count)
         {
+            Item current = items[i];
             items.RemoveAt(i);
             if (equippedItemIndex == i)
             {
@@ -73,9 +74,18 @@ public class Inventory : MonoBehaviour
     // Assign an item to be equipped
     public int EquipItem(int i)
     {
+
+        Item current = GetEquippedItem();
+        if (current != null)
+        {
+            current.InGameObject.SetActive(false);
+        }
+
         if (i >= 0 && i < items.Count)
         {
             equippedItemIndex = i;
+            current = GetEquippedItem();
+            current.InGameObject.SetActive(true);
         }
         else
         {
@@ -94,6 +104,11 @@ public class Inventory : MonoBehaviour
     // Unequip item
     public void PutAwayItem()
     {
+        Item i = GetSelectedItem();
+        if (i != null)
+        {
+            i.InGameObject.SetActive(false);
+        }
         equippedItemIndex = -1;
     }
 
@@ -106,6 +121,30 @@ public class Inventory : MonoBehaviour
         {
             return null;
         }
+    }
+
+    public Item GetEquippedItem()
+    {
+        if (equippedItemIndex >= 0)
+        {
+            return items[equippedItemIndex];
+        } else
+        {
+            return null;
+        }
+    }
+
+    public int GetItemIndex(Item item)
+    {
+        for (int i = 0; i < items.Count; i++)
+        {
+            if (items[i].Equals(item))
+            {
+                return i;
+            } 
+        }
+
+        return -1;
     }
 
     // initTests() initializes the inventory with some test items

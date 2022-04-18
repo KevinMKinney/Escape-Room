@@ -25,4 +25,20 @@ public class ItemControls : MonoBehaviour
     {
         
     }
+
+    public void ShowControls()
+    {
+        equipButton.SetActive(true);
+        putAwayButton.SetActive(true);
+        inspectButton.SetActive(true);
+        dropButton.SetActive(true);
+    }
+
+    public void HideControls()
+    {
+        equipButton.SetActive(false);
+        putAwayButton.SetActive(false);
+        inspectButton.SetActive(false);
+        dropButton.SetActive(false);
+    }
 }

@@ -35,5 +35,6 @@ public class ItemListEntry : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         int itemSlotIndex = this.gameObject.transform.parent.GetSiblingIndex();
         inventory.SelectItem(itemSlotIndex);
         itemDisplay.UpdateItemDisplay(inventory.GetSelectedItem());
+        itemControls.ShowControls();
     }
 }

@@ -20,6 +20,7 @@ public class Item : MonoBehaviour
 
     [SerializeField]
     private GameObject inGameObject;
+
     #endregion
 
     #region constructors

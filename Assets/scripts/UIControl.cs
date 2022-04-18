@@ -5,9 +5,17 @@ using UnityEngine;
 public class UIControl : MonoBehaviour
 {
     public bool visible;
+    private ItemList itemList;
+    private Inventory inventory;
+    private ItemDisplay itemDisplay;
+    private ItemControls itemControls;
     // Start is called before the first frame update
     void Start()
     {
+        itemList = GameObject.Find("ItemList").GetComponent<ItemList>();
+        inventory = GameObject.FindGameObjectWithTag("items").GetComponent<Inventory>();
+        itemDisplay = GameObject.Find("ItemDisplay").GetComponent<ItemDisplay>();
+        itemControls = GameObject.Find("ItemControls").GetComponent<ItemControls>();
         HideUI();
     }
 
@@ -21,6 +29,10 @@ public class UIControl : MonoBehaviour
     {
         this.transform.localScale = new Vector3(1, 1, 1);
         visible = true;
+        itemList.UpdateList(inventory);
+        inventory.SelectItem(-1);
+        itemDisplay.UpdateItemDisplay(null);
+        itemControls.HideControls();
     }
 
     // Update is called once per frame

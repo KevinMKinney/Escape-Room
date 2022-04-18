@@ -41,6 +41,11 @@ public class RoomTrigger : GuideBaseState //this line of code is based off of iH
     public override void EnterState(GuideStateManager Guide)//this line of code is based off of iHeartGameDev https://youtu.be/Vt8aZDPzRjI
     {
             Debug.Log("You entered the TriggerState");
+            
+            /*GameObject player_position = GameObject.Find("FPSController");
+            Vector3 player_transform = transform.TransformPoint(Vector3)
+            Debug.Log(player_transform);*/
+            
             }
 
     //Update listens every frame for user keyboard input, resets text UI

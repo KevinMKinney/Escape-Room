@@ -6,7 +6,6 @@ public class EventDialogue : GuideBaseState //this line of code is based off of 
 {
   /*Check to see if overallDemeanor is correct*/
   /*Left on punishment(), can't call other scripts (???) find different way to negatively affect user*/
-
   int eventD, posChoice, negChoice, overallDemeanor = 0;//Dialogue system (Which event is which) 
   private TextMeshProUGUI sometext;//defining text UI variable
   public KeyCode K_Key = KeyCode.K;
@@ -44,11 +43,9 @@ public class EventDialogue : GuideBaseState //this line of code is based off of 
     }
     public override void EnterState(GuideStateManager Guide){//this line of code is based off of iHeartGameDev https://youtu.be/Vt8aZDPzRjI
     }
-
     public override void UpdateState(GuideStateManager Guide){//this line of code is based off of iHeartGameDev https://youtu.be/Vt8aZDPzRjI
       
       GameObject FPSController = GameObject.Find("FPSController");
-      //Debug.Log("We're in the update state");
       //Keeping track of current player position
       playerPosition = FPSController.transform.position;
       PlayerPosition(playerPosition);
@@ -83,13 +80,10 @@ public class EventDialogue : GuideBaseState //this line of code is based off of 
         if(eventD==1){
           if(posChoice==1){
             sometext.text="A fellow apple enthusiast!\n\n (The guide favors you more!) \n\n Press N to close prompt";
-            GuideBehavior();
             Guide.SwitchState(Guide.TriggerState);
           }
           if(negChoice==-1){
             sometext.text="Shame... I'm more of an apple kind of ghost\n\n (The guide favors you less..) \n\n Press N to close prompt";
-            GuideBehavior();
-            //Guide.SwitchState(Guide.TriggerState);
           }
         }
         //Second puzzle event dialogue
@@ -127,12 +121,8 @@ public class EventDialogue : GuideBaseState //this line of code is based off of 
     }
     //Slows down the player for a short time if the overall demeanor toward the player is negative
     public void punishment(){
-      //Old drag code. Drag doesn't affect the player speed in this instance
-      /*GameObject FPSController = GameObject.Find("FPSController");
-      Rigidbody playerSpeed = FPSController.GetComponent<Rigidbody>();
-      playerSpeed.drag=100;
-      FPSController.GetComponent<Rigidbody>().drag=playerSpeed.drag;
-      Debug.Log(FPSController.GetComponent<Rigidbody>().drag);*/
+      GameObject player_position = GameObject.Find("Hammer");
+      player_position.transform.position = new Vector3(8,3,1);
 
     }
     public void GuideBehavior(){

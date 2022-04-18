@@ -30,11 +30,19 @@ public class RoomTrigger : GuideBaseState //this line of code is based off of iH
         if(collider.gameObject.tag=="Puzzle 3 Wait"){
             Guide.SwitchState(Guide.RoomState);
         }
+
+        if(collider.gameObject.tag=="Prompt1"){
+            Guide.SwitchState(Guide.EventState);
+        }
+        
     }
+
     //Initial state called when switching state
     public override void EnterState(GuideStateManager Guide)//this line of code is based off of iHeartGameDev https://youtu.be/Vt8aZDPzRjI
     {
-    }
+            Debug.Log("You entered the TriggerState");
+            }
+
     //Update listens every frame for user keyboard input, resets text UI
     public override void UpdateState(GuideStateManager Guide){//this line of code is based off of iHeartGameDev https://youtu.be/Vt8aZDPzRjI
         if(Input.GetKeyDown(key2)){
@@ -42,7 +50,7 @@ public class RoomTrigger : GuideBaseState //this line of code is based off of iH
             sometext = random.GetComponent<TextMeshProUGUI>();
             sometext.text=" ";
             Guide.SwitchState(Guide.TriggerState);
-      }
+      }        
     }
 
 

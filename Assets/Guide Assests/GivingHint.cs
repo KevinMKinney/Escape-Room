@@ -13,7 +13,7 @@ public class GivingHint : GuideBaseState //this line of code is based off of iHe
 public override void OnTriggerEnter(GuideStateManager Guide, Collider collider){//Detects collision with puzzle triggers
            GameObject random = GameObject.Find("GuideMessage");//Whenever the player triggers a hint area, takes the object and attaches a text UI
            sometext = random.GetComponent<TextMeshProUGUI>();//Fetching the text UI component 
-        if(collider.gameObject.tag=="HintArea1" || collider.gameObject.tag=="HintArea1.2" || collider.gameObject.tag=="HintArea1.3"){//detects if player has collided with any of these area triggers
+        if(collider.gameObject.tag=="HintArea1" || collider.gameObject.tag=="HintArea1.2" || collider.gameObject.tag=="HintArea1.3" || collider.gameObject.tag=="HintArea1.4" || collider.gameObject.tag=="HintArea1.5"){//detects if player has collided with any of these area triggers
            hintRoom=1;//setting hint system value
            sometext.text = "Would you like a hint for this puzzle?  If yes press Y, if not then press N";//setting "sometext" to prompt user 
             if(Input.GetKeyDown(key)){//If they hit yes, set "sometext" to nothing, go to Message method
@@ -26,7 +26,7 @@ public override void OnTriggerEnter(GuideStateManager Guide, Collider collider){
             }
         }
         //The next three if statements have the same functionality as the first
-        if(collider.gameObject.tag=="HintArea2" || collider.gameObject.tag=="HintArea2.1" || collider.gameObject.tag=="HintArea2.2"){
+        if(collider.gameObject.tag=="HintArea2" || collider.gameObject.tag=="HintArea2.1" || collider.gameObject.tag=="HintArea2.2" || collider.gameObject.tag=="HintArea2.3" || collider.gameObject.tag=="HintArea2.4" || collider.gameObject.tag=="HintArea2.5" || collider.gameObject.tag=="HintArea2.6" || collider.gameObject.tag=="HintArea2.7" || collider.gameObject.tag=="HintArea2.8" || collider.gameObject.tag=="HintArea2.9" || collider.gameObject.tag=="HintArea2.91"){
            hintRoom=2;
            sometext.text = "Would you like a hint for this puzzle?  If yes press Y, if not then press N";
             if(Input.GetKeyDown(key)){
@@ -38,7 +38,7 @@ public override void OnTriggerEnter(GuideStateManager Guide, Collider collider){
               Guide.SwitchState(Guide.TriggerState);
             }
         }
-        if(collider.gameObject.tag=="HintArea0" || collider.gameObject.tag=="HintArea0.1" || collider.gameObject.tag=="HintArea0.2" || collider.gameObject.tag=="HintArea0.3" || collider.gameObject.tag=="HintArea0.4" || collider.gameObject.tag=="HintArea0.5"){
+        if(collider.gameObject.tag=="HintArea0" || collider.gameObject.tag=="HintArea0.1" || collider.gameObject.tag=="HintArea0.2" || collider.gameObject.tag=="HintArea0.3" || collider.gameObject.tag=="HintArea0.4" || collider.gameObject.tag=="HintArea0.5" || collider.gameObject.tag=="HintArea0.6" || collider.gameObject.tag=="HintArea0.7" || collider.gameObject.tag=="HintArea0.8"){
            hintRoom=3;
            sometext.text = "Would you like a hint for this puzzle?  If yes press Y, if not then press N";
             if(Input.GetKeyDown(key)){
@@ -50,7 +50,7 @@ public override void OnTriggerEnter(GuideStateManager Guide, Collider collider){
               Guide.SwitchState(Guide.TriggerState);
             }
         }
-        if(collider.gameObject.tag=="HintArea3" || collider.gameObject.tag=="HintArea3.1" || collider.gameObject.tag=="HintArea3.2" || collider.gameObject.tag=="HintArea3.3" || collider.gameObject.tag=="HintArea3.4" || collider.gameObject.tag=="HintArea3.5" || collider.gameObject.tag=="HintArea3.6"){
+        if(collider.gameObject.tag=="HintArea3" || collider.gameObject.tag=="HintArea3.1" || collider.gameObject.tag=="HintArea3.2" || collider.gameObject.tag=="HintArea3.3" || collider.gameObject.tag=="HintArea3.4" || collider.gameObject.tag=="HintArea3.5" || collider.gameObject.tag=="HintArea3.6" || collider.gameObject.tag=="HintArea3.7" || collider.gameObject.tag=="HintArea3.8" || collider.gameObject.tag=="HintArea3.9" || collider.gameObject.tag=="HintArea3.91" || collider.gameObject.tag=="HintArea3.92" || collider.gameObject.tag=="HintArea3.93" || collider.gameObject.tag=="HintArea3.94" || collider.gameObject.tag=="HintArea3.95" || collider.gameObject.tag=="HintArea3.96"){
            hintRoom=4;
            sometext.text = "Would you like a hint for this puzzle?  If yes press Y, if not then press N";
             if(Input.GetKeyDown(key)){

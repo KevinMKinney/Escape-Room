@@ -13,6 +13,7 @@ KeyCode key2 = KeyCode.N;
 public int dialogueSet=0; //When no triggers have been tripped
 public int HintSet=0;//Setting the hint system to 0 
 public float timer=300;//Hint timer (5 minutes)
+
   //Calls OnTriggerEnter whenever the user enters a puzzle area
   public override void OnTriggerEnter(GuideStateManager Guide, Collider collider){
     //Debug.Log("ONTRIGGER in ROOMDIALOGUE");
@@ -28,6 +29,7 @@ public float timer=300;//Hint timer (5 minutes)
            timer=300;
          }
          if(collider.gameObject.tag=="Puzzle 1 Wait"){//When the player enters the first puzzle area, destroy the intro message and set hint system to specific puzzle
+           Debug.Log("Entered Puzzle 1 Wait");
            HintSet=1;
            GameObject SpawnTrigger = GameObject.Find("SpawnTrigger");
            DestroyGameObject(SpawnTrigger);
@@ -46,6 +48,10 @@ public float timer=300;//Hint timer (5 minutes)
            HintSet=0;
            timer=300;
          }
+         if(collider.gameObject.tag=="Prompt1"){
+            Debug.Log("We're going to the EventState!");
+            Guide.SwitchState(Guide.EventState);
+        }
     }
   //Displays intro message for the user
   public override void Message(GuideStateManager Guide, TextMeshProUGUI sometext){
@@ -57,6 +63,8 @@ public float timer=300;//Hint timer (5 minutes)
   public override void EnterState(GuideStateManager Guide)//this line of code is based off of iHeartGameDev https://youtu.be/Vt8aZDPzRjI
     {
     }
+
+  
   //Update listens every frame for user keyboard input
   public override void UpdateState(GuideStateManager Guide)//this line of code is based off of iHeartGameDev https://youtu.be/Vt8aZDPzRjI
      {

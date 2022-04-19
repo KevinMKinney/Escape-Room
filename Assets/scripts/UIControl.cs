@@ -9,6 +9,9 @@ public class UIControl : MonoBehaviour
     private Inventory inventory;
     private ItemDisplay itemDisplay;
     private ItemControls itemControls;
+    private Tab itemTab;
+    private Tab notesTab;
+    private Tab menuTab;
     // Start is called before the first frame update
     void Start()
     {
@@ -16,6 +19,12 @@ public class UIControl : MonoBehaviour
         inventory = GameObject.FindGameObjectWithTag("items").GetComponent<Inventory>();
         itemDisplay = GameObject.Find("ItemDisplay").GetComponent<ItemDisplay>();
         itemControls = GameObject.Find("ItemControls").GetComponent<ItemControls>();
+
+        // need to locate the following to handle positioning of tabs
+        // during notebook scaling
+        itemTab = GameObject.Find("ItemsTab").GetComponent<Tab>();
+        notesTab = GameObject.Find("NotesTab").GetComponent<Tab>();
+        menuTab = GameObject.Find("MenuTab").GetComponent<Tab>();
         HideUI();
     }
 
@@ -43,12 +52,24 @@ public class UIControl : MonoBehaviour
             if (visible)
             {
                 Time.timeScale = 1.0f;
+
+                // handle tab position and then deactivate tabs
+                if (itemTab.tabHovered) itemTab.MoveLeft();
+                if (notesTab.tabHovered) notesTab.MoveLeft();
+                if (menuTab.tabHovered) menuTab.MoveLeft();
+                itemTab.gameObject.SetActive(false);
+                notesTab.gameObject.SetActive(false);
+                menuTab.gameObject.SetActive(false);
+
                 HideUI();
                 Cursor.visible = false;
                 Cursor.lockState = CursorLockMode.Locked;
             } else
             {
                 Time.timeScale = 0f;
+                itemTab.gameObject.SetActive(true);
+                notesTab.gameObject.SetActive(true);
+                menuTab.gameObject.SetActive(true);
                 ShowUI();
                 Cursor.visible = true;
                 Cursor.lockState = CursorLockMode.None;

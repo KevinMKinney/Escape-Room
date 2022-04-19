@@ -61,6 +61,9 @@ TagManager:
   - HintArea2.9
   - HintArea2.91
   - Prompt1
+  - Prompt2
+  - Prompt3
+  - Prompt4
   layers:
   - Default
   - TransparentFX

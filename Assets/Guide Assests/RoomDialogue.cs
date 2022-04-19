@@ -16,7 +16,6 @@ public float timer=300;//Hint timer (5 minutes)
 
   //Calls OnTriggerEnter whenever the user enters a puzzle area
   public override void OnTriggerEnter(GuideStateManager Guide, Collider collider){
-    //Debug.Log("ONTRIGGER in ROOMDIALOGUE");
          if(collider.gameObject.tag=="spawn")//When the player exits spawn, display intro message
          {
            dialogueSet = 1;//setting the dialogue to 1, introduces guide
@@ -29,7 +28,6 @@ public float timer=300;//Hint timer (5 minutes)
            timer=300;
          }
          if(collider.gameObject.tag=="Puzzle 1 Wait"){//When the player enters the first puzzle area, destroy the intro message and set hint system to specific puzzle
-           Debug.Log("Entered Puzzle 1 Wait");
            HintSet=1;
            GameObject SpawnTrigger = GameObject.Find("SpawnTrigger");
            DestroyGameObject(SpawnTrigger);
@@ -47,9 +45,15 @@ public float timer=300;//Hint timer (5 minutes)
          if(collider.gameObject.tag=="TReset"){//When the user goes into main area of level, reset the hint timer and the hint system
            HintSet=0;
            timer=300;
+           //Creating the Prompt3 box collider once the player goes down the stairs
+           GameObject prompt3Coll = GameObject.Find("Prompt3");
+           prompt3Coll.AddComponent<BoxCollider>();
+           prompt3Coll.transform.position = new Vector3(5.56f,0.58f,0.92f);
+           BoxCollider prompt3CollSize = prompt3Coll.GetComponent<BoxCollider>();
+           prompt3CollSize.size = new Vector3(30,2,12);
+           prompt3CollSize.isTrigger = true;
          }
-         if(collider.gameObject.tag=="Prompt1"){
-            Debug.Log("We're going to the EventState!");
+         if(collider.gameObject.tag=="Prompt1" || collider.gameObject.tag=="Prompt2" || collider.gameObject.tag=="Prompt3" || collider.gameObject.tag=="Prompt4" || collider.gameObject.tag=="Prompt5"){
             Guide.SwitchState(Guide.EventState);
         }
     }
@@ -63,8 +67,6 @@ public float timer=300;//Hint timer (5 minutes)
   public override void EnterState(GuideStateManager Guide)//this line of code is based off of iHeartGameDev https://youtu.be/Vt8aZDPzRjI
     {
     }
-
-  
   //Update listens every frame for user keyboard input
   public override void UpdateState(GuideStateManager Guide)//this line of code is based off of iHeartGameDev https://youtu.be/Vt8aZDPzRjI
      {

@@ -18,22 +18,22 @@ public class EventDialogue : GuideBaseState //this line of code is based off of 
         
         if(collider.gameObject.tag=="Prompt1"){
             eventD = 1;//Setting the event number
-            sometext.text = "Do you prefer apples (K) or oranges (L)?\n\n";//Guide prompt
+            sometext.text = "Which is your favorite hotsauce: Doctor Grant's Hotsauce (K) or Tabasco (L)?\n\n";//Guide prompt
             OnTriggerExit(collider);//destroys the trigger
         }
-        if(collider.gameObject.tag=="event2"){
+        if(collider.gameObject.tag=="Prompt2"){
             eventD = 2;
             sometext.text="Did you ever hear the Tragedy of Darth Plagueis the Wise?\n\n Yes (K) or No (L)";   
             OnTriggerExit(collider);//destroys the trigger
         }
-        if(collider.gameObject.tag=="event3"){
+        if(collider.gameObject.tag=="Prompt3"){
             eventD = 3;        
-            sometext.text="Which is your favorite, Ghostbusters (1984) (K) or Ghosbusters (2016) (L)?";
+            sometext.text="Would you rather fight 100 duck-sized horses, or 1 horse-sized duck?\n\n 100 duck-sized horses (K) or 1 horse-sized duck (L)";
             OnTriggerExit(collider);//destroys the trigger
         }
-        if(collider.gameObject.tag=="event4"){
+        if(collider.gameObject.tag=="Prompt4"){
             eventD = 4;        
-            sometext.text="Final question. . . . Pepsi (K) or Coke (L)?";
+            sometext.text="If you could go back into the past and change one thing, would you: Save Harambe (K) or play the lotto knowing the winnning numbers (K)?";
             OnTriggerExit(collider);//destroys the trigger
         }
     }
@@ -44,7 +44,6 @@ public class EventDialogue : GuideBaseState //this line of code is based off of 
     public override void EnterState(GuideStateManager Guide){//this line of code is based off of iHeartGameDev https://youtu.be/Vt8aZDPzRjI
     }
     public override void UpdateState(GuideStateManager Guide){//this line of code is based off of iHeartGameDev https://youtu.be/Vt8aZDPzRjI
-      
       GameObject FPSController = GameObject.Find("FPSController");
       //Keeping track of current player position
       playerPosition = FPSController.transform.position;
@@ -79,38 +78,50 @@ public class EventDialogue : GuideBaseState //this line of code is based off of 
         //First puzzle event dialogue
         if(eventD==1){
           if(posChoice==1){
-            sometext.text="A fellow apple enthusiast!\n\n (The guide favors you more!) \n\n Press N to close prompt";
+            sometext.text="It's my favorite as well!\n\n (The guide favors you more!) \n\n Press N to close prompt";
+            GuideBehavior();
             Guide.SwitchState(Guide.TriggerState);
           }
           if(negChoice==-1){
-            sometext.text="Shame... I'm more of an apple kind of ghost\n\n (The guide favors you less..) \n\n Press N to close prompt";
+            sometext.text="-1 discretionary point\n\n (The guide favors you less..) \n\n Press N to close prompt";
+            GuideBehavior();
+            Guide.SwitchState(Guide.TriggerState);
           }
         }
         //Second puzzle event dialogue
         if(eventD==2){
           if(posChoice==1){
-            sometext.text="I see, you're well read! \n\n (The guide favors you more!) \n\n Press N to close prompt";
+            sometext.text="I see, a person of culture!\n\n (The guide favors you more!) \n\n Press N to close prompt";
             Guide.SwitchState(Guide.TriggerState);
           }
           if(negChoice==-1){
-            sometext.text= "Unfortunate, but not unexpected.. \n\n (The guide favors you less..) \n\n Press N to close prompt";
+            sometext.text= "I thought not, it's not a story the jedi would tell you..\n\n (The guide favors you less..) \n\n Press N to close prompt";
             Guide.SwitchState(Guide.TriggerState);
           }
         } 
         //Third puzzle event dialogue
         if(eventD==3){
-            sometext.text=" ";
+          if(posChoice==1){
+            sometext.text="Great minds think alike!\n\n (The guide favors you more!) \n\n Press N to close prompt";
+            Guide.SwitchState(Guide.TriggerState);
+          }
+          if(negChoice==-1){
+            sometext.text= "Google the inside of a duck mouth and tell me you'd still win\n\n (The guide favors you less..) \n\n Press N to close prompt";
+            Guide.SwitchState(Guide.TriggerState);
+          }
         } 
         //Fourth puzzle event dialogue
         if(eventD==4){
-            sometext.text=" ";
-        } 
-        //Fifth puzzle evetn dialogue
-        if(eventD==5){
-            sometext.text=" ";
+            if(posChoice==1){
+            sometext.text="You and me both\n\n (The guide favors you more!) \n\n Press N to close prompt";
+            Guide.SwitchState(Guide.TriggerState);
+          }
+          if(negChoice==-1){
+            sometext.text= "Have you no shame?\n\n (The guide favors you less..) \n\n Press N to close prompt";
+            Guide.SwitchState(Guide.TriggerState);
+          }
         } 
     }
-
     public Vector3 PlayerPosition(Vector3 playerPosition){
       return playerPosition;
     }
@@ -119,23 +130,21 @@ public class EventDialogue : GuideBaseState //this line of code is based off of 
       GameObject bonusCherry = GameObject.Find("Cherry");
       GameObject bonusFruit = GameObject.Instantiate(bonusCherry, playerPosition, Quaternion.identity) as GameObject;
     }
-    //Slows down the player for a short time if the overall demeanor toward the player is negative
+    //Teleports the puzzle item back to spawn, making it inconvenient for the player
     public void punishment(){
       GameObject player_position = GameObject.Find("Hammer");
       player_position.transform.position = new Vector3(8,3,1);
-
     }
     public void GuideBehavior(){
-      Debug.Log(overallDemeanor);
       //Will need to change parameters for GuideBehavior to cover all scenarios
       if(overallDemeanor>0){
-        sometext.text="I like your style human, here's a bonus fruit!";
+        sometext.text="I like your style human, here's a bonus fruit!\n\n (You were given a cherry)";
         //Spawn object here
         spawnBonus();
       }
       if(overallDemeanor<0){
-        sometext.text="You have awful taste! Let's slow things down a little..";
-        //Change player speed here
+        sometext.text="My disappointment is immeasurable, and my day is ruined \n\n (The guide moved the puzzle item, go back to previous rooms and find it)";
+        //Teleporting puzzle item back to spawn
         punishment();
       }
     }

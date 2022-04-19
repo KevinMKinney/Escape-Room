@@ -2,7 +2,6 @@
 using System.Collections;//auto-generated code
 using System.Collections.Generic;//auto-generated code
 using UnityEngine;//auto-generated code
-//using UnityStandardAssets.Characters.FirstPerson;//Calls user script
 using TMPro;//Used for the text UI components
 
 public class RoomTrigger : GuideBaseState //this line of code is based off of iHeartGameDev https://youtu.be/Vt8aZDPzRjI
@@ -30,24 +29,14 @@ public class RoomTrigger : GuideBaseState //this line of code is based off of iH
         if(collider.gameObject.tag=="Puzzle 3 Wait"){
             Guide.SwitchState(Guide.RoomState);
         }
-
-        if(collider.gameObject.tag=="Prompt1"){
+        if(collider.gameObject.tag=="Prompt1" || collider.gameObject.tag=="Prompt2" ||collider.gameObject.tag=="Prompt3" ||collider.gameObject.tag=="Prompt4" || collider.gameObject.tag=="Prompt5"){
             Guide.SwitchState(Guide.EventState);
         }
-        
     }
-
     //Initial state called when switching state
     public override void EnterState(GuideStateManager Guide)//this line of code is based off of iHeartGameDev https://youtu.be/Vt8aZDPzRjI
     {
-            Debug.Log("You entered the TriggerState");
-            
-            /*GameObject player_position = GameObject.Find("FPSController");
-            Vector3 player_transform = transform.TransformPoint(Vector3)
-            Debug.Log(player_transform);*/
-            
-            }
-
+    }
     //Update listens every frame for user keyboard input, resets text UI
     public override void UpdateState(GuideStateManager Guide){//this line of code is based off of iHeartGameDev https://youtu.be/Vt8aZDPzRjI
         if(Input.GetKeyDown(key2)){
@@ -57,9 +46,6 @@ public class RoomTrigger : GuideBaseState //this line of code is based off of iH
             Guide.SwitchState(Guide.TriggerState);
       }        
     }
-
-
     public override void Message(GuideStateManager Guide, TextMeshProUGUI sometext){    
     }
-
 }

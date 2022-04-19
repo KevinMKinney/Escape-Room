@@ -29,7 +29,7 @@ public class RoomTrigger : GuideBaseState //this line of code is based off of iH
         if(collider.gameObject.tag=="Puzzle 3 Wait"){
             Guide.SwitchState(Guide.RoomState);
         }
-        if(collider.gameObject.tag=="Prompt1" || collider.gameObject.tag=="Prompt2" ||collider.gameObject.tag=="Prompt3" ||collider.gameObject.tag=="Prompt4" || collider.gameObject.tag=="Prompt5"){
+        if(collider.gameObject.tag=="Prompt1" || collider.gameObject.tag=="Prompt2" ||collider.gameObject.tag=="Prompt3" ||collider.gameObject.tag=="Prompt4" || collider.gameObject.tag=="midpointGuide"){
             Guide.SwitchState(Guide.EventState);
         }
     }

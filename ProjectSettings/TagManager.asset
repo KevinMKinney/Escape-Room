@@ -64,6 +64,7 @@ TagManager:
   - Prompt2
   - Prompt3
   - Prompt4
+  - midpointGuide
   layers:
   - Default
   - TransparentFX

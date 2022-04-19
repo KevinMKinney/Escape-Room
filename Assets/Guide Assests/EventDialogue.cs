@@ -36,6 +36,9 @@ public class EventDialogue : GuideBaseState //this line of code is based off of 
             sometext.text="If you could go back into the past and change one thing, would you: Save Harambe (K) or play the lotto knowing the winnning numbers (K)?";
             OnTriggerExit(collider);//destroys the trigger
         }
+        if(collider.gameObject.tag=="midpointGuide" && eventD==2){
+          GuideBehavior();
+        }
     }
     //Destroys guide prompts after user exits the trigger area
     public void OnTriggerExit(Collider other){
@@ -79,12 +82,10 @@ public class EventDialogue : GuideBaseState //this line of code is based off of 
         if(eventD==1){
           if(posChoice==1){
             sometext.text="It's my favorite as well!\n\n (The guide favors you more!) \n\n Press N to close prompt";
-            GuideBehavior();
             Guide.SwitchState(Guide.TriggerState);
           }
           if(negChoice==-1){
             sometext.text="-1 discretionary point\n\n (The guide favors you less..) \n\n Press N to close prompt";
-            GuideBehavior();
             Guide.SwitchState(Guide.TriggerState);
           }
         }

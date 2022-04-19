@@ -53,7 +53,8 @@ public float timer=300;//Hint timer (5 minutes)
            prompt3CollSize.size = new Vector3(30,2,12);
            prompt3CollSize.isTrigger = true;
          }
-         if(collider.gameObject.tag=="Prompt1" || collider.gameObject.tag=="Prompt2" || collider.gameObject.tag=="Prompt3" || collider.gameObject.tag=="Prompt4" || collider.gameObject.tag=="Prompt5"){
+         if(collider.gameObject.tag=="Prompt1" || collider.gameObject.tag=="Prompt2" || collider.gameObject.tag=="Prompt3" || collider.gameObject.tag=="Prompt4" || collider.gameObject.tag=="midpointGuide"){
+            
             Guide.SwitchState(Guide.EventState);
         }
     }

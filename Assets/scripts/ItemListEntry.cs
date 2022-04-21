@@ -15,7 +15,7 @@ public class ItemListEntry : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     void Start()
     {
         itemText = this.gameObject.GetComponent<TMP_Text>();
-        inventory = GameObject.Find("Items").GetComponent<Inventory>();
+        inventory = GameObject.FindGameObjectWithTag("items").GetComponent<Inventory>();
         itemDisplay = GameObject.Find("ItemDisplay").GetComponent<ItemDisplay>();
         itemControls = GameObject.Find("ItemControls").GetComponent<ItemControls>();
     }
@@ -35,5 +35,6 @@ public class ItemListEntry : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         int itemSlotIndex = this.gameObject.transform.parent.GetSiblingIndex();
         inventory.SelectItem(itemSlotIndex);
         itemDisplay.UpdateItemDisplay(inventory.GetSelectedItem());
+        itemControls.ShowControls();
     }
 }

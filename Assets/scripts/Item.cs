@@ -2,15 +2,25 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Item
+public class Item : MonoBehaviour
 {
     #region attributes
     // attributes:
+    [SerializeField]
     private string itemName;
+
+    [SerializeField]
     private string shortDescription;
+
+    [SerializeField]
     private string longDescription;
+
+    [SerializeField]
     private Sprite itemIcon;
+
+    [SerializeField]
     private GameObject inGameObject;
+
     #endregion
 
     #region constructors

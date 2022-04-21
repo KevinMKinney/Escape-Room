@@ -27,6 +27,8 @@ public class DropButton : MonoBehaviour, IPointerClickHandler
 
     public void OnPointerClick(PointerEventData data)
     {
+        inventory.GetSelectedItem().InGameObject.SetActive(true);
+        inventory.GetSelectedItem().InGameObject.GetComponent<pick_up>().dropInitiated = true;
         inventory.DropItem(inventory.GetSelectedItemIndex());
         itemDisplay.UpdateItemDisplay(null);
         itemList.UpdateList(inventory);

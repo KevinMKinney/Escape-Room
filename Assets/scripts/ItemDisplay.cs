@@ -22,10 +22,12 @@ public class ItemDisplay : MonoBehaviour
         {
             itemName.GetComponent<TMP_Text>().text = "";
             itemLongDescription.GetComponent<TMP_Text>().text = "";
+            itemDrawing.SetActive(false);
         } else
         {
             itemName.GetComponent<TMP_Text>().text = item.ItemName;
             itemLongDescription.GetComponent<TMP_Text>().text = item.LongDescription;
+            itemDrawing.SetActive(true);
         }
     }
 }

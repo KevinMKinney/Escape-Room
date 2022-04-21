@@ -16,9 +16,32 @@ public class pick_up : MonoBehaviour
     public bool firstPickUp;
     [HideInInspector]
     public bool constrainHeldItem = true;
+
+    // ************************
+    // *** brad added below ***
+    private Inventory inventory;
+    private UIControl uiControl;
+    private Item item;
+    private NoteList noteList;
+    private bool addedToInventory;
+    public bool dropInitiated;
+    // *** brad added above ***
+    // ************************
+
     void Start()
     {
         raycast = FindObjectOfType<raycast>();
+
+        // ************************
+        // *** brad added below ***
+        inventory = GameObject.Find("Items").GetComponent<Inventory>();
+        uiControl = GameObject.Find("UIPanel").GetComponent<UIControl>();
+        noteList = GameObject.FindGameObjectWithTag("NoteList").GetComponent<NoteList>();
+        item = this.GetComponent<Item>();
+        addedToInventory = false;
+        dropInitiated = false;
+        // *** brad added above ***
+        // ************************
     }
 
     void Update()
@@ -36,10 +59,35 @@ public class pick_up : MonoBehaviour
             transform.Translate(trans, playerCam);
             transform.rotation = playerCam.rotation;
             transform.Rotate(rotateX, 0, rotateY);
+
+            // ************************
+            // *** brad added below ***
+            if (!addedToInventory)
+            {
+                Debug.Log("Added");
+                inventory.AddItem(item);
+                inventory.EquipItem(inventory.GetItemIndex(item));
+                noteList.PrependNoteToList("Picked up " + item.ItemName);
+                addedToInventory = true;
+            }
         }
 
+        if (dropInitiated)
+        {
+            dropInitiated = false;
+            addedToInventory = false;
+            pickedup = 4;
+            rb.isKinematic = false;
+            GetComponent<Collider>().enabled = true;
+            rb.velocity = Vector3.zero;
+            rb.angularVelocity = Vector3.zero;
+            rb.AddForce(raycast.transform.forward * 500);
+        }
+        // *** brad added above ***
+        // ************************
 
-        if (Input.GetMouseButton(0))
+
+        if (Input.GetMouseButton(0) && !uiControl.visible)
         {
             if (!raycast.canthrow)
             {
@@ -59,7 +107,14 @@ public class pick_up : MonoBehaviour
                     rb.velocity = Vector3.zero;
                     rb.angularVelocity = Vector3.zero;
                     rb.AddForce(raycast.transform.forward * 500);
+                    inventory.DropItem(inventory.GetItemIndex(item));
 
+                    // ************************
+                    // *** brad added below ***
+                    addedToInventory = false;
+                    dropInitiated = false;
+                    // *** brad added above ***
+                    // ************************
                 }
             }
         }

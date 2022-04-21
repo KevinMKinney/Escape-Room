@@ -13,7 +13,7 @@ public class InventoryControl : MonoBehaviour
     void Start()
     {
         inventory = this.gameObject.GetComponent<Inventory>();
-        inventory.StartingInventory();
+        //inventory.StartingInventory();
 
         itemList = GameObject.Find("ItemList").GetComponent<ItemList>();
         itemList.UpdateList(inventory);

@@ -62,6 +62,10 @@ namespace UnityStandardAssets.Characters.FirstPerson
         // Update is called once per frame
         private void Update()
         {
+
+            // Brad added check here for time scale (which is 0 if UI is open)
+            if (Time.timeScale == 0f) return;
+
             RotateView();
             // the jump state needs to read here to make sure it is not missed
             if (!m_Jump)

@@ -15,12 +15,6 @@ public class PutAwayButton : MonoBehaviour, IPointerClickHandler
         itemList = GameObject.Find("ItemList").GetComponent<ItemList>();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     public void OnPointerClick(PointerEventData data)
     {
         inventory.PutAwayItem();

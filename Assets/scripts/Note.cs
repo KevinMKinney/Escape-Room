@@ -8,12 +8,14 @@ public class Note
     // attributes:
     private string noteText;
     private float noteTime;
+    public bool toAppend;
 
     // constructor:
     public Note(string noteText)
     {
         this.noteText = noteText;
         noteTime = Time.timeSinceLevelLoad;
+        toAppend = false;
     }
 
     public string NoteText

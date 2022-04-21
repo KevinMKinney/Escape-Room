@@ -64,6 +64,7 @@ public class pick_up : MonoBehaviour
             // *** brad added below ***
             if (!addedToInventory)
             {
+                Debug.Log("Added");
                 inventory.AddItem(item);
                 inventory.EquipItem(inventory.GetItemIndex(item));
                 noteList.PrependNoteToList("Picked up " + item.ItemName);

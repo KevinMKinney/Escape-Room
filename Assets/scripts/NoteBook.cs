@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using System;
+using UnityEngine.UI;
 
 public class NoteBook : MonoBehaviour
 {
@@ -11,6 +12,8 @@ public class NoteBook : MonoBehaviour
     public GameObject itemPageContent;
     public GameObject notesPageContent;
     public GameObject menuPageContent;
+    public NoteList noteList;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -19,6 +22,7 @@ public class NoteBook : MonoBehaviour
         itemPageContent = GameObject.Find("ItemPageContent").gameObject;
         notesPageContent = GameObject.Find("NotesPageContent").gameObject;
         menuPageContent = GameObject.Find("MenuPageContent").gameObject;
+        noteList = GameObject.FindGameObjectWithTag("NoteList").GetComponent<NoteList>();
         OnTabChange();
     }
 
@@ -42,7 +46,11 @@ public class NoteBook : MonoBehaviour
         } else if (currentTab == 1)
         {
             pageTitle.GetComponent<TMP_Text>().text = "Notes";
+
+            // activate scrollbar and paint the list
             notesPageContent.SetActive(true);
+            noteList.PaintNoteList();
+            GameObject.Find("Scrollbar").SetActive(true);
 
             if (itemPageContent.activeSelf)
             {

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UIControl : MonoBehaviour
 {
@@ -12,6 +13,8 @@ public class UIControl : MonoBehaviour
     private Tab itemTab;
     private Tab notesTab;
     private Tab menuTab;
+    private NoteBook noteBook;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -25,6 +28,9 @@ public class UIControl : MonoBehaviour
         itemTab = GameObject.Find("ItemsTab").GetComponent<Tab>();
         notesTab = GameObject.Find("NotesTab").GetComponent<Tab>();
         menuTab = GameObject.Find("MenuTab").GetComponent<Tab>();
+
+        // locate the notebook
+        noteBook = GameObject.Find("NoteBook").GetComponent<NoteBook>();
         HideUI();
     }
 
@@ -66,6 +72,12 @@ public class UIControl : MonoBehaviour
                 notesTab.gameObject.SetActive(false);
                 menuTab.gameObject.SetActive(false);
 
+                if (noteBook.CurrentTab == 1)
+                {
+                    // deactivate to prevent change in scrollbar scaling
+                    GameObject.Find("Scrollbar").SetActive(false);
+                }
+
                 HideUI();
                 Cursor.visible = false;
                 Cursor.lockState = CursorLockMode.Locked;
@@ -75,7 +87,9 @@ public class UIControl : MonoBehaviour
                 itemTab.gameObject.SetActive(true);
                 notesTab.gameObject.SetActive(true);
                 menuTab.gameObject.SetActive(true);
+
                 ShowUI();
+                noteBook.OnTabChange(); // trigger tab change
                 Cursor.visible = true;
                 Cursor.lockState = CursorLockMode.None;
             }

@@ -8,6 +8,7 @@ public class NoteList : MonoBehaviour
 {
     // attributes:
     private List<Note> list = new List<Note>();
+    private List<Note> newNotes = new List<Note>();
     private GameObject noteListObject;
     private float width = 217.3906f;
     private float height = 0;
@@ -16,12 +17,16 @@ public class NoteList : MonoBehaviour
     void Start()
     {
         noteListObject = GameObject.Find("NoteList");
-        noteListObject.GetComponent<RectTransform>().sizeDelta = new Vector2(0, 0);
     }
 
     private void updateNoteListHeight()
     {
         noteListObject.GetComponent<RectTransform>().sizeDelta = new Vector2(width, height);
+    }
+
+    public void ClearAllNotes()
+    {
+        list = new List<Note>();
     }
 
     public GameObject CreateListItem(Note note)
@@ -79,35 +84,52 @@ public class NoteList : MonoBehaviour
     {
         // create a note and add it to the start of the list
         Note newNote = new Note(noteText);
-        list.Insert(0, newNote);
-
-        // create the new gameobject and add to the start of the notelist
-        GameObject newNoteContainer = CreateListItem(newNote);
-        newNoteContainer.transform.SetParent(noteListObject.transform);
-        newNoteContainer.transform.SetAsFirstSibling();
-        newNoteContainer.transform.rotation = new Quaternion(0, 0, 0, 0);
-        newNoteContainer.transform.localScale = new Vector3(1, 1, 1);
-
-        // increase gameobject height to accomodate new note
-        updateNoteListHeight();
+        newNote.toAppend = false;
+        newNotes.Add(newNote);
     }
 
     public void AppendNoteToList(string noteText)
     {
         // create a note and add it to the end of the list
         Note newNote = new Note(noteText);
-        list.Add(newNote);
+        newNote.toAppend = true;
+        newNotes.Add(newNote);
+    }
 
-        Debug.Log(noteListObject.GetComponent<RectTransform>().rect.height);
+    public void PaintNoteList()
+    {
+        noteListObject = GameObject.Find("NoteList");
 
-        // create the new gameobject and add to the end of the notelist
-        GameObject newNoteContainer = CreateListItem(newNote);
-        newNoteContainer.transform.SetParent(noteListObject.transform);
-        newNoteContainer.transform.SetAsLastSibling();
-        newNoteContainer.transform.rotation = new Quaternion(0, 0, 0, 0);
-        newNoteContainer.transform.localScale = new Vector3(1, 1, 1);
+        // recreate the list
+        foreach(Note note in newNotes)
+        {
+            // create the new gameobject and add to the end of the notelist
+            GameObject newNoteContainer = CreateListItem(note);
+            newNoteContainer.transform.SetParent(noteListObject.transform);
+            newNoteContainer.transform.SetAsLastSibling();
+            newNoteContainer.transform.rotation = new Quaternion(0, 0, 0, 0);
+            newNoteContainer.transform.localScale = new Vector3(1, 1, 1);
 
-        // increase gameobject height to accomodate new note
+
+            // determine where to add the new note
+            if (note.toAppend)
+            {
+                newNoteContainer.transform.SetAsFirstSibling();
+                list.Add(note);
+            } else
+            {
+                newNoteContainer.transform.SetAsLastSibling();
+                list.Insert(0, note);
+            }
+        }
+
+        // empty the new note list
+        while (newNotes.Count > 0)
+        {
+            newNotes.RemoveAt(0);
+        }
+
+        // update the list height
         updateNoteListHeight();
     }
 }

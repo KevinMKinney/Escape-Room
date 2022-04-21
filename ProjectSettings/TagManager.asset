@@ -35,6 +35,7 @@ TagManager:
   - TestObject
   - puzzle 1
   - items
+  - NoteList
   layers:
   - Default
   - TransparentFX

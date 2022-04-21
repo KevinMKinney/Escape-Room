@@ -57,6 +57,11 @@ public class UIControl : MonoBehaviour
                 if (itemTab.tabHovered) itemTab.MoveLeft();
                 if (notesTab.tabHovered) notesTab.MoveLeft();
                 if (menuTab.tabHovered) menuTab.MoveLeft();
+
+                itemTab.tabHovered = false;
+                notesTab.tabHovered = false;
+                menuTab.tabHovered = false;
+
                 itemTab.gameObject.SetActive(false);
                 notesTab.gameObject.SetActive(false);
                 menuTab.gameObject.SetActive(false);

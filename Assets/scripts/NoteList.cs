@@ -9,12 +9,19 @@ public class NoteList : MonoBehaviour
     // attributes:
     private List<Note> list = new List<Note>();
     private GameObject noteListObject;
+    private float width = 217.3906f;
+    private float height = 0;
 
     // Start is called before the first frame update
     void Start()
     {
         noteListObject = GameObject.Find("NoteList");
-        AppendNoteToList("Hello World!");
+        noteListObject.GetComponent<RectTransform>().sizeDelta = new Vector2(0, 0);
+    }
+
+    private void updateNoteListHeight()
+    {
+        noteListObject.GetComponent<RectTransform>().sizeDelta = new Vector2(width, height);
     }
 
     public GameObject CreateListItem(Note note)
@@ -46,9 +53,24 @@ public class NoteList : MonoBehaviour
         noteTextObject.transform.SetParent(noteContainer.transform);
         TextMeshProUGUI noteText = noteTextObject.AddComponent<TextMeshProUGUI>();
         noteText.text = note.NoteText;
+        noteText.overflowMode = TextOverflowModes.Ellipsis;
         noteText.color = new Color32(0,0,0,255);
         noteText.font = noteTime.font;
         noteText.fontSize = 12;
+
+        if (note.NoteText.Length > 50)
+        {
+            // make a larger note space
+            noteContainer.GetComponent<RectTransform>().sizeDelta = new Vector2(width, 100);
+            noteTextObject.GetComponent<RectTransform>().sizeDelta = new Vector2(width, 100);
+            height += 100 + noteListObject.GetComponent<VerticalLayoutGroup>().spacing;
+        } else
+        {
+            // make a smaller note space
+            noteContainer.GetComponent<RectTransform>().sizeDelta = new Vector2(width, 50);
+            noteTextObject.GetComponent<RectTransform>().sizeDelta = new Vector2(width, 50);
+            height += 60 + noteListObject.GetComponent<VerticalLayoutGroup>().spacing;
+        }
 
         return noteContainer;
     }
@@ -65,6 +87,9 @@ public class NoteList : MonoBehaviour
         newNoteContainer.transform.SetAsFirstSibling();
         newNoteContainer.transform.rotation = new Quaternion(0, 0, 0, 0);
         newNoteContainer.transform.localScale = new Vector3(1, 1, 1);
+
+        // increase gameobject height to accomodate new note
+        updateNoteListHeight();
     }
 
     public void AppendNoteToList(string noteText)
@@ -73,11 +98,16 @@ public class NoteList : MonoBehaviour
         Note newNote = new Note(noteText);
         list.Add(newNote);
 
+        Debug.Log(noteListObject.GetComponent<RectTransform>().rect.height);
+
         // create the new gameobject and add to the end of the notelist
         GameObject newNoteContainer = CreateListItem(newNote);
         newNoteContainer.transform.SetParent(noteListObject.transform);
         newNoteContainer.transform.SetAsLastSibling();
         newNoteContainer.transform.rotation = new Quaternion(0, 0, 0, 0);
         newNoteContainer.transform.localScale = new Vector3(1, 1, 1);
+
+        // increase gameobject height to accomodate new note
+        updateNoteListHeight();
     }
 }

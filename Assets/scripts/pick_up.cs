@@ -22,6 +22,7 @@ public class pick_up : MonoBehaviour
     private Inventory inventory;
     private UIControl uiControl;
     private Item item;
+    private NoteList noteList;
     private bool addedToInventory;
     public bool dropInitiated;
     // *** brad added above ***
@@ -35,6 +36,7 @@ public class pick_up : MonoBehaviour
         // *** brad added below ***
         inventory = GameObject.Find("Items").GetComponent<Inventory>();
         uiControl = GameObject.Find("UIPanel").GetComponent<UIControl>();
+        noteList = GameObject.FindGameObjectWithTag("NoteList").GetComponent<NoteList>();
         item = this.GetComponent<Item>();
         addedToInventory = false;
         dropInitiated = false;
@@ -64,6 +66,7 @@ public class pick_up : MonoBehaviour
             {
                 inventory.AddItem(item);
                 inventory.EquipItem(inventory.GetItemIndex(item));
+                noteList.PrependNoteToList("Picked up " + item.ItemName);
                 addedToInventory = true;
             }
         }

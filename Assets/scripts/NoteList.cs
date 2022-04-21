@@ -106,7 +106,6 @@ public class NoteList : MonoBehaviour
             // create the new gameobject and add to the end of the notelist
             GameObject newNoteContainer = CreateListItem(note);
             newNoteContainer.transform.SetParent(noteListObject.transform);
-            newNoteContainer.transform.SetAsLastSibling();
             newNoteContainer.transform.rotation = new Quaternion(0, 0, 0, 0);
             newNoteContainer.transform.localScale = new Vector3(1, 1, 1);
 
@@ -114,11 +113,11 @@ public class NoteList : MonoBehaviour
             // determine where to add the new note
             if (note.toAppend)
             {
-                newNoteContainer.transform.SetAsFirstSibling();
+                newNoteContainer.transform.SetAsLastSibling();
                 list.Add(note);
             } else
             {
-                newNoteContainer.transform.SetAsLastSibling();
+                newNoteContainer.transform.SetAsFirstSibling();
                 list.Insert(0, note);
             }
         }

@@ -20,12 +20,14 @@ public class EntityMap {
         // make groups of entities
         validEntityLocations = multiplyMaps(validEntityLocations, densityMap, frequency);
 
-        int points = (int)(mapWidth*mapHeight / spread);
-        int limit = 10;
-        float[,] randomSpreadPoints = getRandomSpreadPoints(mapWidth, mapHeight, seed, spread, points, limit);
-        validEntityLocations = multiplyMaps(validEntityLocations, randomSpreadPoints, 1);
+        //int points = (int)(mapWidth*mapHeight / spread);
+        //int limit = 10;
+        //float[,] randomSpreadPoints = getRandomSpreadPoints(mapWidth, mapHeight, seed, spread, points, limit);
+        //validEntityLocations = multiplyMaps(validEntityLocations, randomSpreadPoints, 1);
+        //return validEntityLocations;
 
-        return validEntityLocations;
+        //float[,] randomSpreadPoints = randomSpreadPoints(mapWidth, mapHeight, validEntityLocations, seed, spread);
+        return randomSpreadPoints(mapWidth, mapHeight, validEntityLocations, seed, spread);
     }
 
     // finds all valid locations for entities from the mesh's noise
@@ -152,5 +154,65 @@ public class EntityMap {
         }
 
         return pointArray;
+    }
+
+    private static float[,] randomSpreadPoints(int mapWidth, int mapHeight, float[,] points, int seed, float spread) {
+
+        List<float[]> spreadPoints = new List<float[]>();
+        float[] temp = new float[2];
+        for (int x = 0; x < mapWidth; x++) {
+            for (int y = 0; y < mapHeight; y++) {
+                if (points[x, y] >= 1) {
+                    temp[0] = x;
+                    temp[1] = y;
+                    //Debug.Log("temp: ("+x+", "+y+")");
+                    spreadPoints.Add(temp);
+
+                }
+            }
+        }
+        /*
+        for (int j = 0; j < spreadPoints.Count; j++) {
+            Debug.Log("val ("+spreadPoints.ElementAt(j)[0]+", "+spreadPoints.ElementAt(j)[0]+") at "+j);
+        }*/
+
+        float[,] randomSpread = new float[mapWidth, mapHeight];
+        System.Random prng = new System.Random(seed);
+        int size = spreadPoints.Count;
+        float[] item = new float[2];
+        int rng;
+        double dist;
+
+        while (size > 0) {
+
+            rng = prng.Next(0, size);
+            //Debug.Log("Size: "+size+" | rng#: "+rng);
+            for (int i = 0; i < size;) {
+                if (i != rng) {
+                    //Debug.Log("I: "+i+" | rng: "+rng);
+                    temp = spreadPoints[i];
+                    item = spreadPoints[rng];
+                    //Debug.Log("("+item[0]+" - "+temp[0]+") + ("+item[1]+" - "+temp[1]+")");
+                    dist = Math.Sqrt((item[0] - temp[0]) + (item[1] - temp[1]));
+                    //Debug.Log("dist("+dist+") < spread("+spread+")");
+                    if (dist < spread) {
+                        spreadPoints.RemoveAt(i);
+                        size--;
+                        rng--;
+                    } else {
+                         i++;
+                    }
+                } else {
+                    i++;
+                }
+            }
+
+            randomSpread[(int)item[0], (int)item[1]] = 1;
+            spreadPoints.RemoveAt(rng);
+            size--;
+
+        }
+
+        return randomSpread;
     }
 }

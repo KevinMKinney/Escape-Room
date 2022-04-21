@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEditor;
+using System;
 
 public class MapDisplay : MonoBehaviour
 {
@@ -10,6 +12,7 @@ public class MapDisplay : MonoBehaviour
     public MeshRenderer meshRenderer;
     public MeshFilter meshFilterWater;
     public MeshRenderer meshRendererWater;
+    public GameObject treeObj;
 
     // creates a texture based on pre-made noise
     public void drawNoiseMap(float[,] noiseMap) {
@@ -103,6 +106,43 @@ public class MapDisplay : MonoBehaviour
             }
         }
     }
+
+    // temp function for dev
+    private void drawEntityTree(float[,] noiseMap, float[,] entities, float waterThresh) {
+        int mapWidth = noiseMap.GetLength(0);
+        int mapHeight = noiseMap.GetLength(1);
+        //int scale = 30;
+        GameObject meshObj = GameObject.Find("MeshObj");
+        Transform treefab = (treeObj).transform;
+
+        if (treefab == null) {
+            throw new Exception();
+        }
+
+        for (int y = 0; y < mapHeight; y++) {
+            for (int x = 0; x < mapWidth; x++) {
+                if (entities[x, y] >= 1) {
+                    float _x = x * meshObj.transform.localScale.x + meshObj.transform.position.x;
+                    float _y = noiseMap[x, y] * meshObj.transform.localScale.y + meshObj.transform.position.y;
+                    float _z = y * meshObj.transform.localScale.z + meshObj.transform.position.z;
+
+                    Instantiate(treeObj,  new Vector3(_x, _y, _z), Quaternion.identity, treefab);
+                }
+            }
+        }
+    }
+
+    /*
+    public void removeEntityTrees() {
+        object[] objects = GameObject.FindObjectsOfType(typeof(GameObject));
+        foreach (object obj in objects) {
+            GameObject o = (GameObject) obj;
+            if (o.name == "Sphere") {
+                DestroyImmediate(o);
+                //Destroy(o, 0);
+            }
+        }
+    } */
 
     public void drawPortal(float[,] noiseMap, int portalPointX, int portalPointZ) {
         int scale = 30;

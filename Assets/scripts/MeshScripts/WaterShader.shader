@@ -4,6 +4,7 @@ Shader "Unlit/WaterShader"
     Properties {
         // input data dev can manipulate
         _Size ("Size", Int) = 1
+        Speed ("Speed", float) = 1
 
         ShallowColor ("ShallowColor", Color) = (0, 0, 0, 1)
         DeepColor ("DeepColor", Color) = (0, 0, 0, 1)
@@ -29,6 +30,7 @@ Shader "Unlit/WaterShader"
 
             // initialize variables
             float _Size;
+            float Speed;
             float4 ShallowColor;
             float4 DeepColor;
             float4 FoamColor;
@@ -110,7 +112,7 @@ Shader "Unlit/WaterShader"
                 Interpolator o;
 
                 // determines how the mesh moves
-                v.vertex.x = (v.vertex.x + _Time.y) % (_Size-1);
+                v.vertex.x = (v.vertex.x + _Time.x*Speed) % (_Size-1);
 
                 // pass info to fragment shader
                 o.vertex = UnityObjectToClipPos(v.vertex); // clip space = screen location

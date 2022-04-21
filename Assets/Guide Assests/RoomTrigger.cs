@@ -3,13 +3,14 @@ using System.Collections;//auto-generated code
 using System.Collections.Generic;//auto-generated code
 using UnityEngine;//auto-generated code
 using TMPro;//Used for the text UI components
-
+using UnityEngine.UI;
 public class RoomTrigger : GuideBaseState //this line of code is based off of iHeartGameDev https://youtu.be/Vt8aZDPzRjI
 {
     public GuideStateManager Guide2;//test
     public Collider collider2;//test
     public KeyCode key2 = KeyCode.N;//Listens for user keyboard input to close prompt
     private TextMeshProUGUI sometext;//defining text UI variable
+    public RawImage background;
     //Calls OnTriggerEnter whenever the user enters a puzzle area
     public override void OnTriggerEnter(GuideStateManager Guide, Collider collider)
     {
@@ -36,6 +37,9 @@ public class RoomTrigger : GuideBaseState //this line of code is based off of iH
     //Initial state called when switching state
     public override void EnterState(GuideStateManager Guide)//this line of code is based off of iHeartGameDev https://youtu.be/Vt8aZDPzRjI
     {
+        GameObject random = GameObject.Find("GuideMessageBackground");
+        background = random.GetComponent<RawImage>();
+        background.enabled=false;
     }
     //Update listens every frame for user keyboard input, resets text UI
     public override void UpdateState(GuideStateManager Guide){//this line of code is based off of iHeartGameDev https://youtu.be/Vt8aZDPzRjI

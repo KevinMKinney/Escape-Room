@@ -5,21 +5,15 @@ using UnityEngine.EventSystems;
 
 public class InspectButton : MonoBehaviour, IPointerClickHandler
 {
-
+    private InspectorControl inspectorControl;
     // Start is called before the first frame update
     void Start()
     {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        inspectorControl = GameObject.Find("UIPanel").GetComponent<InspectorControl>();
     }
 
     public void OnPointerClick(PointerEventData data)
     {
-
+        inspectorControl.ActivateInspector(); // closes the notebook/uicontrol screen
     }
 }

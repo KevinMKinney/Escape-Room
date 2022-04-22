@@ -14,6 +14,7 @@ public class UIControl : MonoBehaviour
     private Tab notesTab;
     private Tab menuTab;
     private NoteBook noteBook;
+    private InspectorControl inspectorControl;
 
     // Start is called before the first frame update
     void Start()
@@ -32,6 +33,9 @@ public class UIControl : MonoBehaviour
         // locate the notebook
         noteBook = GameObject.Find("NoteBook").GetComponent<NoteBook>();
         HideUI();
+
+        // locate inspectorController
+        inspectorControl = this.GetComponent<InspectorControl>();
     }
 
     public void HideUI()
@@ -83,6 +87,12 @@ public class UIControl : MonoBehaviour
                 Cursor.lockState = CursorLockMode.Locked;
             } else
             {
+
+                if (inspectorControl.InspectorActive)
+                {
+                    inspectorControl.DeactivateInspector();
+                }
+
                 Time.timeScale = 0f;
                 itemTab.gameObject.SetActive(true);
                 notesTab.gameObject.SetActive(true);

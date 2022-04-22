@@ -20648,8 +20648,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: Watermelon
   shortDescription: Small watermelon slice
-  longDescription: "Did you know, the word \u201Cwatermelon\u201D first appeared in
-    the English dictionary in 1615? Subscribe for more Watermelon facts!"
+  longDescription: "Did you know, the word \u201Cwatermelon\u201D first appeared
+    in the English dictionary in 1615? Subscribe for more Watermelon facts!"
   itemIcon: {fileID: 0}
   inGameObject: {fileID: 540683645}
 --- !u!1 &549878607
@@ -36678,6 +36678,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b94895586a061bf41909fbbe8526acd1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &907073880
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 907073870}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1f69f8f3f6d46a41aaf762bc18cb15b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isInvisible: 1
 --- !u!114 &907073884
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -36704,19 +36717,6 @@ CapsuleCollider:
   m_Height: 1
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &907073880
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 907073870}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c1f69f8f3f6d46a41aaf762bc18cb15b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isInvisible: 1
 --- !u!1 &908714025
 GameObject:
   m_ObjectHideFlags: 0
@@ -38716,6 +38716,7 @@ MonoBehaviour:
   itemPageContent: {fileID: 0}
   notesPageContent: {fileID: 0}
   menuPageContent: {fileID: 0}
+  noteList: {fileID: 0}
 --- !u!114 &1080571114
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -58375,6 +58376,7 @@ GameObject:
   - component: {fileID: 1936298559}
   - component: {fileID: 1936298561}
   - component: {fileID: 1936298562}
+  - component: {fileID: 1936298563}
   m_Layer: 5
   m_Name: UIPanel
   m_TagString: NoteList
@@ -58399,7 +58401,7 @@ RectTransform:
   - {fileID: 1080571112}
   - {fileID: 242002402}
   m_Father: {fileID: 1786264814}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -58467,6 +58469,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b33f49f1678d29641bcc5589124e9e31, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1936298563
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1936298557}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3cbbf04cd3a21154caa475c2e49f515f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1939649486

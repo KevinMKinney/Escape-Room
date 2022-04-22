@@ -40,18 +40,51 @@ public class UIControl : MonoBehaviour
 
     public void HideUI()
     {
+        Time.timeScale = 1.0f;
+
+        // handle tab position and then deactivate tabs
+        if (itemTab.tabHovered) itemTab.MoveLeft();
+        if (notesTab.tabHovered) notesTab.MoveLeft();
+        if (menuTab.tabHovered) menuTab.MoveLeft();
+
+        itemTab.tabHovered = false;
+        notesTab.tabHovered = false;
+        menuTab.tabHovered = false;
+
+        itemTab.gameObject.SetActive(false);
+        notesTab.gameObject.SetActive(false);
+        menuTab.gameObject.SetActive(false);
+
+        if (noteBook.CurrentTab == 1)
+        {
+            // deactivate to prevent change in scrollbar scaling
+            GameObject.Find("Scrollbar").SetActive(false);
+        }
+
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
+
         this.transform.localScale = new Vector3(0, 0, 0);
         visible = false;
     }
 
     public void ShowUI()
     {
+        Time.timeScale = 0f;
+        itemTab.gameObject.SetActive(true);
+        notesTab.gameObject.SetActive(true);
+        menuTab.gameObject.SetActive(true);
+
         this.transform.localScale = new Vector3(1, 1, 1);
         visible = true;
         itemList.UpdateList(inventory);
         inventory.SelectItem(-1);
         itemDisplay.UpdateItemDisplay(null);
         itemControls.HideControls();
+
+        noteBook.OnTabChange(); // trigger tab change
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
     }
 
     // Update is called once per frame
@@ -61,30 +94,7 @@ public class UIControl : MonoBehaviour
         {
             if (visible)
             {
-                Time.timeScale = 1.0f;
-
-                // handle tab position and then deactivate tabs
-                if (itemTab.tabHovered) itemTab.MoveLeft();
-                if (notesTab.tabHovered) notesTab.MoveLeft();
-                if (menuTab.tabHovered) menuTab.MoveLeft();
-
-                itemTab.tabHovered = false;
-                notesTab.tabHovered = false;
-                menuTab.tabHovered = false;
-
-                itemTab.gameObject.SetActive(false);
-                notesTab.gameObject.SetActive(false);
-                menuTab.gameObject.SetActive(false);
-
-                if (noteBook.CurrentTab == 1)
-                {
-                    // deactivate to prevent change in scrollbar scaling
-                    GameObject.Find("Scrollbar").SetActive(false);
-                }
-
                 HideUI();
-                Cursor.visible = false;
-                Cursor.lockState = CursorLockMode.Locked;
             } else
             {
 
@@ -92,16 +102,7 @@ public class UIControl : MonoBehaviour
                 {
                     inspectorControl.DeactivateInspector();
                 }
-
-                Time.timeScale = 0f;
-                itemTab.gameObject.SetActive(true);
-                notesTab.gameObject.SetActive(true);
-                menuTab.gameObject.SetActive(true);
-
                 ShowUI();
-                noteBook.OnTabChange(); // trigger tab change
-                Cursor.visible = true;
-                Cursor.lockState = CursorLockMode.None;
             }
         }
     }

@@ -55,7 +55,7 @@ namespace UnityStandardAssets.Cameras
 
             var renderers = obj.GetComponentsInChildren<Renderer>();
 
-            Bounds bounds = new();
+            Bounds bounds = new Bounds();
             bool initBounds = false;
             foreach (Renderer r in renderers)
             {

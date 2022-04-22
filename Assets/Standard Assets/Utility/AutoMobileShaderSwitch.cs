@@ -120,7 +120,7 @@ namespace UnityStandardAssets.Utility.Inspector
                         float w = widths[n]*inspectorWidth;
 
                         // Calculate rects
-                        Rect rect = new(rowX, y, w, lineHeight);
+                        Rect rect = new Rect(rowX, y, w, lineHeight);
                         rowX += w;
 
                         if (i == -1)

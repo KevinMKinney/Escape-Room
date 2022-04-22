@@ -10,21 +10,20 @@ namespace UnityStandardAssets.Characters.FirstPerson
     [RequireComponent(typeof (AudioSource))]
     public class FirstPersonController : MonoBehaviour
     {
-        public float currentSpeed;
         [SerializeField] private bool m_IsWalking;
-        [SerializeField] public float m_WalkSpeed;
-        [SerializeField] public float m_RunSpeed;
+        [SerializeField] private float m_WalkSpeed;
+        [SerializeField] private float m_RunSpeed;
         [SerializeField] [Range(0f, 1f)] private float m_RunstepLenghten;
-        [SerializeField] public float m_JumpSpeed;
-        [SerializeField] public float m_StickToGroundForce;
-        [SerializeField] public float m_GravityMultiplier;
+        [SerializeField] private float m_JumpSpeed;
+        [SerializeField] private float m_StickToGroundForce;
+        [SerializeField] private float m_GravityMultiplier;
         [SerializeField] private MouseLook m_MouseLook;
         [SerializeField] private bool m_UseFovKick;
-        [SerializeField] private FOVKick m_FovKick = new();
+        [SerializeField] private FOVKick m_FovKick = new FOVKick();
         [SerializeField] private bool m_UseHeadBob;
-        [SerializeField] private CurveControlledBob m_HeadBob = new();
-        [SerializeField] private LerpControlledBob m_JumpBob = new();
-        [SerializeField] public float m_StepInterval;
+        [SerializeField] private CurveControlledBob m_HeadBob = new CurveControlledBob();
+        [SerializeField] private LerpControlledBob m_JumpBob = new LerpControlledBob();
+        [SerializeField] private float m_StepInterval;
         [SerializeField] private AudioClip[] m_FootstepSounds;    // an array of footstep sounds that will be randomly selected from.
         [SerializeField] private AudioClip m_JumpSound;           // the sound played when character leaves the ground.
         [SerializeField] private AudioClip m_LandSound;           // the sound played when character touches back on ground.
@@ -62,10 +61,6 @@ namespace UnityStandardAssets.Characters.FirstPerson
         // Update is called once per frame
         private void Update()
         {
-
-            // Brad added check here for time scale (which is 0 if UI is open)
-            if (Time.timeScale == 0f) return;
-
             RotateView();
             // the jump state needs to read here to make sure it is not missed
             if (!m_Jump)
@@ -113,7 +108,6 @@ namespace UnityStandardAssets.Characters.FirstPerson
             m_MoveDir.x = desiredMove.x*speed;
             m_MoveDir.z = desiredMove.z*speed;
 
-            currentSpeed = m_MoveDir.z;
 
             if (m_CharacterController.isGrounded)
             {

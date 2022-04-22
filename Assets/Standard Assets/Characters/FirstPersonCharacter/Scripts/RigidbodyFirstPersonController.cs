@@ -17,7 +17,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
             public float RunMultiplier = 2.0f;   // Speed when sprinting
 	        public KeyCode RunKey = KeyCode.LeftShift;
             public float JumpForce = 30f;
-            public AnimationCurve SlopeCurveModifier = new(new Keyframe(-90.0f, 1.0f), new Keyframe(0.0f, 1.0f), new Keyframe(90.0f, 0.0f));
+            public AnimationCurve SlopeCurveModifier = new AnimationCurve(new Keyframe(-90.0f, 1.0f), new Keyframe(0.0f, 1.0f), new Keyframe(90.0f, 0.0f));
             [HideInInspector] public float CurrentTargetSpeed = 8f;
 
 #if !MOBILE_INPUT
@@ -78,9 +78,9 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
 
         public Camera cam;
-        public MovementSettings movementSettings = new();
-        public MouseLook mouseLook = new();
-        public AdvancedSettings advancedSettings = new();
+        public MovementSettings movementSettings = new MovementSettings();
+        public MouseLook mouseLook = new MouseLook();
+        public AdvancedSettings advancedSettings = new AdvancedSettings();
 
 
         private Rigidbody m_RigidBody;
@@ -212,8 +212,8 @@ namespace UnityStandardAssets.Characters.FirstPerson
         private Vector2 GetInput()
         {
             
-            Vector2 input = new()
-            {
+            Vector2 input = new Vector2
+                {
                     x = CrossPlatformInputManager.GetAxis("Horizontal"),
                     y = CrossPlatformInputManager.GetAxis("Vertical")
                 };

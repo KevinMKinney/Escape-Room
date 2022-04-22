@@ -45,7 +45,7 @@ class WaterEditorUtility
 	
 	public static void CurveGui (System.String name, SerializedObject serObj, Color color)
 	{
-		AnimationCurve curve = new(new Keyframe(0, 0.0f, 1.0f, 1.0f), new Keyframe(1, 1.0f, 1.0f, 1.0f));
+		AnimationCurve curve = new AnimationCurve(new Keyframe(0, 0.0f, 1.0f, 1.0f), new Keyframe(1, 1.0f, 1.0f, 1.0f));
 		curve = EditorGUILayout.CurveField(new GUIContent (name), curve, color, new Rect (0.0f,0.0f,1.0f,1.0f));
 
 		//if (GUI.changed) {

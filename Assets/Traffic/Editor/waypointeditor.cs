@@ -17,7 +17,7 @@ public class WayPointEditor : EditorWindow
     public Transform waypointRoot;
     private void OnGUI()
     {
-        SerializedObject obj = new(this);
+        SerializedObject obj = new SerializedObject(this);
         EditorGUILayout.PropertyField(obj.FindProperty("waypointRoot"));
         //if(EditorGUILayout)
         if (waypointRoot == null)
@@ -67,7 +67,7 @@ public class WayPointEditor : EditorWindow
 
     void CreateWaypoint()
     {
-        GameObject waypointObject = new("Waypoint " + waypointRoot.childCount, typeof(waypoint));
+        GameObject waypointObject = new GameObject("Waypoint " + waypointRoot.childCount, typeof(waypoint));
         waypointObject.transform.SetParent(waypointRoot, false);
 
         waypoint Waypoint = waypointObject.GetComponent<waypoint>();
@@ -84,7 +84,7 @@ public class WayPointEditor : EditorWindow
 
     void CreateWaypointBefore()
     {
-        GameObject waypointObject = new("Waypoint " + waypointRoot.childCount, typeof(waypoint));
+        GameObject waypointObject = new GameObject("Waypoint " + waypointRoot.childCount, typeof(waypoint));
         waypointObject.transform.SetParent(waypointRoot, false);
 
         waypoint Waypoint = waypointObject.GetComponent<waypoint>();
@@ -104,7 +104,7 @@ public class WayPointEditor : EditorWindow
     }
     void CreateWaypointAfter()
     {
-        GameObject waypointObject = new("Waypoint " + waypointRoot.childCount, typeof(waypoint));
+        GameObject waypointObject = new GameObject("Waypoint " + waypointRoot.childCount, typeof(waypoint));
         waypointObject.transform.SetParent(waypointRoot, false);
 
         waypoint Waypoint = waypointObject.GetComponent<waypoint>();
@@ -141,7 +141,7 @@ public class WayPointEditor : EditorWindow
     }
     void CreateBranch()
     {
-        GameObject waypointObject = new("Waypoint " + waypointRoot.childCount, typeof(waypoint));
+        GameObject waypointObject = new GameObject("Waypoint " + waypointRoot.childCount, typeof(waypoint));
         waypointObject.transform.SetParent(waypointRoot, false);
 
         waypoint Waypoint = waypointObject.GetComponent<waypoint>();

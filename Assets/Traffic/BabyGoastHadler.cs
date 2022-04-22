@@ -11,7 +11,7 @@ public static class BabyGoastHadler
     }
     public static void HandleGoastCollision(goastPickup RequestObject)
     {
-        if (goasts < 5)
+        if (goasts < 10)
         {
             goasts += RequestObject.Clone();
         }

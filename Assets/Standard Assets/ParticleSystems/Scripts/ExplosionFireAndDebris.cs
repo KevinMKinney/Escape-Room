@@ -35,7 +35,7 @@ namespace UnityStandardAssets.Effects
                 if (numFires > 0)
                 {
                     RaycastHit fireHit;
-                    Ray fireRay = new(transform.position, col.transform.position - transform.position);
+                    Ray fireRay = new Ray(transform.position, col.transform.position - transform.position);
                     if (col.Raycast(fireRay, out fireHit, r))
                     {
                         AddFire(col.transform, fireHit.point, fireHit.normal);
@@ -48,7 +48,7 @@ namespace UnityStandardAssets.Effects
             while (numFires > 0 && testR < r)
             {
                 RaycastHit fireHit;
-                Ray fireRay = new(transform.position + Vector3.up, Random.onUnitSphere);
+                Ray fireRay = new Ray(transform.position + Vector3.up, Random.onUnitSphere);
                 if (Physics.Raycast(fireRay, out fireHit, testR))
                 {
                     AddFire(null, fireHit.point, fireHit.normal);

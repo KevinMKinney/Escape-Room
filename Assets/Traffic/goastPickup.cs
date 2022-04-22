@@ -78,14 +78,10 @@ public class goastPickup : MonoBehaviour
             trans.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
             trans.GetComponent<Rigidbody>().velocity = Vector3.zero;
             Vector3 pos = transform.position;
-            trans.GetComponent<Rigidbody>().isKinematic = false;
-            trans.GetComponent<Collider>().enabled = true;
             pos.y -= 1;
             //pos += transform.forward / 2;
             trans.position = pos;
         }
-        pik.rb.isKinematic = true;
-        pik.GetComponent<Collider>().enabled = false;
         trans = pik.transform;
         pick = pik;
         if (!speedbost)

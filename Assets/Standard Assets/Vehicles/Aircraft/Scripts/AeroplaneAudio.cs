@@ -27,7 +27,7 @@ namespace UnityStandardAssets.Vehicles.Aeroplane
         [SerializeField] private float m_WindBasePitch = 0.2f;                // starting pitch for wind (when plane is at zero speed)
         [SerializeField] private float m_WindSpeedPitchFactor = 0.004f;       // Relative increase in pitch of the wind from the plane's speed.
         [SerializeField] private float m_WindMaxSpeedVolume = 100;            // the speed the aircraft much reach before the wind sound reaches maximum volume.
-        [SerializeField] private AdvancedSetttings m_AdvancedSetttings = new();// container to make advanced settings appear as rollout in inspector
+        [SerializeField] private AdvancedSetttings m_AdvancedSetttings = new AdvancedSetttings();// container to make advanced settings appear as rollout in inspector
 
         private AudioSource m_EngineSoundSource;  // Reference to the AudioSource for the engine.
         private AudioSource m_WindSoundSource;    // Reference to the AudioSource for the wind.

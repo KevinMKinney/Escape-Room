@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class stairs : MonoBehaviour
-{/*
+{
     public int steps;
     public float height;
     public float wigh;
@@ -22,5 +22,5 @@ public class stairs : MonoBehaviour
             }
 
         }
-    }*/
+    }
 }

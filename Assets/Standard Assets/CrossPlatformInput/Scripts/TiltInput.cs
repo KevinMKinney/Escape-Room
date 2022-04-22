@@ -130,7 +130,7 @@ namespace UnityStandardAssets.CrossPlatformInput.Inspector
                 float w = widths[n]*inspectorWidth;
 
                 // Calculate rects
-                Rect rect = new(x, y, w, lineHeight);
+                Rect rect = new Rect(x, y, w, lineHeight);
                 x += w;
 
                 EditorGUI.PropertyField(rect, property.FindPropertyRelative(props[n]), GUIContent.none);

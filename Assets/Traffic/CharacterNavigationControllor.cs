@@ -89,6 +89,7 @@ public class CharacterNavigationControllor : MonoBehaviour
                         goast.anger = 9;
                     }
                 }
+
             }
         }
     }

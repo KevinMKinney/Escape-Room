@@ -23,8 +23,8 @@ namespace UnityStandardAssets.Water
         public LayerMask refractLayers = -1;
 
 
-        private Dictionary<Camera, Camera> m_ReflectionCameras = new(); // Camera -> Camera table
-        private Dictionary<Camera, Camera> m_RefractionCameras = new(); // Camera -> Camera table
+        private Dictionary<Camera, Camera> m_ReflectionCameras = new Dictionary<Camera, Camera>(); // Camera -> Camera table
+        private Dictionary<Camera, Camera> m_RefractionCameras = new Dictionary<Camera, Camera>(); // Camera -> Camera table
         private RenderTexture m_ReflectionTexture;
         private RenderTexture m_RefractionTexture;
         private WaterMode m_HardwareWaterSupport = WaterMode.Refractive;
@@ -86,7 +86,7 @@ namespace UnityStandardAssets.Water
             {
                 // Reflect camera around reflection plane
                 float d = -Vector3.Dot(normal, pos) - clipPlaneOffset;
-                Vector4 reflectionPlane = new(normal.x, normal.y, normal.z, d);
+                Vector4 reflectionPlane = new Vector4(normal.x, normal.y, normal.z, d);
 
                 Matrix4x4 reflection = Matrix4x4.zero;
                 CalculateReflectionMatrix(ref reflection, reflectionPlane);
@@ -208,11 +208,11 @@ namespace UnityStandardAssets.Water
 
             Vector4 waveSpeed = mat.GetVector("WaveSpeed");
             float waveScale = mat.GetFloat("_WaveScale");
-            Vector4 waveScale4 = new(waveScale, waveScale, waveScale * 0.4f, waveScale * 0.45f);
+            Vector4 waveScale4 = new Vector4(waveScale, waveScale, waveScale * 0.4f, waveScale * 0.45f);
 
             // Time since level load, and do intermediate calculations with doubles
             double t = Time.timeSinceLevelLoad / 20.0;
-            Vector4 offsetClamped = new(
+            Vector4 offsetClamped = new Vector4(
                 (float)Math.IEEERemainder(waveSpeed.x * waveScale4.x * t, 1.0),
                 (float)Math.IEEERemainder(waveSpeed.y * waveScale4.y * t, 1.0),
                 (float)Math.IEEERemainder(waveSpeed.z * waveScale4.z * t, 1.0),
@@ -286,7 +286,7 @@ namespace UnityStandardAssets.Water
                 m_ReflectionCameras.TryGetValue(currentCamera, out reflectionCamera);
                 if (!reflectionCamera) // catch both not-in-dictionary and in-dictionary-but-deleted-GO
                 {
-                    GameObject go = new("Water Refl Camera id" + GetInstanceID() + " for " + currentCamera.GetInstanceID(), typeof(Camera), typeof(Skybox));
+                    GameObject go = new GameObject("Water Refl Camera id" + GetInstanceID() + " for " + currentCamera.GetInstanceID(), typeof(Camera), typeof(Skybox));
                     reflectionCamera = go.GetComponent<Camera>();
                     reflectionCamera.enabled = false;
                     reflectionCamera.transform.position = transform.position;
@@ -318,7 +318,7 @@ namespace UnityStandardAssets.Water
                 if (!refractionCamera) // catch both not-in-dictionary and in-dictionary-but-deleted-GO
                 {
                     GameObject go =
-                        new("Water Refr Camera id" + GetInstanceID() + " for " + currentCamera.GetInstanceID(),
+                        new GameObject("Water Refr Camera id" + GetInstanceID() + " for " + currentCamera.GetInstanceID(),
                             typeof(Camera), typeof(Skybox));
                     refractionCamera = go.GetComponent<Camera>();
                     refractionCamera.enabled = false;

@@ -36,6 +36,34 @@ TagManager:
   - puzzle 1
   - items
   - NoteList
+  - HintArea1.5
+  - HintArea1.4
+  - HintArea2.4
+  - HintArea2.91
+  - HintArea0.2
+  - HintArea0.8
+  - HintArea3.92
+  - HintArea3.7
+  - HintArea2.9
+  - HintArea2.3
+  - HintArea0.1
+  - HintArea2.5
+  - HintArea3.95
+  - Prompt1
+  - HintArea3.93
+  - Prompt3
+  - HintArea2.6
+  - HintArea3.9
+  - HintArea0.6
+  - HintArea2.7
+  - HintArea2.8
+  - HintArea3.8
+  - HintArea3.96
+  - HintArea0
+  - HintArea3.94
+  - HintArea3.91
+  - HintArea0.7
+  - Reticle
   layers:
   - Default
   - TransparentFX

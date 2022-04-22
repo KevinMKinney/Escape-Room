@@ -62,6 +62,8 @@ public class UIControl : MonoBehaviour
 
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
+        GameObject.Find("Reticle").GetComponent<Image>().enabled = true;
+
 
         this.transform.localScale = new Vector3(0, 0, 0);
         visible = false;
@@ -84,6 +86,9 @@ public class UIControl : MonoBehaviour
         noteBook.OnTabChange(); // trigger tab change
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
+
+        // turn off the reticle
+        GameObject.Find("Reticle").GetComponent<Image>().enabled = false;
     }
 
     // Update is called once per frame

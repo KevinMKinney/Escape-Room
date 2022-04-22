@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Inspector : MonoBehaviour
 {
@@ -52,9 +53,15 @@ public class Inspector : MonoBehaviour
         inspectedItem.InGameObject.SetActive(true);
         inspectedItem.InGameObject.GetComponent<pick_up>().enabled = false;
         inspectedItem.InGameObject.GetComponent<InspectorControl>().enabled = true;
+        inspectedItem.InGameObject.GetComponent<InspectorControl>().SetInspectorPosition();
 
         // hide the UI menu and replace with inspector UI
         uiControl.HideUI();
+
+        // keep the mouse active and remove the reticle (which was reactivated by HideUI)
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
+        GameObject.Find("Reticle").GetComponent<Image>().enabled = false;
 
         // set inspector as active        
         active = true;
@@ -67,6 +74,7 @@ public class Inspector : MonoBehaviour
         // deactivate the selectedItem
         if (inspectedItem != null)
         {
+            inspectedItem.InGameObject.GetComponent<InspectorControl>().RemoveInspectorPosition();
             inspectedItem.InGameObject.GetComponent<InspectorControl>().enabled = false;
             inspectedItem.InGameObject.GetComponent<pick_up>().enabled = true;
             inspectedItem.InGameObject.SetActive(false);

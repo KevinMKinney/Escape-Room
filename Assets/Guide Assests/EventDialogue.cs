@@ -6,7 +6,9 @@ using TMPro;//Used for the TextMeshPro components
 using UnityEngine.UI;//Used for RawImage components
 public class EventDialogue : GuideBaseState //this line of code is based off of iHeartGameDev https://youtu.be/Vt8aZDPzRjI
 {
-  int eventD, posChoice, negChoice, overallDemeanor = 0;//Dialogue system (Which event is which) 
+  int posChoice, negChoice, overallDemeanor = 0;//Dialogue system (Which event is which)
+  public int eventD=0;
+  public bool midpoint=false;
   private TextMeshProUGUI sometext;//defining text UI variable
   public KeyCode K_Key = KeyCode.K;//The "positive" key for the guide behavior
   public KeyCode L_Key = KeyCode.L;//The "negative" key for the guide behavior
@@ -43,7 +45,7 @@ public class EventDialogue : GuideBaseState //this line of code is based off of 
             sometext.text="If you could go back into the past and change one thing, would you: Save Harambe (K) or play the lotto knowing the winnning numbers (L)?";
             OnTriggerExit(collider);//destroys the trigger
         }
-        if(collider.gameObject.tag=="midpointGuide" && eventD==4){
+        if(collider.gameObject.tag=="midpointGuide" && midpoint==true){
             background.enabled=true;
             GuideBehavior();
             OnTriggerExit(collider);
@@ -56,7 +58,6 @@ public class EventDialogue : GuideBaseState //this line of code is based off of 
     public override void EnterState(GuideStateManager Guide){//this line of code is based off of iHeartGameDev https://youtu.be/Vt8aZDPzRjI
     }
     public override void UpdateState(GuideStateManager Guide){//this line of code is based off of iHeartGameDev https://youtu.be/Vt8aZDPzRjI
-      Debug.Log(overallDemeanor);
       GameObject FPSController = GameObject.Find("FPSController");
       //Keeping track of current player position
       playerPosition = FPSController.transform.position;
@@ -75,9 +76,9 @@ public class EventDialogue : GuideBaseState //this line of code is based off of 
             choice(negChoice);
             Message(Guide, sometext);
           }
-        if(Input.GetKeyDown(key2)){
+        if(Input.GetKeyDown(key2) && eventD==0){
           sometext.text=" ";
-          Guide.SwitchState(Guide.TriggerState);
+          Guide.SwitchState(Guide.RoomState);
         }
       }
     //Returns the choice made by the user
@@ -132,6 +133,7 @@ public class EventDialogue : GuideBaseState //this line of code is based off of 
         } 
         //Fourth puzzle event dialogue
         if(eventD==4){
+          midpoint=true;
           background.enabled=true;
             if(posChoice==1){
               eventD=0;
@@ -153,7 +155,7 @@ public class EventDialogue : GuideBaseState //this line of code is based off of 
     }
     //Teleports the puzzle item back to spawn, making it inconvenient for the player
     public void punishment(){
-      GameObject player_position = GameObject.Find("Hammer");
+      GameObject player_position = GameObject.Find("Gun");
       player_position.transform.position = new Vector3(8,3,1);
     }
     public void GuideBehavior(){
@@ -167,6 +169,10 @@ public class EventDialogue : GuideBaseState //this line of code is based off of 
         sometext.text="My disappointment is immeasurable, and my day is ruined \n\n (The guide moved the puzzle item, go back to previous rooms and find it)\n\n Press N to close prompt";
         //Teleporting puzzle item back to spawn
         punishment();
+      }
+      if(overallDemeanor==0){
+        sometext.text="Very neutral responses so far, guess you can't be that bad\n\n (The guide reluctantly gives you a cherry)\n\n Press N to close prompt";
+        spawnBonus();
       }
     }
     public void DestroyGameObject(GameObject other)//destroys object being passed into the argument 

@@ -59,6 +59,9 @@ public RawImage background;
          if(collider.gameObject.tag=="Prompt1" || collider.gameObject.tag=="Prompt2" || collider.gameObject.tag=="Prompt3" || collider.gameObject.tag=="Prompt4"){
             Guide.SwitchState(Guide.EventState);
         }
+        if(collider.gameObject.tag=="midpointGuide" && Guide.EventState.midpoint==true){
+            Guide.SwitchState(Guide.EventState);
+        }
     }
   //Displays intro message for the user
   public override void Message(GuideStateManager Guide, TextMeshProUGUI sometext){
@@ -72,6 +75,9 @@ public RawImage background;
   //Initial state called when switching state
   public override void EnterState(GuideStateManager Guide)//this line of code is based off of iHeartGameDev https://youtu.be/Vt8aZDPzRjI
     {
+      GameObject random = GameObject.Find("GuideMessageBackground");
+        background = random.GetComponent<RawImage>();
+        background.enabled=false;
     }
   //Update listens every frame for user keyboard input
   public override void UpdateState(GuideStateManager Guide)//this line of code is based off of iHeartGameDev https://youtu.be/Vt8aZDPzRjI
@@ -85,7 +91,6 @@ public RawImage background;
          if(HintSet==1 || HintSet==2 || HintSet==3 || HintSet==4){//listens for any of the puzzle areas being triggered, begins hint countdown
            if(timer>0){//Counts down for 5 minutes
              timer -= 1*Time.deltaTime;
-             Debug.Log(timer);
            }else{
              timer=300;
              HintSet=0;

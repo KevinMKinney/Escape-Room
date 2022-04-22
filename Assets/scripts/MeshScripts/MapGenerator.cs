@@ -6,8 +6,9 @@ using System.Threading;
 
 public class MapGenerator : MonoBehaviour
 {
-    // variables dev can manipulate for noise & mesh map
+    // variables dev can manipulate in editor mode
     [Header("Mesh Settings")]
+    // large map areas will result in a substantian performance drop
     public int mapWidth;
     public int mapHeight;
     public float noiseScale;
@@ -128,10 +129,10 @@ public class MapGenerator : MonoBehaviour
             float[,] entities = generateEntities();
             display.drawEntities(meshData.heightMap, waterThresh, entities);
         }
-        //display.drawPortal(meshData.heightMap, (int)portalPoint.x, (int)portalPoint.y);
+        display.drawPortal(meshData.heightMap, (int)portalPoint.x, (int)portalPoint.y);
     }
 
-    // for threading (not implemented yet)
+    // for threading (WIP)
     public void requestMeshData(Action<MeshData> callback) {
         ThreadStart threadStart = delegate {
             meshDataThread(callback);
@@ -158,10 +159,10 @@ public class MapGenerator : MonoBehaviour
 
     // purely for fixing base cases (invalid inputs)
     void OnValidate() {
-        if (mapWidth < 1) {
+        if (mapWidth < 2) {
             mapWidth = 2;
         }
-        if (mapHeight < 1) {
+        if (mapHeight < 2) {
             mapHeight = 2;
         }
 
@@ -173,7 +174,7 @@ public class MapGenerator : MonoBehaviour
         }
     }
 
-    // for threading (not implemented yet)
+    // for threading (WIP)
     struct meshThreadInfo<T> {
         public readonly Action<T> callback;
         public readonly T parameter;

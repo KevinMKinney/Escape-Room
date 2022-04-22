@@ -5,7 +5,6 @@ using UnityEngine.Rendering;
 using System.Linq;
 using System;
 
-//[RequireComponent(typeof(MeshFilter), (typeof(MeshRenderer)))]
 public static class MeshMap
 {
     // creates vertices for mesh based on pre-made noise

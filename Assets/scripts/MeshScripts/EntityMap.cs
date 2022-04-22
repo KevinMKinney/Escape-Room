@@ -4,7 +4,7 @@ using UnityEngine;
 using System;
 
 public class EntityMap {
-
+    // the function that is called from MapGenerator 
     public static float[,] generateEntityMap(float[,] noiseMap, float[,] densityMap, int seed, float minThresh, float maxThresh, float frequency, float spread) {
 
         // check for invalid input(s)
@@ -20,14 +20,14 @@ public class EntityMap {
         // make groups of entities
         validEntityLocations = multiplyMaps(validEntityLocations, densityMap, frequency);
 
-        //int points = (int)(mapWidth*mapHeight / spread);
-        //int limit = 10;
-        //float[,] randomSpreadPoints = getRandomSpreadPoints(mapWidth, mapHeight, seed, spread, points, limit);
-        //validEntityLocations = multiplyMaps(validEntityLocations, randomSpreadPoints, 1);
-        //return validEntityLocations;
+        int points = (int)(mapWidth*mapHeight / spread);
+        int limit = 10;
+        float[,] randomSpreadPoints = getRandomSpreadPoints(mapWidth, mapHeight, seed, spread, points, limit);
+        validEntityLocations = multiplyMaps(validEntityLocations, randomSpreadPoints, 1);
+        return validEntityLocations;
 
-        //float[,] randomSpreadPoints = randomSpreadPoints(mapWidth, mapHeight, validEntityLocations, seed, spread);
-        return randomSpreadPoints(mapWidth, mapHeight, validEntityLocations, seed, spread);
+
+        //return randomSpreadPoints(mapWidth, mapHeight, validEntityLocations, seed, spread);
     }
 
     // finds all valid locations for entities from the mesh's noise
@@ -73,7 +73,7 @@ public class EntityMap {
         return result;
     }
 
-    //
+    // creates a 2d array of random points that are beyond a certain distance
     private static float[,] getRandomSpreadPoints(int mapWidth, int mapHeight, int seed, float spread, int points, int limit) {
         //Debug.Log("X: "+randX+" | Y: "+randY);
 
@@ -103,8 +103,7 @@ public class EntityMap {
                 randX = prng.Next(0, mapWidth);
                 randY = prng.Next(0, mapHeight);
                 point = new Vector2(randX, randY);
-                //Debug.Log("Testing point: "+randX+", "+randY);
-            //} while (spreadPoints[(int)point.x, (int)point.y] != 0);
+
                 invalidPoints = getPointsInRadius(mapWidth, mapHeight, point, spread);
 
                 for (int i = 0; i < invalidPoints.Length; i++) {
@@ -127,6 +126,7 @@ public class EntityMap {
         return spreadPoints;
     }
 
+    // helper function of getRandomSpreadPoints; returns an a array of every possible point within a specified radius
     private static Vector2[] getPointsInRadius(int mapWidth, int mapHeight, Vector2 point, float radius) {
         int index = 0;
         Vector2[] pointArray = new Vector2[0];
@@ -134,6 +134,7 @@ public class EntityMap {
         int radFloor = Mathf.FloorToInt(radius);
         int radCeil = Mathf.CeilToInt(radius);
 
+        // bounding values in map
         int minX = Math.Clamp(((int)point.x - radFloor), 0, mapWidth);
         int maxX = Math.Clamp(((int)point.x + radCeil), 0, mapWidth);
         int minY = Math.Clamp(((int)point.y - radFloor), 0, mapHeight);
@@ -156,49 +157,43 @@ public class EntityMap {
         return pointArray;
     }
 
+    // WIP more efficient version of the getRandomSpreadPoints function
     private static float[,] randomSpreadPoints(int mapWidth, int mapHeight, float[,] points, int seed, float spread) {
 
-        List<float[]> spreadPoints = new List<float[]>();
-        float[] temp = new float[2];
+        Vector2[] pointArray = new Vector2[0];
+
         for (int x = 0; x < mapWidth; x++) {
             for (int y = 0; y < mapHeight; y++) {
                 if (points[x, y] >= 1) {
-                    temp[0] = x;
-                    temp[1] = y;
-                    //Debug.Log("temp: ("+x+", "+y+")");
-                    spreadPoints.Add(temp);
+
+                    Array.Resize(ref pointArray, pointArray.Length+1);
+                    pointArray[^1] = new Vector2(x, y);
 
                 }
             }
         }
-        /*
-        for (int j = 0; j < spreadPoints.Count; j++) {
-            Debug.Log("val ("+spreadPoints.ElementAt(j)[0]+", "+spreadPoints.ElementAt(j)[0]+") at "+j);
-        }*/
 
         float[,] randomSpread = new float[mapWidth, mapHeight];
         System.Random prng = new System.Random(seed);
-        int size = spreadPoints.Count;
-        float[] item = new float[2];
         int rng;
+        Vector2 temp;
+        Vector2 item;
         double dist;
 
-        while (size > 0) {
+        while (pointArray.Length > 0) {
 
-            rng = prng.Next(0, size);
-            //Debug.Log("Size: "+size+" | rng#: "+rng);
-            for (int i = 0; i < size;) {
-                if (i != rng) {
-                    //Debug.Log("I: "+i+" | rng: "+rng);
-                    temp = spreadPoints[i];
-                    item = spreadPoints[rng];
-                    //Debug.Log("("+item[0]+" - "+temp[0]+") + ("+item[1]+" - "+temp[1]+")");
-                    dist = Math.Sqrt((item[0] - temp[0]) + (item[1] - temp[1]));
-                    //Debug.Log("dist("+dist+") < spread("+spread+")");
+            rng = prng.Next(0, pointArray.Length);
+            item = pointArray[rng];
+            for (int i = 0; i < pointArray.Length;) {
+                Debug.Log(i+" | "+pointArray.Length);
+                temp = pointArray[i];
+                if (temp != item) {
+                    //Debug.Log("("+item.x+" - "+temp.x+") + ("+item.y+" - "+temp.y+")");
+                    dist = Math.Sqrt((item.x - temp.x) + (item.y - temp.y));
+                    //Debug.Log(i+" | "+pointArray.Length+" | dist: "+dist);
                     if (dist < spread) {
-                        spreadPoints.RemoveAt(i);
-                        size--;
-                        rng--;
+                        pointArray[i] = pointArray[^1];
+                        Array.Resize(ref pointArray, pointArray.Length-1);
                     } else {
                          i++;
                     }
@@ -206,13 +201,15 @@ public class EntityMap {
                     i++;
                 }
             }
+            Debug.Log(pointArray.Length);
 
-            randomSpread[(int)item[0], (int)item[1]] = 1;
-            spreadPoints.RemoveAt(rng);
-            size--;
+            randomSpread[(int)item.x, (int)item.y] = 1;
+            pointArray[rng] = pointArray[^1];
+            Array.Resize(ref pointArray, pointArray.Length-1);
 
         }
 
         return randomSpread;
     }
+
 }

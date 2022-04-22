@@ -14,7 +14,7 @@ public class UIControl : MonoBehaviour
     private Tab notesTab;
     private Tab menuTab;
     private NoteBook noteBook;
-    private InspectorControl inspectorControl;
+    private Inspector inspector;
 
     // Start is called before the first frame update
     void Start()
@@ -35,12 +35,11 @@ public class UIControl : MonoBehaviour
         HideUI();
 
         // locate inspectorController
-        inspectorControl = this.GetComponent<InspectorControl>();
+        inspector = this.GetComponent<Inspector>();
     }
 
     public void HideUI()
     {
-        Time.timeScale = 1.0f;
 
         // handle tab position and then deactivate tabs
         if (itemTab.tabHovered) itemTab.MoveLeft();
@@ -94,14 +93,14 @@ public class UIControl : MonoBehaviour
         {
             if (visible)
             {
+                // un pause the game and hide the ui
+                Time.timeScale = 1.0f;
                 HideUI();
             } else
             {
-
-                if (inspectorControl.InspectorActive)
-                {
-                    inspectorControl.DeactivateInspector();
-                }
+                // pause (or keep the game paused) and show the ui
+                Time.timeScale = 0f;
+                if (inspector.Active) inspector.DeactivateInspector();
                 ShowUI();
             }
         }

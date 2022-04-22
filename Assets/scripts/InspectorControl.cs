@@ -4,27 +4,38 @@ using UnityEngine;
 
 public class InspectorControl : MonoBehaviour
 {
-    private bool inspectorActive;
-    private UIControl uiControl;
+    Item inspectedItem;
+
     // Start is called before the first frame update
     void Start()
     {
-        uiControl = this.GetComponent<UIControl>();
-        inspectorActive = false;
+        inspectedItem = this.GetComponent<Item>();
+
+        // disable this script for now...
+        this.GetComponent<InspectorControl>().enabled = false;
     }
 
-    public bool InspectorActive
+    // Update is called once per frame
+    void Update()
     {
-        get { return inspectorActive; }
-    }
+        if (Input.GetKeyDown("up"))
+        {
+            Debug.Log("Up");
+        } 
+        
+        if (Input.GetKeyDown("right"))
+        {
+            Debug.Log("Right");
+        }
 
-    public void ActivateInspector()
-    {
-        inspectorActive = true;
-    }
+        if (Input.GetKeyDown("down"))
+        {
+            Debug.Log("Down");
+        }
 
-    public void DeactivateInspector()
-    {
-        inspectorActive = false;
+        if (Input.GetKeyDown("left"))
+        {
+            Debug.Log("Left");
+        }
     }
 }

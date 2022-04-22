@@ -4,7 +4,6 @@ using System.Collections.Generic;//auto-generated code
 using UnityEngine;//auto-generated code
 using UnityEngine.UI;
 using TMPro;
-
 public class GuideStateManager : MonoBehaviour //Code based off of iHeartGameDev https://youtu.be/Vt8aZDPzRjI
 {
     //Beginning here the code is based off of iHeartGameDev https://youtu.be/Vt8aZDPzRjI

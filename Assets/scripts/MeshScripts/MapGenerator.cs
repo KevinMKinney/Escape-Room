@@ -69,7 +69,7 @@ public class MapGenerator : MonoBehaviour
         noiseMap = Noise.curveNoise(mapWidth, mapHeight, noiseMap, meshHeightCurve);
 
         // mesh init
-        Mesh mesh = new Mesh();
+        Mesh mesh = new();
         mesh.name = "PerlinMesh";
         mesh.Clear();
 

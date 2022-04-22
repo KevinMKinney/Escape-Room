@@ -10,7 +10,7 @@ namespace UnityStandardAssets.Utility
 {
     public class WaypointCircuit : MonoBehaviour
     {
-        public WaypointList waypointList = new WaypointList();
+        public WaypointList waypointList = new();
         [SerializeField] private bool smoothRoute = true;
         private int numPoints;
         private Vector3[] points;
@@ -262,7 +262,7 @@ namespace UnityStandardAssets.Utility.Inspector
                         float w = widths[n]*inspectorWidth;
 
                         // Calculate rects
-                        Rect rect = new Rect(rowX, y, w, lineHeight);
+                        Rect rect = new(rowX, y, w, lineHeight);
                         rowX += w;
 
                         if (i == -1)

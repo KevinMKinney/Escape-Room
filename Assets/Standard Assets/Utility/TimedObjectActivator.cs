@@ -36,7 +36,7 @@ namespace UnityStandardAssets.Utility
         }
         
         
-        public Entries entries = new Entries();
+        public Entries entries = new();
 
         
         private void Awake()
@@ -129,16 +129,16 @@ namespace UnityStandardAssets.Utility.Inspector
                     float rowX = x;
 
                     // Calculate rects
-                    Rect actionRect = new Rect(rowX, y, actionWidth, k_LineHeight);
+                    Rect actionRect = new(rowX, y, actionWidth, k_LineHeight);
                     rowX += actionWidth;
 
-                    Rect targetRect = new Rect(rowX, y, targetWidth, k_LineHeight);
+                    Rect targetRect = new(rowX, y, targetWidth, k_LineHeight);
                     rowX += targetWidth;
 
-                    Rect delayRect = new Rect(rowX, y, delayWidth, k_LineHeight);
+                    Rect delayRect = new(rowX, y, delayWidth, k_LineHeight);
                     rowX += delayWidth;
 
-                    Rect buttonRect = new Rect(rowX, y, buttonWidth, k_LineHeight);
+                    Rect buttonRect = new(rowX, y, buttonWidth, k_LineHeight);
                     rowX += buttonWidth;
 
                     // Draw fields - passs GUIContent.none to each so they are drawn without labels

@@ -4,12 +4,12 @@
     "references": [
         "UnityEngine.TestRunner",
         "UnityEditor.TestRunner",
-        "MeshAssebmbly"
+        "GameAssembly"
     ],
-    "includePlatforms": [
-        "Editor"
+    "includePlatforms": [],
+    "excludePlatforms": [
+        "WSA"
     ],
-    "excludePlatforms": [],
     "allowUnsafeCode": false,
     "overrideReferences": true,
     "precompiledReferences": [

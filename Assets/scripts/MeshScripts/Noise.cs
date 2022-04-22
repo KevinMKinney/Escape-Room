@@ -17,7 +17,7 @@ public static class Noise
     public static float[,] generateNoiseMap(int mapWidth, int mapHeight, int seed, float scale, int octaves, float persistance, float lacunarity, Vector2 offset) {
         float[,] noiseMap = new float[mapWidth, mapHeight];
 
-        System.Random prng = new System.Random(seed);
+        System.Random prng = new(seed);
         Vector2[] octavesOffsets = new Vector2[octaves];
         for(int i = 0; i < octaves; i++) {
             float offsetX = prng.Next(-100000, 100000) + offset.x;

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 
 public class ItemDisplay : MonoBehaviour
@@ -28,6 +29,7 @@ public class ItemDisplay : MonoBehaviour
             itemName.GetComponent<TMP_Text>().text = item.ItemName;
             itemLongDescription.GetComponent<TMP_Text>().text = item.LongDescription;
             itemDrawing.SetActive(true);
+            itemDrawing.GetComponent<Image>().sprite = item.ItemIcon;
         }
     }
 }

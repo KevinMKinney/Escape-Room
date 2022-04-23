@@ -34,6 +34,37 @@ TagManager:
   - HintArea3
   - TestObject
   - puzzle 1
+  - key
+  - HintArea1.4
+  - HintArea1.5
+  - HintArea0
+  - HintArea0.1
+  - HintArea0.2
+  - HintArea0.6
+  - HintArea0.7
+  - HintArea0.8
+  - HintArea3.7
+  - HintArea3.8
+  - HintArea3.9
+  - HintArea3.91
+  - HintArea3.92
+  - HintArea3.93
+  - HintArea3.94
+  - HintArea3.95
+  - HintArea3.96
+  - HintArea2.3
+  - HintArea2.4
+  - HintArea2.5
+  - HintArea2.6
+  - HintArea2.7
+  - HintArea2.8
+  - HintArea2.9
+  - HintArea2.91
+  - Prompt1
+  - Prompt2
+  - Prompt3
+  - Prompt4
+  - midpointGuide
   - items
   - NoteList
   - HintArea1.5
@@ -71,7 +102,7 @@ TagManager:
   - 
   - Water
   - UI
-  - 
+  - GuideBackgroundText
   - 
   - 
   - 

@@ -21,6 +21,12 @@ public class InspectorControl : MonoBehaviour
         this.GetComponent<InspectorControl>().enabled = false;
     }
 
+    public void ResetScaleFactor()
+    {
+        scaleFactor = 0;
+        currentScale = originalScale;
+    }
+
     public void SetInspectorPosition()
     {
         Transform playerCam = GameObject.Find("FirstPersonCharacter").GetComponent<Transform>();
@@ -41,6 +47,52 @@ public class InspectorControl : MonoBehaviour
         scaleFactor = 0;
     }
 
+    public void RotateUp()
+    {
+        inspectedItem.transform.Rotate(1f, 0f, 0f, Space.Self);
+    }
+
+    public void RotateDown()
+    {
+        inspectedItem.transform.Rotate(-1f, 0f, 0f, Space.Self);
+    }
+
+    public void RotateRight()
+    {
+        inspectedItem.transform.Rotate(0f, 1f, 0f, Space.Self);
+    }
+
+    public void RotateLeft()
+    {
+        inspectedItem.transform.Rotate(0f, -1f, 0f, Space.Self);
+    }
+
+    public void ZoomIn()
+    {
+        if (scaleFactor <= 200)
+        {
+            scaleFactor++;
+            currentScale.x += 0.01f;
+            currentScale.y += 0.01f;
+            currentScale.z += 0.01f;
+        }
+
+        inspectedItem.transform.localScale = currentScale;
+    }
+
+    public void ZoomOut()
+    {
+        if (scaleFactor >= 0)
+        {
+            scaleFactor--;
+            currentScale.x -= 0.01f;
+            currentScale.y -= 0.01f;
+            currentScale.z -= 0.01f;
+        }
+
+        inspectedItem.transform.localScale = currentScale;
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -49,50 +101,34 @@ public class InspectorControl : MonoBehaviour
             // zoom controls:
             if (Input.GetKey("up") || Input.GetKey("w"))
             {
-                if (scaleFactor <= 100)
-                {
-                    scaleFactor++;
-                    currentScale.x += 0.01f;
-                    currentScale.y += 0.01f;
-                    currentScale.z += 0.01f;
-                }
-
-                inspectedItem.transform.localScale = currentScale;
+                ZoomIn();
             }
 
             if (Input.GetKey("down") || Input.GetKey("s"))
             {
-                if (scaleFactor >= 0)
-                {
-                    scaleFactor--;
-                    currentScale.x -= 0.01f;
-                    currentScale.y -= 0.01f;
-                    currentScale.z -= 0.01f;
-                }
-
-                inspectedItem.transform.localScale = currentScale;
+                ZoomOut();
             }
         } else
         {
             // rotation controls:
             if (Input.GetKey("up") || Input.GetKey("w"))
             {
-                inspectedItem.transform.Rotate(1f, 0f, 0f, Space.Self);
+                RotateUp();
             }
 
             if (Input.GetKey("right") || Input.GetKey("d"))
             {
-                inspectedItem.transform.Rotate(0f, 1f, 0f, Space.Self);
+                RotateRight();
             }
 
             if (Input.GetKey("down") || Input.GetKey("s"))
             {
-                inspectedItem.transform.Rotate(-1f, 0f, 0f, Space.Self);
+                RotateDown();
             }
 
             if (Input.GetKey("left") || Input.GetKey("a"))
             {
-                inspectedItem.transform.Rotate(0f, -1f, 0f, Space.Self);
+                RotateLeft();
             }
         }
     }

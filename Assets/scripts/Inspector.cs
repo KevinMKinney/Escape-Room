@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class Inspector : MonoBehaviour
 {
@@ -11,6 +12,8 @@ public class Inspector : MonoBehaviour
     private Item currentlyEquippedItem;
     private Item inspectedItem;
 
+    private GameObject inspectorPanel;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -19,11 +22,18 @@ public class Inspector : MonoBehaviour
         currentlyEquippedItem = null;
         inspectedItem = null;
         active = false;
+        inspectorPanel = GameObject.Find("InspectorPanel");
+        inspectorPanel.SetActive(false);
     }
 
     public bool Active
     {
         get { return active; }
+    }
+
+    public Item InspectedItem
+    {
+        get { return inspectedItem; }
     }
 
     public void ActivateInspector()
@@ -57,6 +67,10 @@ public class Inspector : MonoBehaviour
 
         // hide the UI menu and replace with inspector UI
         uiControl.HideUI();
+        inspectorPanel.SetActive(true);
+
+        // set the inspector panel item name text
+        GameObject.Find("InspectorItemName").GetComponent<TMP_Text>().text = inspectedItem.ItemName;
 
         // keep the mouse active and remove the reticle (which was reactivated by HideUI)
         Cursor.visible = true;
@@ -75,6 +89,7 @@ public class Inspector : MonoBehaviour
         if (inspectedItem != null)
         {
             inspectedItem.InGameObject.GetComponent<InspectorControl>().RemoveInspectorPosition();
+            inspectedItem.InGameObject.GetComponent<InspectorControl>().ResetScaleFactor();
             inspectedItem.InGameObject.GetComponent<InspectorControl>().enabled = false;
             inspectedItem.InGameObject.GetComponent<pick_up>().enabled = true;
             inspectedItem.InGameObject.SetActive(false);
@@ -86,10 +101,16 @@ public class Inspector : MonoBehaviour
             currentlyEquippedItem.InGameObject.SetActive(true);
         }
 
+        // hide the inspector panel
+        inspectorPanel.SetActive(false);
+
         // set the currentlyEquippedItem to null to prepare for the
         // next inspection
         currentlyEquippedItem = null;
 
         active = false;
+
+        // redisplay the ui
+        uiControl.ShowUI();
     }
 }

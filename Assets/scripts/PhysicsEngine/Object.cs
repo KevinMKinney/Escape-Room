@@ -134,13 +134,13 @@ public class PlayerObject: Object, Collisions{
         float xLowBounds = meshPos.x + 0.05f;
 
         //move up 
-        if(Input.GetKey(KeyCode.UpArrow)) moveHelper(moveAngle *2, Position.z, zUpBounds);
+        if(Input.GetKey(KeyCode.UpArrow)) moveHelper(moveAngle * 10, Position.z, zUpBounds);
         //move back
-        if(Input.GetKey(KeyCode.DownArrow)) moveHelper(moveAngle * -2, Position.z, zLowBounds);
+        if(Input.GetKey(KeyCode.DownArrow)) moveHelper(moveAngle * -10, Position.z, zLowBounds);
         //move right
-        if(Input.GetKey(KeyCode.RightArrow))  moveHelper(posR * 2, Position.x, xUpBounds);
+        if(Input.GetKey(KeyCode.RightArrow))  moveHelper(posR * 10, Position.x, xUpBounds);
         //move left
-        if(Input.GetKey(KeyCode.LeftArrow)) moveHelper(posR * -2, Position.x, xLowBounds);
+        if(Input.GetKey(KeyCode.LeftArrow)) moveHelper(posR * -10, Position.x, xLowBounds);
 
         //if we are past a bound, then we must be put back to the other area
         if(Position.x >= xUpBounds) Position.x = xUpBounds;

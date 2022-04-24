@@ -130,7 +130,7 @@ public class MapGenerator : MonoBehaviour
             float[,] entities = generateEntities();
             display.drawEntities(meshData.heightMap, waterThresh, entities, seed);
         }
-        display.drawPortal(meshData.heightMap, (int)portalPoint.x, (int)portalPoint.y);
+        //display.drawPortal(meshData.heightMap, (int)portalPoint.x, (int)portalPoint.y);
     }
 
     // for threading (WIP)

@@ -68,13 +68,13 @@ public class MapDisplay : MonoBehaviour
 
     // would probably add more later
     public void drawEntities(float[,] noiseMap, float waterThresh, float[,] entities, int seed) {
-        //drawEntitySphere(noiseMap, entities, waterThresh);
-        drawEntityTree(noiseMap, entities, waterThresh, seed);
+        drawEntitySphere(noiseMap, entities, waterThresh);
+        //drawEntityTree(noiseMap, entities, waterThresh, seed);
     }
 
     public void cleanUpEntities() {
         removeEntities("Sphere");
-        removeEntities("Tree(Clone)");
+        //removeEntities("Tree(Clone)");
     }
 
     // temp function for dev

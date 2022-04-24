@@ -13,12 +13,12 @@ public class MapGeneratorEditor : Editor
         if (DrawDefaultInspector()) {
             //if (mapGen.autoUpdate && (mapGen.currentDisplay == baseMesh)) {
             if (mapGen.autoUpdate) {
-                mapGen.generateMap();
+                mapGen.drawMeshEditor();
             }
         }
 
         if (GUILayout.Button("Generate")) {
-            mapGen.generateMap();
+            mapGen.drawMeshEditor();
         }
     }
 }

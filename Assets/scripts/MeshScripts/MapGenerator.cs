@@ -57,6 +57,7 @@ public class MapGenerator : MonoBehaviour
     [Space(10)]
     public bool autoUpdate;
     public bool coloredMesh;
+    [Header("WIP")]
     public bool entities;
 
     // queue for threading purposes
@@ -124,10 +125,10 @@ public class MapGenerator : MonoBehaviour
         display.drawNoiseMap(meshData.heightMap);
         display.drawMeshMap(meshData.mesh, meshData.heightMap, meshWater, waterThresh);
 
-        display.removeEntitySpheres();
+        display.cleanUpEntities();
         if (entities) {
             float[,] entities = generateEntities();
-            display.drawEntities(meshData.heightMap, waterThresh, entities);
+            display.drawEntities(meshData.heightMap, waterThresh, entities, seed);
         }
         display.drawPortal(meshData.heightMap, (int)portalPoint.x, (int)portalPoint.y);
     }
@@ -171,6 +172,18 @@ public class MapGenerator : MonoBehaviour
         }
         if (octaves < 0) {
             octaves = 0;
+        }
+        if (portalPoint.x < 0) {
+            portalPoint.x = 0;
+        }
+        if (portalPoint.x > (mapWidth-1)) {
+            portalPoint.x = (mapWidth-1);
+        }
+        if (portalPoint.y < 0) {
+            portalPoint.y = 0;
+        }
+        if (portalPoint.y > (mapHeight-1)) {
+            portalPoint.y = (mapHeight-1);
         }
     }
 

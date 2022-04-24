@@ -19,16 +19,16 @@ public class DropButton : MonoBehaviour, IPointerClickHandler
         itemControls = GameObject.Find("ItemControls").GetComponent<ItemControls>();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     public void OnPointerClick(PointerEventData data)
     {
-        inventory.GetSelectedItem().InGameObject.SetActive(true);
-        inventory.GetSelectedItem().InGameObject.GetComponent<pick_up>().dropInitiated = true;
+        Item itemToDrop = inventory.GetSelectedItem();
+
+        if (itemToDrop != null)
+        {
+            itemToDrop.InGameObject.SetActive(true);
+            itemToDrop.InGameObject.GetComponent<pick_up>().dropInitiated = true;
+        }
+        
         inventory.DropItem(inventory.GetSelectedItemIndex());
         itemDisplay.UpdateItemDisplay(null);
         itemList.UpdateList(inventory);

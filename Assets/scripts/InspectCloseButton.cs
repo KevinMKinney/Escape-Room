@@ -3,23 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class InspectButton : MonoBehaviour, IPointerClickHandler
+public class InspectCloseButton : MonoBehaviour, IPointerClickHandler
 {
+    private Inspector inspector;
 
     // Start is called before the first frame update
     void Start()
     {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        inspector = GameObject.Find("UIPanel").GetComponent<Inspector>();
     }
 
     public void OnPointerClick(PointerEventData data)
     {
-
+        inspector.DeactivateInspector();
     }
 }

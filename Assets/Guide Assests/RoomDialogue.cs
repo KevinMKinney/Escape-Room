@@ -50,7 +50,6 @@ public RawImage background;
            timer=300;
            //Creating the Prompt3 box collider once the player goes down the stairs
            GameObject prompt3Coll = GameObject.Find("Prompt3");
-           prompt3Coll.AddComponent<BoxCollider>();
            prompt3Coll.transform.position = new Vector3(5.56f,0.58f,0.92f);
            BoxCollider prompt3CollSize = prompt3Coll.GetComponent<BoxCollider>();
            prompt3CollSize.size = new Vector3(30,2,12);

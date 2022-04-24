@@ -43,6 +43,9 @@ public class RoomTrigger : GuideBaseState //this line of code is based off of iH
         GameObject random = GameObject.Find("GuideMessageBackground");
         background = random.GetComponent<RawImage>();
         background.enabled=false;
+        GameObject prompt3Coll = GameObject.Find("Prompt3");
+        BoxCollider prompt3CollSize = prompt3Coll.GetComponent<BoxCollider>();
+        prompt3CollSize.enabled=false;
     }
     //Update listens every frame for user keyboard input, resets text UI
     public override void UpdateState(GuideStateManager Guide){//this line of code is based off of iHeartGameDev https://youtu.be/Vt8aZDPzRjI

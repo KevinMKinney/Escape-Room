@@ -57,7 +57,8 @@ public class Object{
 
         //get the new y position based on the math
         float newy = (zScalePos*(y10-y00)) + (xScalePos*(y01 - y00))+y00;
-        return (mapSize.y * newy);
+        
+        return (mapSize.y * newy + meshPos.y);
     }
     
     //Calculates the bound length of the mesh, x and z
@@ -108,28 +109,24 @@ public class PlayerObject: Object, Collisions{
         j is the bound
     */
     public void moveHelper(Vector3 newV, float i, float j){
-        bool isPos = false;//to detrmine where we should check, uper bounds or lower bounds
+        
+        /*bool isPos = false;//to detrmine where we should check, uper bounds or lower bounds
         if(newV.z >= 0 && newV.x >= 0){
             isPos = true;
         }
         //change the position of the player, using velocity
         if(((isPos && i < j) || (!isPos && i > j))){
             //Position += (newV * Time.deltaTime); //old method, bad
-            if(newV.z != 0) Velocity.z = newV.z;
-            else Velocity.x = newV.x;
-        }
-
-        //if we are past a bound, then we must be put back to the other area
-        else if((isPos && i >= j) || (!isPos && i <= j)){
-            Vector3 newPos = Position;
-            if(newV.z != 0) newPos.z = j;
-            else newPos.x = j;
-            Position = newPos;
-        }
+            
+        }*/
+        Velocity.z = newV.z;
+        Velocity.x = newV.x;
+        
+        
     }
     
     //used to help player move in game
-    public void move(float zB, float xB, Vector3 meshPos){
+    public void move(float zB, float xB, Vector3 meshPos, Vector3 moveAngle, Vector3 posR){
         //get bounds for movement
         float zUpBounds = (zB-0.05f) + meshPos.z;
         float zLowBounds = meshPos.z + 0.05f;
@@ -137,13 +134,19 @@ public class PlayerObject: Object, Collisions{
         float xLowBounds = meshPos.x + 0.05f;
 
         //move up 
-        if(Input.GetKey(KeyCode.UpArrow)) moveHelper(new Vector3(0, 0, 2), Position.z, zUpBounds);
+        if(Input.GetKey(KeyCode.UpArrow)) moveHelper(moveAngle *2, Position.z, zUpBounds);
         //move back
-        if(Input.GetKey(KeyCode.DownArrow)) moveHelper(new Vector3(0, 0, -2), Position.z, zLowBounds);
+        if(Input.GetKey(KeyCode.DownArrow)) moveHelper(moveAngle * -2, Position.z, zLowBounds);
         //move right
-        if(Input.GetKey(KeyCode.RightArrow))  moveHelper(new Vector3(2, 0, 0), Position.x, xUpBounds);
+        if(Input.GetKey(KeyCode.RightArrow))  moveHelper(posR * 2, Position.x, xUpBounds);
         //move left
-        if(Input.GetKey(KeyCode.LeftArrow)) moveHelper(new Vector3(-2, 0, 0), Position.x, xLowBounds);
+        if(Input.GetKey(KeyCode.LeftArrow)) moveHelper(posR * -2, Position.x, xLowBounds);
+
+        //if we are past a bound, then we must be put back to the other area
+        if(Position.x >= xUpBounds) Position.x = xUpBounds;
+        else if(Position.x <= xLowBounds) Position.x = xLowBounds;
+        if(Position.x >= zUpBounds) Position.z = zUpBounds;
+        else if(Position.z <= zLowBounds) Position.z = zLowBounds;
     }
  
         

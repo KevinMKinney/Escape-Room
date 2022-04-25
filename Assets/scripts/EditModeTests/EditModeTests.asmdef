@@ -1,16 +1,15 @@
 {
-    "name": "Tests",
+    "name": "EditModeTests",
     "rootNamespace": "",
     "references": [
         "UnityEngine.TestRunner",
         "UnityEditor.TestRunner",
-        "GameAssembly",
-        "Unity.TextMeshPro"
+        "GameAssembly"
     ],
-    "includePlatforms": [],
-    "excludePlatforms": [
-        "WSA"
+    "includePlatforms": [
+        "Editor"
     ],
+    "excludePlatforms": [],
     "allowUnsafeCode": false,
     "overrideReferences": true,
     "precompiledReferences": [

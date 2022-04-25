@@ -67,9 +67,14 @@ public class MapDisplay : MonoBehaviour
     }
 
     // would probably add more later
-    public void drawEntities(float[,] noiseMap, float waterThresh, float[,] entities) {
-        //removeEntitySpheres();
+    public void drawEntities(float[,] noiseMap, float waterThresh, float[,] entities, int seed) {
         drawEntitySphere(noiseMap, entities, waterThresh);
+        //drawEntityTree(noiseMap, entities, waterThresh, seed);
+    }
+
+    public void cleanUpEntities() {
+        removeEntities("Sphere");
+        //removeEntities("Tree(Clone)");
     }
 
     // temp function for dev
@@ -95,12 +100,12 @@ public class MapDisplay : MonoBehaviour
         }
     }
 
-    // clean up GameObjects from drawEntitySphere function
-    public void removeEntitySpheres() {
+    // clean up GameObjects named n
+    private void removeEntities(string n) {
         object[] objects = GameObject.FindObjectsOfType(typeof(GameObject));
         foreach (object obj in objects) {
             GameObject o = (GameObject) obj;
-            if (o.name == "Sphere") {
+            if (o.name == n) {
                 DestroyImmediate(o);
                 //Destroy(o, 0);
             }
@@ -108,16 +113,17 @@ public class MapDisplay : MonoBehaviour
     }
 
     // temp function for dev
-    private void drawEntityTree(float[,] noiseMap, float[,] entities, float waterThresh) {
-        int mapWidth = noiseMap.GetLength(0);
-        int mapHeight = noiseMap.GetLength(1);
-        //int scale = 30;
-        GameObject meshObj = GameObject.Find("MeshObj");
-        Transform treefab = (treeObj).transform;
-
-        if (treefab == null) {
+    private void drawEntityTree(float[,] noiseMap, float[,] entities, float waterThresh, int seed) {
+        if (treeObj == null) {
             throw new Exception();
         }
+
+        int mapWidth = noiseMap.GetLength(0);
+        int mapHeight = noiseMap.GetLength(1);
+        GameObject meshObj = GameObject.Find("MeshObj");
+        //Transform treeParent = treeObj.transform;
+        System.Random prng = new System.Random(seed);
+        GameObject t;
 
         for (int y = 0; y < mapHeight; y++) {
             for (int x = 0; x < mapWidth; x++) {
@@ -126,23 +132,18 @@ public class MapDisplay : MonoBehaviour
                     float _y = noiseMap[x, y] * meshObj.transform.localScale.y + meshObj.transform.position.y;
                     float _z = y * meshObj.transform.localScale.z + meshObj.transform.position.z;
 
-                    Instantiate(treeObj,  new Vector3(_x, _y, _z), Quaternion.identity, treefab);
+                    t = Instantiate(treeObj,  new Vector3(_x, _y, _z), Quaternion.identity);
+                    // should set tree as child, but unity will break
+                    //t.transform.parent = treeParent;
+                    /*
+                    var tData = t.data as TreeEditor.TreeData;
+                    var root = tData.root;
+                    root.seed = prng.Next(-100000, 100000);
+                    */
                 }
             }
         }
     }
-
-    /*
-    public void removeEntityTrees() {
-        object[] objects = GameObject.FindObjectsOfType(typeof(GameObject));
-        foreach (object obj in objects) {
-            GameObject o = (GameObject) obj;
-            if (o.name == "Sphere") {
-                DestroyImmediate(o);
-                //Destroy(o, 0);
-            }
-        }
-    } */
 
     public void drawPortal(float[,] noiseMap, int portalPointX, int portalPointZ) {
         int scale = 30;

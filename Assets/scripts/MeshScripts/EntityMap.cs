@@ -4,7 +4,7 @@ using UnityEngine;
 using System;
 
 public class EntityMap {
-    // the function that is called from MapGenerator 
+    // the function that is called from MapGenerator
     public static float[,] generateEntityMap(float[,] noiseMap, float[,] densityMap, int seed, float minThresh, float maxThresh, float frequency, float spread) {
 
         // check for invalid input(s)
@@ -20,14 +20,16 @@ public class EntityMap {
         // make groups of entities
         validEntityLocations = multiplyMaps(validEntityLocations, densityMap, frequency);
 
+        /*
+        // old code
         int points = (int)(mapWidth*mapHeight / spread);
         int limit = 10;
         float[,] randomSpreadPoints = getRandomSpreadPoints(mapWidth, mapHeight, seed, spread, points, limit);
         validEntityLocations = multiplyMaps(validEntityLocations, randomSpreadPoints, 1);
         return validEntityLocations;
+        */
 
-
-        //return randomSpreadPoints(mapWidth, mapHeight, validEntityLocations, seed, spread);
+        return randomSpreadPoints(mapWidth, mapHeight, validEntityLocations, seed, spread);
     }
 
     // finds all valid locations for entities from the mesh's noise
@@ -157,7 +159,7 @@ public class EntityMap {
         return pointArray;
     }
 
-    // WIP more efficient version of the getRandomSpreadPoints function
+    // more efficient version of the getRandomSpreadPoints function
     private static float[,] randomSpreadPoints(int mapWidth, int mapHeight, float[,] points, int seed, float spread) {
 
         Vector2[] pointArray = new Vector2[0];
@@ -182,14 +184,13 @@ public class EntityMap {
 
         while (pointArray.Length > 0) {
 
-            rng = prng.Next(0, pointArray.Length);
+            rng = prng.Next(0, (pointArray.Length-1));
             item = pointArray[rng];
             for (int i = 0; i < pointArray.Length;) {
-                Debug.Log(i+" | "+pointArray.Length);
+                //Debug.Log(i+" | "+pointArray.Length);
                 temp = pointArray[i];
                 if (temp != item) {
-                    //Debug.Log("("+item.x+" - "+temp.x+") + ("+item.y+" - "+temp.y+")");
-                    dist = Math.Sqrt((item.x - temp.x) + (item.y - temp.y));
+                    dist = Vector2.Distance(item, temp);
                     //Debug.Log(i+" | "+pointArray.Length+" | dist: "+dist);
                     if (dist < spread) {
                         pointArray[i] = pointArray[^1];
@@ -201,11 +202,18 @@ public class EntityMap {
                     i++;
                 }
             }
-            Debug.Log(pointArray.Length);
 
+            for (int j = 0; j < pointArray.Length; j++) {
+                if (pointArray[j] == item) {
+                    rng = j;
+                }
+            }
+            
             randomSpread[(int)item.x, (int)item.y] = 1;
+            //pointArray[Array.FindIndex(pointArray, item)] = pointArray[^1];
             pointArray[rng] = pointArray[^1];
             Array.Resize(ref pointArray, pointArray.Length-1);
+
 
         }
 

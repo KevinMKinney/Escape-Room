@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class ItemControls : MonoBehaviour
 {
+    // attributes:
     public Inventory inventory;
     public GameObject equipButton;
     public GameObject putAwayButton;
@@ -13,6 +14,7 @@ public class ItemControls : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        // declaration of attributes:
         inventory = GameObject.Find("Items").GetComponent<Inventory>();
         equipButton = GameObject.Find("EquipButton");
         putAwayButton = GameObject.Find("PutAwayButton");
@@ -20,6 +22,8 @@ public class ItemControls : MonoBehaviour
         dropButton = GameObject.Find("DropButton");
     }
 
+    // ShowControls() activates and displays the item controls within the 'item'
+    // page of the notebook
     public void ShowControls()
     {
         equipButton.SetActive(true);
@@ -28,6 +32,8 @@ public class ItemControls : MonoBehaviour
         dropButton.SetActive(true);
     }
 
+    // HideControls() deactivates and hides the item controls within the 'item'
+    // page of the notebook
     public void HideControls()
     {
         equipButton.SetActive(false);

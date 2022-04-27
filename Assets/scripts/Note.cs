@@ -18,6 +18,7 @@ public class Note
         toAppend = false;
     }
 
+    #region Getters/Setters
     public string NoteText
     {
         get { return this.noteText; }
@@ -28,6 +29,10 @@ public class Note
         get { return this.noteTime; }
     }
 
+    #endregion Getters/Setters
+
+    // NoteTimeAsText() returns a string formatted version of the 
+    // time the note was taken in minues:seconds format
     public string NoteTimeAsText()
     {
         int minutes = (int)(noteTime / 60);

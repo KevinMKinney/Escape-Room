@@ -16,6 +16,7 @@ public class NoteList : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        // locate NoteList gameobject in game
         noteListObject = GameObject.Find("NoteList");
     }
 
@@ -24,6 +25,7 @@ public class NoteList : MonoBehaviour
         noteListObject.GetComponent<RectTransform>().sizeDelta = new Vector2(width, height);
     }
 
+    // remove all notes in the list by reallocating the list
     public void ClearAllNotes()
     {
         list = new List<Note>();
@@ -96,6 +98,8 @@ public class NoteList : MonoBehaviour
         newNotes.Add(newNote);
     }
 
+    // PaintNoteList() is responsible for updating and displaying the list
+    // of notes within the note list game object
     public void PaintNoteList()
     {
         noteListObject = GameObject.Find("NoteList");

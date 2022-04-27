@@ -38,6 +38,8 @@ public class Inventory : MonoBehaviour
         {
             Item current = items[i];
             items.RemoveAt(i);
+
+            // handle an equipped item being removed:
             if (equippedItemIndex == i)
             {
                 equippedItemIndex = -1;
@@ -45,7 +47,7 @@ public class Inventory : MonoBehaviour
         }
     }
 
-    // select an item
+    // select an item (only if within range of the actual item count)
     public int SelectItem(int i)
     {
         if (i >= 0 && i < items.Count)
@@ -54,7 +56,7 @@ public class Inventory : MonoBehaviour
         }
         else
         {
-            selectedItemIndex = -1;
+            selectedItemIndex = -1; // indicates no item is selected
         }
 
         return selectedItemIndex;
@@ -69,13 +71,16 @@ public class Inventory : MonoBehaviour
     // Assign an item to be equipped
     public int EquipItem(int i)
     {
-
+        // deactivate the current GameObject that
+        // is equipped in the game world
         Item current = GetEquippedItem();
         if (current != null)
         {
             current.InGameObject.SetActive(false);
         }
 
+        // activate the in game object that is to be
+        // equipped
         if (i >= 0 && i < items.Count)
         {
             equippedItemIndex = i;
@@ -84,7 +89,7 @@ public class Inventory : MonoBehaviour
         }
         else
         {
-            equippedItemIndex = -1;
+            equippedItemIndex = -1; // invalid item index given
         }
 
         return equippedItemIndex;
@@ -99,6 +104,8 @@ public class Inventory : MonoBehaviour
     // Unequip item
     public void PutAwayItem()
     {
+        // disable the in game object attached to
+        // the currently equipped item
         Item i = GetSelectedItem();
         if (i != null)
         {
@@ -107,6 +114,7 @@ public class Inventory : MonoBehaviour
         equippedItemIndex = -1;
     }
 
+    // Get the selected item in the inventory
     public Item GetSelectedItem()
     {
         if (selectedItemIndex >= 0)
@@ -118,6 +126,7 @@ public class Inventory : MonoBehaviour
         }
     }
 
+    // Get the equipped item in the inventory
     public Item GetEquippedItem()
     {
         if (equippedItemIndex >= 0)
@@ -129,6 +138,7 @@ public class Inventory : MonoBehaviour
         }
     }
 
+    // get the index of an item in the inventory
     public int GetItemIndex(Item item)
     {
         for (int i = 0; i < items.Count; i++)
@@ -142,9 +152,11 @@ public class Inventory : MonoBehaviour
         return -1;
     }
 
-    // initTests() initializes the inventory with some test items
+    // initTests() is a function that was used for testing purposes.
+    // It initializes the inventory with some test items
     public void StartingInventory()
     {
+        // create initial items and set the item descriptions
         Item gun = new Item("Gun", "A GUN?!!!");
         Item gasCan = new Item("Gas Can", "Full can of gas");
         Item mazeBoard = new Item("Maze Board", "Wierd maze enclosed in glass");
@@ -157,6 +169,8 @@ public class Inventory : MonoBehaviour
         watermelon.LongDescription = "I really hope somebody took the seeds out of this.";
         banana.LongDescription = "I prefer my bananas in bread form...";
         grape.LongDescription = "Seriously, why is there fruit in here?";
+
+        // add the items to the inventory
         AddItem(gun);
         AddItem(gasCan);
         AddItem(mazeBoard);

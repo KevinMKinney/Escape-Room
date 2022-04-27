@@ -6,17 +6,18 @@ using TMPro;
 
 public class Inspector : MonoBehaviour
 {
+    // attributes:
     private bool active;
     private UIControl uiControl;
     private Inventory inventory;
     private Item currentlyEquippedItem;
     private Item inspectedItem;
-
     private GameObject inspectorPanel;
 
     // Start is called before the first frame update
     void Start()
     {
+        // declaration of attributes:
         uiControl = this.GetComponent<UIControl>();
         inventory = GameObject.Find("Items").GetComponent<Inventory>();
         currentlyEquippedItem = null;
@@ -26,6 +27,7 @@ public class Inspector : MonoBehaviour
         inspectorPanel.SetActive(false);
     }
 
+    #region Getters
     public bool Active
     {
         get { return active; }
@@ -35,6 +37,7 @@ public class Inspector : MonoBehaviour
     {
         get { return inspectedItem; }
     }
+    #endregion
 
     public void ActivateInspector()
     {

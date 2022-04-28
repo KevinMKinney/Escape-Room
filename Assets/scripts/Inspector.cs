@@ -39,6 +39,9 @@ public class Inspector : MonoBehaviour
     }
     #endregion
 
+    /// <summary>
+    /// ActivateInspector() will disable the notebook UI and launch the inspector window
+    /// </summary>
     public void ActivateInspector()
     {
         // store and disable the currently equipped item (so we can re-enable after inspection)
@@ -86,6 +89,9 @@ public class Inspector : MonoBehaviour
         Debug.Log(inspectedItem.ItemName);
     }
 
+    /// <summary>
+    /// DeactivateInspector() will deactivate the inspector and relaunch the notebook UI
+    /// </summary>
     public void DeactivateInspector()
     {
         // deactivate the selectedItem

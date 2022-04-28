@@ -15,8 +15,11 @@ public class InspectCloseButton : MonoBehaviour, IPointerClickHandler
         inspector = GameObject.Find("UIPanel").GetComponent<Inspector>();
     }
 
-    // OnPointerClick() handles what happens when the 'esc' button is pressed
-    // within the inspector window
+    /// <summary>
+    /// OnPointerClick() handles what happens when the 'esc' button is pressed
+    /// within the inspector window
+    /// </summary>
+    /// <param name="data"></param>
     public void OnPointerClick(PointerEventData data)
     {
         inspector.DeactivateInspector();

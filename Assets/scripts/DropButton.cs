@@ -21,7 +21,10 @@ public class DropButton : MonoBehaviour, IPointerClickHandler
         itemControls = GameObject.Find("ItemControls").GetComponent<ItemControls>();
     }
 
-    // OnPointerClick() handles what happens when the drop button is clicked
+    /// <summary>
+    /// OnPointerClick() handles what happens when the drop button is clicked
+    /// </summary>
+    /// <param name="data"></param>
     public void OnPointerClick(PointerEventData data)
     {
         Item itemToDrop = inventory.GetSelectedItem(); // get the item to be dropped

@@ -23,16 +23,20 @@ public class InspectorControl : MonoBehaviour
         this.GetComponent<InspectorControl>().enabled = false;
     }
 
-    // ResetScaleFactor() does exactly that, it resets the scale factor
-    // to 0 and returns the currentScale back to the original scale
+    /// <summary>
+    /// ResetScaleFactor() does exactly that, it resets the scale factor
+    /// to 0 and returns the currentScale back to the original scale
+    /// </summary>
     public void ResetScaleFactor()
     {
         scaleFactor = 0;
         currentScale = originalScale;
     }
 
-    // SetInspectorPosition() repositions the inspected item to the center of the
-    // inspector screen
+    /// <summary>
+    /// SetInspectorPosition() repositions the inspected item to the center of the
+    /// inspector screen
+    /// </summary>
     public void SetInspectorPosition()
     {
         // locate the player camera
@@ -46,8 +50,10 @@ public class InspectorControl : MonoBehaviour
         scaleFactor = 0;
     }
 
-    // RemoveInspectorPosition() places the inspected item in the default 'equipped'
-    // position
+    /// <summary>
+    /// RemoveInspectorPosition() places the inspected item in the default 'equipped'
+    /// position
+    /// </summary>
     public void RemoveInspectorPosition()
     {
         // locate the player camera

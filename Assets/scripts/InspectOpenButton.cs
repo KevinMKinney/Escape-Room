@@ -15,8 +15,11 @@ public class InspectOpenButton : MonoBehaviour, IPointerClickHandler
         inspector = GameObject.Find("UIPanel").GetComponent<Inspector>();
     }
 
-    // OnPointerClick() handles the what happens when the inspect button is pressed
-    // within the item control field.
+    /// <summary>
+    /// OnPointerClick() handles the what happens when the inspect button is pressed
+    /// within the item control field.
+    /// </summary>
+    /// <param name="data"></param>
     public void OnPointerClick(PointerEventData data)
     {
         inspector.ActivateInspector();

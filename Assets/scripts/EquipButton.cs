@@ -17,9 +17,12 @@ public class EquipButton : MonoBehaviour, IPointerClickHandler
         itemList = GameObject.Find("ItemList").GetComponent<ItemList>();
     }
 
-    // OnPointerClick() handles what happens when the EquipButton is pressed.
-    // When pressed, the selected item will be equipped within the inventory
-    // and the inventory list will update to reflect that change.
+    /// <summary>
+    /// OnPointerClick() handles what happens when the EquipButton is pressed.
+    /// When pressed, the selected item will be equipped within the inventory
+    /// and the inventory list will update to reflect that change.
+    /// </summary>
+    /// <param name="data"></param>
     public void OnPointerClick(PointerEventData data)
     {
         inventory.EquipItem(inventory.GetSelectedItemIndex());

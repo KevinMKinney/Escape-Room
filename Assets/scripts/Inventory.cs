@@ -19,7 +19,10 @@ public class Inventory : MonoBehaviour
         return items;
     }
 
-    // Add an item to the inventory
+    /// <summary>
+    /// Add an item to the inventory
+    /// </summary>
+    /// <param name="item"></param>
     public int AddItem(Item item)
     {
         if (items.Count < maxItemCount)
@@ -31,7 +34,10 @@ public class Inventory : MonoBehaviour
         return -1;
     }
 
-    // Remove an item from the inventory
+    /// <summary>
+    /// Remove an item from the inventory
+    /// </summary>
+    /// <param name="i"></param>
     public void DropItem(int i)
     {
         if (i >= 0 && i < items.Count)
@@ -47,7 +53,10 @@ public class Inventory : MonoBehaviour
         }
     }
 
-    // select an item (only if within range of the actual item count)
+    /// <summary>
+    /// select an item (only if within range of the actual item count)
+    /// </summary>
+    /// <param name="i"></param>
     public int SelectItem(int i)
     {
         if (i >= 0 && i < items.Count)
@@ -62,13 +71,18 @@ public class Inventory : MonoBehaviour
         return selectedItemIndex;
     }
 
-    // get selected item
+    /// <summary>
+    /// Get selected item index
+    /// </summary>
     public int GetSelectedItemIndex()
     {
         return selectedItemIndex;
     }
 
-    // Assign an item to be equipped
+    /// <summary>
+    /// Assign an item to be equipped
+    /// </summary>
+    /// <param name="i"></param>
     public int EquipItem(int i)
     {
         // deactivate the current GameObject that
@@ -95,13 +109,17 @@ public class Inventory : MonoBehaviour
         return equippedItemIndex;
     }
 
-    // Return the index of the item that is currently equipped
+    /// <summary>
+    /// Return the index of the item that is currently equipped
+    /// </summary>
     public int GetEquippedItemIndex()
     {
         return equippedItemIndex;
     }
 
-    // Unequip item
+    /// <summary>
+    /// Unequip item
+    /// </summary>
     public void PutAwayItem()
     {
         // disable the in game object attached to
@@ -114,7 +132,9 @@ public class Inventory : MonoBehaviour
         equippedItemIndex = -1;
     }
 
-    // Get the selected item in the inventory
+    /// <summary>
+    /// Get the selected item in the inventory
+    /// </summary>
     public Item GetSelectedItem()
     {
         if (selectedItemIndex >= 0)
@@ -126,7 +146,10 @@ public class Inventory : MonoBehaviour
         }
     }
 
-    // Get the equipped item in the inventory
+    /// <summary>
+    /// Get the equipped item in the inventory
+    /// </summary>
+    /// <returns></returns>
     public Item GetEquippedItem()
     {
         if (equippedItemIndex >= 0)
@@ -138,7 +161,10 @@ public class Inventory : MonoBehaviour
         }
     }
 
-    // get the index of an item in the inventory
+    /// <summary>
+    /// get the index of an item in the inventory
+    /// </summary>
+    /// <param name="item"></param>
     public int GetItemIndex(Item item)
     {
         for (int i = 0; i < items.Count; i++)
@@ -152,8 +178,10 @@ public class Inventory : MonoBehaviour
         return -1;
     }
 
-    // initTests() is a function that was used for testing purposes.
-    // It initializes the inventory with some test items
+    /// <summary>
+    /// initTests() is a function that was used for testing purposes.
+    /// It initializes the inventory with some test items
+    /// </summary>
     public void StartingInventory()
     {
         // create initial items and set the item descriptions

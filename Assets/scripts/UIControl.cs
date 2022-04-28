@@ -40,8 +40,10 @@ public class UIControl : MonoBehaviour
         inspector = this.GetComponent<Inspector>();
     }
 
-    // HideUI() deactivates the Notebook UI, and handles the changes in each UI
-    // component necessary to prevent odd behavior!
+    /// <summary>
+    /// HideUI() deactivates the Notebook UI, and handles the changes in each UI
+    /// component necessary to prevent odd behavior!
+    /// </summary>
     public void HideUI()
     {
 
@@ -75,7 +77,10 @@ public class UIControl : MonoBehaviour
         visible = false;
     }
 
-    
+    /// <summary>
+    /// ShowUI() activates the notebook UI and handles the changes needed
+    /// to prevent odd behavior when opening.
+    /// </summary>
     public void ShowUI()
     {
         // pause the game, activate the notebook tabs

@@ -31,8 +31,10 @@ public class NoteBook : MonoBehaviour
         OnTabChange();
     }
 
-    // OnTabChange() displays the correct notebook page based on the currentTab, and disables
-    // all other pages in the notebook.
+    /// <summary>
+    /// OnTabChange() displays the correct notebook page based on the currentTab, and disables
+    /// all other pages in the notebook.
+    /// </summary>
     public void OnTabChange()
     {
         if (currentTab == 0)

@@ -19,8 +19,11 @@ public class ItemDisplay : MonoBehaviour
         itemLongDescription = GameObject.Find("ItemLongDescription");
     }
 
-    // UpdateItemDisplay() takes an item in the inventory and dislpays the item
-    // information to the ItemDisplay section of the 'item' page in the notebook
+    /// <summary>
+    /// UpdateItemDisplay() takes an item in the inventory and dislpays the item
+    /// information to the ItemDisplay section of the 'item' page in the notebook
+    /// </summary>
+    /// <param name="item"></param>
     public void UpdateItemDisplay(Item item)
     {
         if (item == null)

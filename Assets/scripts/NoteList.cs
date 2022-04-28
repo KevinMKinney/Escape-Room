@@ -31,6 +31,10 @@ public class NoteList : MonoBehaviour
         list = new List<Note>();
     }
 
+    /// <summary>
+    /// CreateListItem() creates the in-game object that will display the note.
+    /// </summary>
+    /// <param name="note"></param>
     public GameObject CreateListItem(Note note)
     {
         // create the note container:
@@ -82,6 +86,10 @@ public class NoteList : MonoBehaviour
         return noteContainer;
     }
 
+    /// <summary>
+    /// PrependNoteToList() attaches the note to the top of the notelist
+    /// </summary>
+    /// <param name="noteText"></param>
     public void PrependNoteToList(string noteText)
     {
         // create a note and add it to the start of the list
@@ -90,6 +98,10 @@ public class NoteList : MonoBehaviour
         newNotes.Add(newNote);
     }
 
+    /// <summary>
+    /// AppendNoteToList() attaches the note to the bottom of the notelist
+    /// </summary>
+    /// <param name="noteText"></param>
     public void AppendNoteToList(string noteText)
     {
         // create a note and add it to the end of the list
@@ -98,8 +110,10 @@ public class NoteList : MonoBehaviour
         newNotes.Add(newNote);
     }
 
-    // PaintNoteList() is responsible for updating and displaying the list
-    // of notes within the note list game object
+    /// <summary>
+    /// PaintNoteList() is responsible for updating and displaying the list
+    /// of notes within the note list game object
+    /// </summary>
     public void PaintNoteList()
     {
         noteListObject = GameObject.Find("NoteList");

@@ -17,9 +17,12 @@ public class PutAwayButton : MonoBehaviour, IPointerClickHandler
         itemList = GameObject.Find("ItemList").GetComponent<ItemList>();
     }
 
-    // OnPointerClick() handles the actions taken when the PutAwayButton is
-    // clicked: the selected item is unequipped and the item list is updated
-    // to reflect that the item is no longer equipped.
+    /// <summary>
+    /// onpointerclick() handles the actions taken when the putawaybutton is
+    /// clicked: the selected item is unequipped and the item list is updated
+    /// to reflect that the item is no longer equipped.
+    /// </summary>
+    /// <param name="data"></param>
     public void OnPointerClick(PointerEventData data)
     {
         inventory.PutAwayItem();

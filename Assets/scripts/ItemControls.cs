@@ -22,8 +22,10 @@ public class ItemControls : MonoBehaviour
         dropButton = GameObject.Find("DropButton");
     }
 
-    // ShowControls() activates and displays the item controls within the 'item'
-    // page of the notebook
+    /// <summary>
+    /// ShowControls() activates and displays the item controls within the 'item'
+    /// page of the notebook
+    /// </summary>
     public void ShowControls()
     {
         equipButton.SetActive(true);
@@ -32,8 +34,10 @@ public class ItemControls : MonoBehaviour
         dropButton.SetActive(true);
     }
 
-    // HideControls() deactivates and hides the item controls within the 'item'
-    // page of the notebook
+    /// <summary>
+    /// HideControls() deactivates and hides the item controls within the 'item'
+    /// page of the notebook
+    /// </summary>
     public void HideControls()
     {
         equipButton.SetActive(false);

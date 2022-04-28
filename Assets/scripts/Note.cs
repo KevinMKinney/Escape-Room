@@ -31,8 +31,10 @@ public class Note
 
     #endregion Getters/Setters
 
-    // NoteTimeAsText() returns a string formatted version of the 
-    // time the note was taken in minues:seconds format
+    /// <summary>
+    /// NoteTimeAsText() returns a string formatted version of the 
+    /// time the note was taken in minues:seconds format
+    /// </summary>
     public string NoteTimeAsText()
     {
         int minutes = (int)(noteTime / 60);

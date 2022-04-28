@@ -15,9 +15,12 @@ public class ItemList : MonoBehaviour
         itemList = GameObject.Find("ItemList");
     }
 
-    // UpdateList() takes an inventory as the input and updates the
-    // displayed item list entries with the current inventory of items.
-    // it also displays the currently equipped item within the inventory
+    /// <summary>
+    /// UpdateList() takes an inventory as the input and updates the
+    /// displayed item list entries with the current inventory of items.
+    /// it also displays the currently equipped item within the inventory
+    /// </summary>
+    /// <param name="inventory"></param>
     public void UpdateList(Inventory inventory)
     {
         // get the items in the inventory

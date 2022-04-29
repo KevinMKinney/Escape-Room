@@ -12,8 +12,7 @@ KeyCode key2 = KeyCode.N;
 public int dialogueSet=0; //When no triggers have been tripped
 public int HintSet=0;//Setting the hint system to 0 
 public float timer=300;//Hint timer (5 minutes)
-public RawImage background;
-
+public RawImage background;//Declaring image variable for GuigeBackgroundMessage art
   //Calls OnTriggerEnter whenever the user enters a puzzle area
   public override void OnTriggerEnter(GuideStateManager Guide, Collider collider){
            GameObject randomB = GameObject.Find("GuideMessageBackground");
@@ -75,15 +74,16 @@ public RawImage background;
   //Initial state called when switching state
   public override void EnterState(GuideStateManager Guide)//this line of code is based off of iHeartGameDev https://youtu.be/Vt8aZDPzRjI
     {
-      GameObject random = GameObject.Find("GuideMessageBackground");
+        GameObject random = GameObject.Find("GuideMessageBackground");
         background = random.GetComponent<RawImage>();
         background.enabled=false;
     }
   //Update listens every frame for user keyboard input
-  public override void UpdateState(GuideStateManager Guide)//this line of code is based off of iHeartGameDev https://youtu.be/Vt8aZDPzRjI
+   public override void UpdateState(GuideStateManager Guide)//this line of code is based off of iHeartGameDev https://youtu.be/Vt8aZDPzRjI
      {
       if(Input.GetKeyDown(key2))//If the user presses N, closes current prompt
       {
+        checkD=false;
         sometext.text = " ";//clears the text UI
         dialogueSet=0;//sets dialogue back to 0
         background.enabled=false;
@@ -97,9 +97,21 @@ public RawImage background;
              Guide.SwitchState(Guide.HintState);//Once the timer is up, switch to hint state
            }
          }
+         if(checkD==false){//Makes sure the player sees intro prompt before timer starts
+                sometext.text=" ";
+                TimerG(timer);
+         }
       }
+    //Displays hint timer on bottom right of the screen
+   public void TimerG(float timer){
+            GameObject random = GameObject.Find("TimerMessage");
+            sometext = random.GetComponent<TextMeshProUGUI>();
+            float timeMath = timer/60;//Converts from seconds to minutes
+            string TimerS = timeMath.ToString("#.##");//Rounding to two decimal places
+            sometext.text="Time left until hint: " + TimerS;//Storing the text
+   }
    public void DestroyGameObject(GameObject other)//destroys object being passed into the argument 
-   {
+    {
     UnityEngine.Object.Destroy(other);//Destroys object, UnityEngine.Object used because concrete state does not derive from MonoBehaviour 
   }
 }

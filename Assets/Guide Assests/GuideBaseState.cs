@@ -2,7 +2,7 @@
 using UnityEngine;//auto-generated code
 using UnityEngine.UI;
 using TMPro;
-
+using System.Collections.Generic;
 public abstract class GuideBaseState//Beginning here the code is based off of iHeartGameDev https://youtu.be/Vt8aZDPzRjI 
 {
     public abstract void EnterState(GuideStateManager Guide);

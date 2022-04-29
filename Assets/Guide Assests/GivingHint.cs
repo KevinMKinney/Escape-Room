@@ -98,22 +98,18 @@ public override void OnTriggerEnter(GuideStateManager Guide, Collider collider){
         //Depending on what hint is triggered, displays message, switches state and sets the hintRoom variable back to 0
         if(hintRoom==1){
           sometext.text = "It seems like the gun would be useful \n\n\nPress N to close hint";
-          //Guide.SwitchState(Guide.TriggerState);
           hintRoom=0;
         }
         if(hintRoom==2){
           sometext.text = "Seems like these planks are easily knocked over \n\n\nPress N to close hint";
-          //Guide.SwitchState(Guide.TriggerState);
           hintRoom=0;
         }
         if(hintRoom==3){
           sometext.text = "Looks like you'll need a gas can \n\n\nPress N to close hint";
-          //Guide.SwitchState(Guide.TriggerState);
           hintRoom=0;
         }
         if(hintRoom==4){
           sometext.text = "There might be a pattern here.. \n\n\nPress N to close hint";
-          //Guide.SwitchState(Guide.TriggerState);
           hintRoom=0;
         }
     }

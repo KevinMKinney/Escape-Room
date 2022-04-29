@@ -36,6 +36,7 @@ public class Item : MonoBehaviour
 
     public Item()
     {
+        // this constructor was used for testing purposes
         this.itemName = "";
         this.shortDescription = "";
         this.longDescription = "";
@@ -43,7 +44,7 @@ public class Item : MonoBehaviour
     #endregion
 
     #region methods
-    // methods:
+    // Getters and setters:
     public string ItemName
     {
         get { return this.itemName; }

@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class InspectorControl : MonoBehaviour
 {
+    // attributes:
     Item inspectedItem;
     Vector3 originalScale;
     Vector3 currentScale;
@@ -12,6 +13,7 @@ public class InspectorControl : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        // declaration of attributes
         inspectedItem = this.GetComponent<Item>();
         originalScale = this.transform.localScale;
         currentScale = originalScale;
@@ -21,15 +23,26 @@ public class InspectorControl : MonoBehaviour
         this.GetComponent<InspectorControl>().enabled = false;
     }
 
+    /// <summary>
+    /// ResetScaleFactor() does exactly that, it resets the scale factor
+    /// to 0 and returns the currentScale back to the original scale
+    /// </summary>
     public void ResetScaleFactor()
     {
         scaleFactor = 0;
         currentScale = originalScale;
     }
 
+    /// <summary>
+    /// SetInspectorPosition() repositions the inspected item to the center of the
+    /// inspector screen
+    /// </summary>
     public void SetInspectorPosition()
     {
+        // locate the player camera
         Transform playerCam = GameObject.Find("FirstPersonCharacter").GetComponent<Transform>();
+
+        // position the item directly in front of the player camera
         Vector3 trans = new Vector3(0,0,2);
         transform.position = playerCam.position;
         transform.Translate(trans, playerCam);
@@ -37,9 +50,16 @@ public class InspectorControl : MonoBehaviour
         scaleFactor = 0;
     }
 
+    /// <summary>
+    /// RemoveInspectorPosition() places the inspected item in the default 'equipped'
+    /// position
+    /// </summary>
     public void RemoveInspectorPosition()
     {
+        // locate the player camera
         Transform playerCam = GameObject.Find("FirstPersonCharacter").GetComponent<Transform>();
+
+        // place the inspected item in the default 'equipped' position
         Vector3 trans = new Vector3(1, -1, 2);
         transform.position = playerCam.position;
         transform.Translate(trans, playerCam);
@@ -47,6 +67,7 @@ public class InspectorControl : MonoBehaviour
         scaleFactor = 0;
     }
 
+    #region RotationFunctions
     public void RotateUp()
     {
         inspectedItem.transform.Rotate(1f, 0f, 0f, Space.Self);
@@ -66,9 +87,12 @@ public class InspectorControl : MonoBehaviour
     {
         inspectedItem.transform.Rotate(0f, -1f, 0f, Space.Self);
     }
+    #endregion
 
+    #region ZoomFunctions
     public void ZoomIn()
     {
+        // zoom within the scale window (0 - 200)
         if (scaleFactor <= 200)
         {
             scaleFactor++;
@@ -77,11 +101,13 @@ public class InspectorControl : MonoBehaviour
             currentScale.z += 0.01f;
         }
 
+        // update the scale of the item in the game world
         inspectedItem.transform.localScale = currentScale;
     }
 
     public void ZoomOut()
     {
+        // allow zooming out until scale factor is 0 (original scale)
         if (scaleFactor >= 0)
         {
             scaleFactor--;
@@ -90,8 +116,10 @@ public class InspectorControl : MonoBehaviour
             currentScale.z -= 0.01f;
         }
 
+        // update the scale of the item in the game world
         inspectedItem.transform.localScale = currentScale;
     }
+    #endregion
 
     // Update is called once per frame
     void Update()

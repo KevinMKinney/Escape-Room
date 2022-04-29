@@ -6,14 +6,17 @@ public class Invisible : MonoBehaviour
 {
     public bool isInvisible;
 
+    // **********************
+    // ** Brad added below **
 
-    // Brad added the following constructor to avoid the "null object reference" error if
-    // isInvisible was not set within the inspector window
+    // setting isInvisible to false within Start() is done to avoid the "null object reference"
+    // error if isInvisible was not set within the inspector window
     public void Start()
     {
         isInvisible = false;
     }
 
+    // Update() is called once per frame
     public void Update()
     {
         // The following was added for testing purposes. Player can toggle their visibility
@@ -24,4 +27,7 @@ public class Invisible : MonoBehaviour
             Debug.Log("Player Visible: " + !isInvisible);
         }
     }
+
+    // ** Brad added above **
+    // **********************
 }

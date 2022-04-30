@@ -4,7 +4,7 @@ using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.TestTools;
 
-public class NewTestScript // 100 V
+public class AITests // 100 V
 {
     // Acceptance Test
     [Test]

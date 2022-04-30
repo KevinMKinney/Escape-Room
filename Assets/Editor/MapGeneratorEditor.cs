@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 
-// middleman between Unity inspector and MapGenerator.cs 
+// middleman between Unity inspector and MapGenerator.cs
 [CustomEditor(typeof(MapGenerator))]
 public class MapGeneratorEditor : Editor
 {
@@ -13,12 +13,12 @@ public class MapGeneratorEditor : Editor
         if (DrawDefaultInspector()) {
             //if (mapGen.autoUpdate && (mapGen.currentDisplay == baseMesh)) {
             if (mapGen.autoUpdate) {
-                mapGen.GenerateMap();
+                mapGen.drawMeshEditor();
             }
         }
 
         if (GUILayout.Button("Generate")) {
-            mapGen.GenerateMap();
+            mapGen.drawMeshEditor();
         }
     }
 }

@@ -12,9 +12,9 @@ public class TheBigExplode : MonoBehaviour
 {
     public GameObject explosionPrefab;
     
-    public void TargitHit(float  _)
+    public void TargitHit(float _)
     {
-        // Create a copy of the explosion and place it at the objects location. The explosion is now active and will be seen.
+        // Create a copy of the explosion and place it at the object's location. The explosion is now active and will be seen.
         Instantiate(explosionPrefab, transform.position, transform.rotation);
         //Place current object in the void.
         transform.position = new Vector3(0,-999,0);

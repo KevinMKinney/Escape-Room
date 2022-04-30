@@ -15,7 +15,7 @@ public class WireGenerator : MonoBehaviour
     public Mesh mesh;
     //How big the wire will be
     public float radius = 1;
-    //How smooth the curve will be, smaller values makes the curve look pointy.
+    //How smooth the curve will be, smaller values make the curve look pointy.
     public float smoothness = 7;
     //How long the wire will be
     public int length = 20;
@@ -50,7 +50,7 @@ public class WireGenerator : MonoBehaviour
 
 
         /*
-         * Right now we have a list of vertices, or positions, that form a long cylindrical shape (like a wire). 
+         * Right now, we have a list of vertices, or positions, that form a long cylindrical shape (like a wire). 
          * But because the mesh does not have any triangles nothing will be rendered.
          * 
          * Loop over the some of the vertices and create faces so the wire will look solid.

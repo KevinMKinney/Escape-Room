@@ -14,6 +14,6 @@ public class TimedTransitionToExitSceneScriptThatDoesItAll : MonoBehaviour
     IEnumerator exit()
     {
         yield return new WaitForSeconds(4);
-        SceneManager.LoadScene("EXIT");
+        SceneManager.LoadScene("Outside");
     }
 }

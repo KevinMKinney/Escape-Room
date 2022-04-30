@@ -8,6 +8,93 @@ TagManager:
   - AI
   - Hide
   - Waypoint
+  - spawn
+  - Puzzle 1 Wait
+  - HintArea1
+  - HintArea1.2
+  - HintArea1.3
+  - Puzzle 2 Wait
+  - HintArea2
+  - HintArea2.1
+  - HintArea2.2
+  - TReset
+  - Puzzle 0 Wait
+  - HintaArea0.1
+  - HintArea0.3
+  - HintArea0.4
+  - HintArea0.5
+  - SpawnReset
+  - Puzzle 3 Wait
+  - HintArea3.1
+  - HintArea3.2
+  - HintArea3.3
+  - HintArea3.4
+  - HintArea3.5
+  - HintArea3.6
+  - HintArea3
+  - TestObject
+  - puzzle 1
+  - key
+  - HintArea1.4
+  - HintArea1.5
+  - HintArea0
+  - HintArea0.1
+  - HintArea0.2
+  - HintArea0.6
+  - HintArea0.7
+  - HintArea0.8
+  - HintArea3.7
+  - HintArea3.8
+  - HintArea3.9
+  - HintArea3.91
+  - HintArea3.92
+  - HintArea3.93
+  - HintArea3.94
+  - HintArea3.95
+  - HintArea3.96
+  - HintArea2.3
+  - HintArea2.4
+  - HintArea2.5
+  - HintArea2.6
+  - HintArea2.7
+  - HintArea2.8
+  - HintArea2.9
+  - HintArea2.91
+  - Prompt1
+  - Prompt2
+  - Prompt3
+  - Prompt4
+  - midpointGuide
+  - items
+  - NoteList
+  - HintArea1.5
+  - HintArea1.4
+  - HintArea2.4
+  - HintArea2.91
+  - HintArea0.2
+  - HintArea0.8
+  - HintArea3.92
+  - HintArea3.7
+  - HintArea2.9
+  - HintArea2.3
+  - HintArea0.1
+  - HintArea2.5
+  - HintArea3.95
+  - Prompt1
+  - HintArea3.93
+  - Prompt3
+  - HintArea2.6
+  - HintArea3.9
+  - HintArea0.6
+  - HintArea2.7
+  - HintArea2.8
+  - HintArea3.8
+  - HintArea3.96
+  - HintArea0
+  - HintArea3.94
+  - HintArea3.91
+  - HintArea0.7
+  - Reticle
   layers:
   - Default
   - TransparentFX
@@ -15,7 +102,7 @@ TagManager:
   - 
   - Water
   - UI
-  - 
+  - GuideBackgroundText
   - 
   - 
   - 

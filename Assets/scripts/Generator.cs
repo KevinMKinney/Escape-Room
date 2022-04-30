@@ -23,7 +23,7 @@ public class Generator : MonoBehaviour
     public bool hasGas = false;
 
     //The maximum range the generator can shake. This value is actually doubled since the generator shakes from -shakeRange to shakeRange.
-    public Vector3 shakeRange = new Vector3(0.1f, 0.1f, 0.1f);
+    public Vector3 shakeRange = new(0.1f, 0.1f, 0.1f);
     //How many frames will pass before it chooses an new location to move, when shaking.
     //This way we can control how fast it shakes. The higher the value the slower it gets.
     public int speed = 2;
@@ -53,7 +53,7 @@ public class Generator : MonoBehaviour
         while(door.transform.position.y < (oldPostion + new Vector3(0, door.transform.lossyScale.y, 0)).y)
         {
             //How much the door will move this frame. The possability of a negitive value make the movment look jagged, like it is struggling to open.
-            Vector3 doorMove = new Vector3(0, Random.Range(-0.01f,0.02f), 0);
+            Vector3 doorMove = new(0, Random.Range(-0.01f,0.02f), 0);
 
             //Apply the movment vector
             door.transform.position += doorMove;

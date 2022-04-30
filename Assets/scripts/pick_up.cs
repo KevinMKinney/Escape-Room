@@ -11,19 +11,48 @@ public class pick_up : MonoBehaviour
     public Rigidbody rb;
     public int rotateY = 0;
     public int rotateX = 0;
-    public Vector3 trans = new Vector3(1, -1, 2);
+    public Vector3 trans = new(1, -1, 2);
     public raycast raycast;
     public bool firstPickUp;
     [HideInInspector]
     public bool constrainHeldItem = true;
+
+    // ************************
+    // *** brad added below ***
+
+    // attributes:
+    private Inventory inventory;
+    private UIControl uiControl;
+    private Item item;
+    private NoteList noteList;
+    private bool addedToInventory;
+    public bool dropInitiated;
+
+    // *** brad added above ***
+    // ************************
+
     void Start()
     {
         raycast = FindObjectOfType<raycast>();
+
+        // ************************
+        // *** brad added below ***
+
+        // declaration of attributes:
+        inventory = GameObject.Find("Items").GetComponent<Inventory>();
+        uiControl = GameObject.Find("UIPanel").GetComponent<UIControl>();
+        noteList = GameObject.FindGameObjectWithTag("NoteList").GetComponent<NoteList>();
+        item = this.GetComponent<Item>();
+        addedToInventory = false;
+        dropInitiated = false;
+
+        // *** brad added above ***
+        // ************************
     }
 
     void Update()
     {
-        //If the object is in the void than teleport it to a possible spawn location.
+        //If the object is in the void than teleport, it to a possible spawn location.
         if (transform.position.y < -20)
         {
             // Get a random spawn location and set the location of the current object to its location.
@@ -36,10 +65,41 @@ public class pick_up : MonoBehaviour
             transform.Translate(trans, playerCam);
             transform.rotation = playerCam.rotation;
             transform.Rotate(rotateX, 0, rotateY);
+
+            // ************************
+            // *** brad added below ***
+
+            // if the held item hasn't already been added to the inventory,
+            // add it and make a note of the addition in the note list
+            if (!addedToInventory)
+            {
+                Debug.Log("Added");
+                inventory.AddItem(item);
+                inventory.EquipItem(inventory.GetItemIndex(item));
+                noteList.PrependNoteToList("Picked up " + item.ItemName);
+                addedToInventory = true;
+            }
         }
 
+        // if a drop of this item has been initiated, re-enable the item in the 
+        // game world and simulate a throw of the item in front of the player character
+        if (dropInitiated)
+        {
+            dropInitiated = false;
+            addedToInventory = false;
+            pickedup = 4;
+            rb.isKinematic = false;
+            GetComponent<Collider>().enabled = true;
+            rb.velocity = Vector3.zero;
+            rb.angularVelocity = Vector3.zero;
+            rb.AddForce(raycast.transform.forward * 500);
+        }
 
-        if (Input.GetMouseButton(0))
+        // *** brad added above ***
+        // ************************
+
+
+        if (Input.GetMouseButton(0) && !uiControl.visible)
         {
             if (!raycast.canthrow)
             {
@@ -59,7 +119,14 @@ public class pick_up : MonoBehaviour
                     rb.velocity = Vector3.zero;
                     rb.angularVelocity = Vector3.zero;
                     rb.AddForce(raycast.transform.forward * 500);
+                    inventory.DropItem(inventory.GetItemIndex(item));
 
+                    // ************************
+                    // *** brad added below ***
+                    addedToInventory = false;
+                    dropInitiated = false;
+                    // *** brad added above ***
+                    // ************************
                 }
             }
         }

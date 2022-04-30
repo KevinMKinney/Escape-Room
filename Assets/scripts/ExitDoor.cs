@@ -24,7 +24,7 @@ public class ExitDoor : MonoBehaviour
             wait = 0;
             if (key == null)
             {
-                SceneManager.LoadScene("EXIT");
+                SceneManager.LoadScene("Outside");
             }
             else
             {

@@ -100,6 +100,7 @@ TagManager:
   - HintArea3.91
   - HintArea0.7
   - Reticle
+  - Item
   layers:
   - Default
   - TransparentFX

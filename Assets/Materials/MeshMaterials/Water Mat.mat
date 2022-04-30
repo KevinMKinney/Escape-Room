@@ -57,7 +57,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - Speed: 4
+    - Speed: 5
     - _BumpScale: 1
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
@@ -75,13 +75,13 @@ Material:
     - _SrcBlend: 1
     - _UVSec: 0
     - _ZWrite: 1
-    - edgeFade: 0.005
-    - foamSize: 2.83
-    - foamThresh: 12.5
+    - edgeFade: 0.003
+    - foamSize: 1.66
+    - foamThresh: 2.3
     m_Colors:
-    - DeepColor: {r: 0, g: 0.18801022, b: 1, a: 1}
-    - ShallowColor: {r: 0, g: 0.890604, b: 1, a: 1}
+    - DeepColor: {r: 0.035294116, g: 0.18768176, b: 1, a: 1}
+    - ShallowColor: {r: 0, g: 0.8843508, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - foamColor: {r: 1, g: 1, b: 1, a: 1}
+    - foamColor: {r: 0, g: 0, b: 0, a: 1}
   m_BuildTextureStacks: []

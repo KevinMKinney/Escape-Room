@@ -147,7 +147,7 @@ public static class Noise
           return noiseMap;
       }
 
-      /* // does not work :(
+      /* // tried to perform curveNoise functionally 
       public static float[,] curveNoiseFunctionally(float[,] noiseMap, AnimationCurve heightCurve) {
           return noiseMap.Select(y => y.Select(x => heightCurve.Evaluate(x)).ToArray()).ToArray();
       } */

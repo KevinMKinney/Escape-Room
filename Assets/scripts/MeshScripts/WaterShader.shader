@@ -1,6 +1,7 @@
 Shader "Unlit/WaterShader"
 {
     // this thread was very helpful: https://forum.unity.com/threads/decodedepthnormal-linear01depth-lineareyedepth-explanations.608452/
+    // this pdf was also helpful: https://beta.unity3d.com/talks/Siggraph2011_SpecialEffectsWithDepth_WithNotes.pdf
     Properties {
         // input data dev can manipulate
         _Size ("Size", Int) = 1
@@ -18,7 +19,7 @@ Shader "Unlit/WaterShader"
     SubShader {
         // shader type(s)
         Tags { "Queue"="AlphaTest" "RenderType"="transparent" }
-        ZWrite On
+        ZWrite On // this makes it shader will write to depth buffer
 		    Blend SrcAlpha OneMinusSrcAlpha
 
         Pass {
@@ -135,7 +136,7 @@ Shader "Unlit/WaterShader"
                 float distToWater = distance(_WorldSpaceCameraPos, i.position);
                 // maybe UNITY_SAMPLE_SHADOW
                 float depth = SAMPLE_DEPTH_TEXTURE_PROJ(_CameraDepthTexture, i.screenPos);
-                float waterViewDepth = LinearEyeDepth(depth);
+                float waterViewDepth = LinearEyeDepth(i.vertex); //LinearEyeDepth(depth);
 
                 float alphaEdge = 1 - exp(-(waterViewDepth + distToWater) * edgeFade);
 
@@ -154,7 +155,7 @@ Shader "Unlit/WaterShader"
                 Unity_SimpleNoise_float((noiseScroll * foamSize), (i.position.y - foamThresh), foamAlpha);
                 FoamColor.a = foamAlpha;
                 */
-                //float4 col = float4(waterCol, alphaEdge) + FoamColor;
+
                 i.color = float4(waterCol, alphaEdge);
 
                 /*

@@ -206,6 +206,7 @@ public class AI : MonoBehaviour // This was Auto Generated // 122 V
         GoTo(chosenWP); // travel to WP
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
     }
 
 
@@ -214,6 +215,8 @@ public class AI : MonoBehaviour // This was Auto Generated // 122 V
     bool PlayerIsInvisable()
     {
         return player.GetComponent<Invisible>().isInvisible;
+=======
+>>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
 =======
@@ -227,6 +230,7 @@ public class AI : MonoBehaviour // This was Auto Generated // 122 V
     {
         if (IsTouchingPlayer()) // Too close to player
         {
+<<<<<<< Updated upstream
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
@@ -249,12 +253,17 @@ public class AI : MonoBehaviour // This was Auto Generated // 122 V
 =======
 =======
 >>>>>>> Stashed changes
+=======
+>>>>>>> Stashed changes
             UnityEditor.EditorApplication.isPlaying = false; // End the Game
         }
         else if (!coolDown) // Not on cooldown
         {
             if (!PlayerInRange()) // Player not in range
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes

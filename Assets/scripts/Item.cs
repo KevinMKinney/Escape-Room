@@ -6,6 +6,8 @@ public class Item : MonoBehaviour
 {
     #region attributes
     // attributes:
+    // NOTE: items are serialized here to allow editing within the
+    // unity editor window
     [SerializeField]
     private string itemName;
 
@@ -34,6 +36,7 @@ public class Item : MonoBehaviour
 
     public Item()
     {
+        // this constructor was used for testing purposes
         this.itemName = "";
         this.shortDescription = "";
         this.longDescription = "";
@@ -41,7 +44,7 @@ public class Item : MonoBehaviour
     #endregion
 
     #region methods
-    // methods:
+    // Getters and setters:
     public string ItemName
     {
         get { return this.itemName; }
@@ -60,10 +63,10 @@ public class Item : MonoBehaviour
         set { this.longDescription = value; }
     }
 
-    public Sprite ItemSprite
+    public Sprite ItemIcon
     {
-        get { return this.ItemSprite; }
-        set { this.ItemSprite = value; }
+        get { return this.itemIcon; }
+        set { this.itemIcon = value; }
     }
 
     public GameObject InGameObject

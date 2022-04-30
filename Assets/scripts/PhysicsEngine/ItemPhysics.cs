@@ -42,9 +42,9 @@ public class ItemPhysics : MonoBehaviour
     }
     void Start(){//auto generated line, things inside is not though
         item = new ItemObject(transform.position, new Vector3(0, 0, 0), new Vector3(0, 0, 0), weight, isStaticStat);
-        Vector3 mP = FindObjectOfType<MapDisplay>().textureRender.transform.position;
+        Vector3 mP = GameObject.Find("MeshObj").transform.position;
         Vector3[] mV = FindObjectOfType<MapDisplay>().meshFilter.mesh.vertices;
-        Vector3 bounds = FindObjectOfType<MapDisplay>().textureRender.transform.localScale;
+        Vector3 bounds = GameObject.Find("MeshObj").transform.localScale;
         item.setMeshInfoUp(mV, mP, bounds);
         item.setDynamicStat(true);
         allObjects = UnityEngine.Object.FindObjectsOfType<GameObject>().

@@ -19,12 +19,15 @@ public class pick_up : MonoBehaviour
 
     // ************************
     // *** brad added below ***
+
+    // attributes:
     private Inventory inventory;
     private UIControl uiControl;
     private Item item;
     private NoteList noteList;
     private bool addedToInventory;
     public bool dropInitiated;
+
     // *** brad added above ***
     // ************************
 
@@ -34,12 +37,15 @@ public class pick_up : MonoBehaviour
 
         // ************************
         // *** brad added below ***
+
+        // declaration of attributes:
         inventory = GameObject.Find("Items").GetComponent<Inventory>();
         uiControl = GameObject.Find("UIPanel").GetComponent<UIControl>();
         noteList = GameObject.FindGameObjectWithTag("NoteList").GetComponent<NoteList>();
         item = this.GetComponent<Item>();
         addedToInventory = false;
         dropInitiated = false;
+
         // *** brad added above ***
         // ************************
     }
@@ -62,6 +68,9 @@ public class pick_up : MonoBehaviour
 
             // ************************
             // *** brad added below ***
+
+            // if the held item hasn't already been added to the inventory,
+            // add it and make a note of the addition in the note list
             if (!addedToInventory)
             {
                 Debug.Log("Added");
@@ -72,6 +81,8 @@ public class pick_up : MonoBehaviour
             }
         }
 
+        // if a drop of this item has been initiated, re-enable the item in the 
+        // game world and simulate a throw of the item in front of the player character
         if (dropInitiated)
         {
             dropInitiated = false;
@@ -83,6 +94,7 @@ public class pick_up : MonoBehaviour
             rb.angularVelocity = Vector3.zero;
             rb.AddForce(raycast.transform.forward * 500);
         }
+
         // *** brad added above ***
         // ************************
 

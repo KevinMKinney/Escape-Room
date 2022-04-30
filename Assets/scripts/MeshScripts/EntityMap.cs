@@ -21,7 +21,7 @@ public class EntityMap {
         validEntityLocations = multiplyMaps(validEntityLocations, densityMap, frequency);
 
         /*
-        // old code
+        // old (and bad) code
         int points = (int)(mapWidth*mapHeight / spread);
         int limit = 10;
         float[,] randomSpreadPoints = getRandomSpreadPoints(mapWidth, mapHeight, seed, spread, points, limit);
@@ -33,15 +33,14 @@ public class EntityMap {
     }
 
     // finds all valid locations for entities from the mesh's noise
-    private static float[,] getValidLocations(float[,] noiseMap, float minThresh, float maxThresh) {
+    public static float[,] getValidLocations(float[,] noiseMap, float minThresh, float maxThresh) {
         int mapWidth = noiseMap.GetLength(0);
         int mapHeight = noiseMap.GetLength(1);
 
+        // check for invalid input(s)
         if (mapWidth <= 1 || mapHeight <= 1) {
             throw new Exception();
-            //return null;
         }
-
         if (minThresh > maxThresh) {
             throw new Exception();
         }
@@ -58,11 +57,16 @@ public class EntityMap {
         return validLocations;
     }
 
-    // ultility function that multiplies indexes of a 2d float array
+    // ultility function that multiplies indexes of two 2d float arrays (of the same length) with an additional modifier
     // (would proably be better to do it functionally, but I'm not sure how to with multidimensional arrays)
-    private static float[,] multiplyMaps(float[,] a, float[,] b, float magnitude) {
+    public static float[,] multiplyMaps(float[,] a, float[,] b, float magnitude) {
         int mapWidth = a.GetLength(0);
         int mapHeight = a.GetLength(1);
+
+        // check for invalid input(s)
+        if ((mapWidth != b.GetLength(0)) || (mapHeight != b.GetLength(1))) {
+            throw new Exception();
+        }
 
         float[,] result = new float[mapWidth, mapHeight];
 
@@ -76,9 +80,9 @@ public class EntityMap {
     }
 
     // creates a 2d array of random points that are beyond a certain distance
-    private static float[,] getRandomSpreadPoints(int mapWidth, int mapHeight, int seed, float spread, int points, int limit) {
-        //Debug.Log("X: "+randX+" | Y: "+randY);
-
+    // old (and bad) code
+    public static float[,] getRandomSpreadPoints(int mapWidth, int mapHeight, int seed, float spread, int points, int limit) {
+        // check for invalid input(s)
         if (mapWidth <= 1 || mapHeight <= 1 || spread < 0 || points < 1 || (points*spread) >= (mapWidth*mapHeight)) {
             throw new Exception();
         }
@@ -129,7 +133,8 @@ public class EntityMap {
     }
 
     // helper function of getRandomSpreadPoints; returns an a array of every possible point within a specified radius
-    private static Vector2[] getPointsInRadius(int mapWidth, int mapHeight, Vector2 point, float radius) {
+    // old (and bad) code
+    public static Vector2[] getPointsInRadius(int mapWidth, int mapHeight, Vector2 point, float radius) {
         int index = 0;
         Vector2[] pointArray = new Vector2[0];
 
@@ -160,8 +165,8 @@ public class EntityMap {
     }
 
     // more efficient version of the getRandomSpreadPoints function
-    private static float[,] randomSpreadPoints(int mapWidth, int mapHeight, float[,] points, int seed, float spread) {
-
+    public static float[,] randomSpreadPoints(int mapWidth, int mapHeight, float[,] points, int seed, float spread) {
+        // Vector2 array that will change size
         Vector2[] pointArray = new Vector2[0];
 
         for (int x = 0; x < mapWidth; x++) {
@@ -175,13 +180,14 @@ public class EntityMap {
             }
         }
 
+        // var inits
         float[,] randomSpread = new float[mapWidth, mapHeight];
         System.Random prng = new System.Random(seed);
         int rng;
         Vector2 temp;
         Vector2 item;
         double dist;
-
+        
         while (pointArray.Length > 0) {
 
             rng = prng.Next(0, (pointArray.Length-1));
@@ -203,17 +209,17 @@ public class EntityMap {
                 }
             }
 
+            // crude alternative to .FindIndex()
             for (int j = 0; j < pointArray.Length; j++) {
                 if (pointArray[j] == item) {
                     rng = j;
                 }
             }
-            
+
             randomSpread[(int)item.x, (int)item.y] = 1;
             //pointArray[Array.FindIndex(pointArray, item)] = pointArray[^1];
             pointArray[rng] = pointArray[^1];
             Array.Resize(ref pointArray, pointArray.Length-1);
-
 
         }
 

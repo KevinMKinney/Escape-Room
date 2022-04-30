@@ -13,9 +13,9 @@ public static class MeshMap
         int mapWidth = noiseMap.GetLength(0);
         int mapHeight = noiseMap.GetLength(1);
 
+        // check for invalid input(s)
         if (mapWidth <= 1 || mapHeight <= 1) {
             throw new Exception();
-            //return null;
         }
 
         Vector3[] vertices = new Vector3[mapWidth*mapHeight];
@@ -33,10 +33,9 @@ public static class MeshMap
 
     // creates triangles for mesh
     public static int[] generateTriangles(int mapWidth, int mapHeight) {
-
+        // check for invalid input(s)
         if (mapWidth <= 1 || mapHeight <= 1) {
             throw new Exception();
-            //return null;
         }
 
         // initialize variables
@@ -61,6 +60,7 @@ public static class MeshMap
         return triangles;
     }
 
+    // creates UV values for mesh
     public static Vector2[] generateUVs(Mesh mesh, int mapWidth, int mapHeight) {
         int size = mapWidth*mapHeight;
         Vector2[] UVs = new Vector2[size];
@@ -95,11 +95,11 @@ public static class MeshMap
         // initialize variables
         int size = mapWidth*mapHeight;
         Color[] colors = new Color[size];
-        // color init
+
+        // want random colors?
         //Color flatCol = Random.ColorHSV(0f, 1f, 1f, 1f, 0.5f, 1f);
         //Color steepCol = Random.ColorHSV(0f, 1f, 1f, 1f, 0.5f, 1f);
 
-        //float maxSteep = steepVal.Aggregate((x, y) => Mathf.Max(x, y));
         float maxSteep = Mathf.Max(steepVal);
 
         // assign colors

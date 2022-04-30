@@ -8,7 +8,6 @@ using System;
 public class EntityMapTest {
 
     // Black box tests:
-    /*
     // Tests for getValidLocations function
     [Test]
     public void getValidLocationsValidTest() {
@@ -47,5 +46,35 @@ public class EntityMapTest {
         float[,] testNoise = new float[3,3];
         Assert.That(() => EntityMap.getValidLocations(testNoise, 1, 0), Throws.TypeOf<Exception>());
     }
-    */
+
+    // Tests for multiplyMaps function
+    [Test]
+    public void multiplyMapsValidTest() {
+        float[,] testArr1 = new float[,] {{0, 0.2f, 0.8f, 1},{0, 0.2f, 0.8f, 1}};
+        float[,] testArr2 = new float[,] {{0.5f, 0.5f, 0.5f, 0.5f},{1, 1, 1, 1}};
+        float[,] correct = new float[,] {{0, 0.1f, 0.4f, 0.5f},{0, 0.2f, 0.8f, 1}};
+        Assert.AreEqual(correct, EntityMap.multiplyMaps(testArr1, testArr2, 1));
+    }
+
+    [Test]
+    public void multiplyMapsValidMagnitudeTest() {
+        float[,] testArr1 = new float[,] {{0, 0.2f, 0.8f, 1},{0, 0.2f, 0.8f, 1}};
+        float[,] testArr2 = new float[,] {{0.5f, 0.5f, 0.5f, 0.5f},{1, 1, 1, 1}};
+        float[,] correct = new float[,] {{0, 0.2f, 0.8f, 1},{0, 0.4f, 1.6f, 2}};
+        Assert.AreEqual(correct, EntityMap.multiplyMaps(testArr1, testArr2, 2));
+    }
+
+    [Test]
+    public void multiplyMapsInvalidWidthTest() {
+        float[,] testArr1 = new float[,] {{1,1,1},{1,1,1}};
+        float[,] testArr2 = new float[,] {{1,1},{1,1}};
+        Assert.That(() => EntityMap.multiplyMaps(testArr1, testArr2, 1), Throws.TypeOf<Exception>());
+    }
+
+    [Test]
+    public void multiplyMapsInvalidHeightTest() {
+        float[,] testArr1 = new float[,] {{1,1,1},{1,1,1}};
+        float[,] testArr2 = new float[,] {{1,1,1},{1,1,1},{1,1,1}};
+        Assert.That(() => EntityMap.multiplyMaps(testArr1, testArr2, 1), Throws.TypeOf<Exception>());
+    }
 }

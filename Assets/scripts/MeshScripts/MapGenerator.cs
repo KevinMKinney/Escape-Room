@@ -6,7 +6,7 @@ using System.Threading;
 
 public class MapGenerator : MonoBehaviour
 {
-    // variables dev can manipulate in editor mode
+    // variables dev can manipulate in editor mode (the settings)
     [Header("Mesh Settings")]
     // large map areas will result in a substantian performance drop
     public int mapWidth;
@@ -166,7 +166,6 @@ public class MapGenerator : MonoBehaviour
         if (mapHeight < 2) {
             mapHeight = 2;
         }
-
         if (lacunarity < 1) {
             lacunarity = 1;
         }

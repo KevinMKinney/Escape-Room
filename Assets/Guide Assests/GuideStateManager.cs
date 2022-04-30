@@ -15,7 +15,6 @@ public class GuideStateManager : MonoBehaviour //Code based off of iHeartGameDev
    public NotTalking TalkingState = new NotTalking();
    //End of iHeartGameDev code
    private TextMeshProUGUI sometext;
-
    //Beginning here the code is based off of iHeartGameDev https://youtu.be/Vt8aZDPzRjI
    public void Start()
     {
@@ -23,7 +22,6 @@ public class GuideStateManager : MonoBehaviour //Code based off of iHeartGameDev
         currentState.EnterState(this);
     }
     //End of iHeartGameDev code
-
      public void OnTriggerEnter(Collider collider)
     {
         currentState.OnTriggerEnter(this,collider);
@@ -31,9 +29,7 @@ public class GuideStateManager : MonoBehaviour //Code based off of iHeartGameDev
     public void Message(TextMeshProUGUI sometext){
         currentState.Message(this, sometext);
     }
-
    //Beginning here the code is based off of iHeartGameDev https://youtu.be/Vt8aZDPzRjI
-    
     public void Update()
     {
         currentState.UpdateState(this);

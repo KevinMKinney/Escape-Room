@@ -4,6 +4,7 @@ using System.Collections.Generic;//auto-generated code
 using UnityEngine;//auto-generated code
 using TMPro;//Used for the TextMeshPro components
 using UnityEngine.UI;//Used for RawImage components
+using System;
 public class EventDialogue : GuideBaseState //this line of code is based off of iHeartGameDev https://youtu.be/Vt8aZDPzRjI
 {
   int posChoice, negChoice, overallDemeanor = 0;//Dialogue system (Which event is which)
@@ -155,8 +156,15 @@ public class EventDialogue : GuideBaseState //this line of code is based off of 
     }
     //Teleports the puzzle item back to spawn, making it inconvenient for the player
     public void punishment(){
-      GameObject player_position = GameObject.Find("Gun");
-      player_position.transform.position = new Vector3(8,3,1);
+      var rndNum = new System.Random();//Randomly generate an integer
+      int numberG = rndNum.Next();
+      if(numberG < 10000){//Adds randomization to which item/puzzle piece is teleported away from the player
+        GameObject player_position = GameObject.Find("Gun");
+        player_position.transform.position = new Vector3(8,3,1);
+      }else{
+        GameObject player_position = GameObject.Find("Hammer");
+        player_position.transform.position = new Vector3(8,3,1);
+      }
     }
     public void GuideBehavior(){
       //Will need to change parameters for GuideBehavior to cover all scenarios
